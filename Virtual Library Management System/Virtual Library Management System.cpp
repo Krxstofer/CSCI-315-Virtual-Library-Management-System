@@ -5,43 +5,11 @@
 #include <fstream>
 #include <unordered_map>
 #include <vector>
+#include "Book.h"
 
 using namespace std;
 
-// Define Book class
-class Book {
-
-friend ofstream& operator<<(ofstream& fcout, const Book& entry)
-{
-  fcout << "Title: " << entry.title << endl
-	<< "Author: " << entry.author << endl
-	<< "ISBN: " << entry.id << endl << endl;
-
-}
-friend ifstream& operator>>(ifstream& fcin, Book& entry)
-{
-  string label; //takes in unwanted labels
-  char c; //gets the final newline
-
-  fcin >> label;
-  getline(fcin, entry.title); //processes title even if it has spaces
-
-  fcin >> label;
-  getline(fcin, entry.author); //same for author
-
-  fcin >> label >> entry.id;
-
-  fcin.get(c);
-
-}
-
-public:
-    long int id; //e.g. ISBN? if so might need to be long
-    string title;
-    string author;
-  //  int quantity; might make borrowing harder to implment
-    // Add more attributes as needed
-};
+// Book class is now in Book.h and Book.cpp
 
 // Define Admin class
 class Admin {
