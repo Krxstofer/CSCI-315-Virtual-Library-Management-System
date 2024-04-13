@@ -4,6 +4,7 @@ Copyright: 1780
 Publisher: Miller and Sons
 ID: 1-566-46465-5
 Status: Available
+Borrowed by: N/A
 
 Title: The Secret Garden
 Author: Hodgson Burnett, Frances
@@ -11,4 +12,5 @@ Copyright: 0
 Publisher: Penguin
 ID: HOD
 Status: Checked Out
+Borrowed by: Me
 

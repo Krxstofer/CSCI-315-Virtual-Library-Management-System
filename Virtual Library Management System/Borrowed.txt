@@ -1,0 +1,16 @@
+Title: A Christmas Carol
+Author: Dickens, Charles
+Copyright: 1992
+Publisher: Wordsworth
+ID: DIC
+Status: Checked Out
+Borrowed by: You
+
+Title: A Tale of Two Cities
+Author: Dickens, Charles
+Copyright: 1990
+Publisher: Wordsworth
+ID: DIC
+Status: Checked Out
+Borrowed by: Me
+

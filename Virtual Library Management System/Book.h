@@ -56,8 +56,14 @@ public:
   string getPublisher() const;
   string getId() const;
   bool getBorrowed() const;
-  //functions to return the values of private memebr variables
-  //Postcondition: the value of the appropriate memebr variable has been returned
+  string getBorrower() const; //borrower is "N/A" if not borrowed
+  //functions to return the values of private member variables
+  //Postcondition: the value of the appropriate member variable has been returned
+
+  void returnBook();
+  //function to return a book
+  //Postcondition: borrowed is set to false and borrower to "N/A"
+  //Note: book must be removed from the queue separately
 
   //setters
   void setTitle(string bookName);
@@ -66,22 +72,27 @@ public:
   void setCopyright(int cDate);
   void setPublisher(string publish);
   void setId(string idCode);
-  void setBorrowed(bool borrow);
+  void setBorrower(string username); //also sets borrowed to true
   //functions to set the values of private memebr variables
-  //Postcondition: the value of the appropriate memebr variable has been altered
-  //if cDate is a negative number copyright will be set to its deafult value (0) instead
+  //Postcondition: the value of the appropriate member variable has been altered
+  //if cDate is a negative number copyright will be set to its default value (0) instead.
+  //borrowed has no direct setter becuase it can be set to true by setBorrower
+  //(if there is a borrower then the book is currently borrowed) or set to false by
+  //calling the returnBook function
 
   //overload relational operators?
 
   //constructor with default parameters
   Book(string bookName = "", string first = "", string last = "",
-       int cDate = 0, string publish = "", string idCode = "000-0-000-00000-0", bool borrow = false);
-  //sets memeber variables to the values of teh parameters. If values are not specified, default values
-  //are used
+       int cDate = 0, string publish = "", string idCode = "000-0-000-00000-0",
+       bool borrow = false, string username = "N/A");
+  //sets memeber variables to the values of the parameters. If values are not specified, default values
+  //are used. Ensures username is only given a value other than "N/A" if borrow == true
   //Postcondition: id = idCode title = bookName firstName = first lastName = last
-  //copyright = cDate publisher = publish borrowed = borrow
+  //copyright = cDate publisher = publish borrowed = borrow borrower = username
 
 private:
+
   string title;
   string firstName; //author firstname
   string lastName; //author lastname
@@ -89,6 +100,8 @@ private:
   string publisher;
   string id; //e.g. ISBN or first three letters of lastname? changed to string
   bool borrowed;
+  string borrower; //username of the borrower. could make it a user object, but the
+                   //password member is not needed here
   //int quantity; remove? might make borrowing harder to implement
     // Add more attributes as needed
 };

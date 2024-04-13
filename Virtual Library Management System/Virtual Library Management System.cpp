@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include <vector>
 #include "Book.h"
+#include "linkedQueue.h"
 
 using namespace std;
 
@@ -30,7 +31,7 @@ public:
 // Define global variables 
 unordered_map<int, Book> bookCatalog;
 unordered_map<string, User> userDatabase;
-vector<string> borrowedBooks;
+//vector<string> borrowedBooks; //borrowedBooks is now a queue
 // Add more as needed
 
 // Function prototypes
@@ -51,16 +52,22 @@ void viewAllBooks();
 void addOrRemoveUser();
 // Add more function prototypes for other functionalities
 
+void loadQueue(ifstream& in, linkedQueueType<Book>& queue);
+void saveQueue(ofstream& out, linkedQueueType<Book> queue); //no & means the actual parameter is not
+                                                            //emptied when the formal parmaeter is read
+							    //(reading uses deleteQueue to progress)
+
 int main() {
     // Populate book catalog and user database with sample data for testing
     // You can replace this with actual data loading from files or databases
-
+    
     preLoginMenu();
 
     return 0;
 }
 
 void preLoginMenu() {
+//User me; //for testing
     int choice;
     cout << "Welcome to the Virtual Library Management System" << endl;
     cout << "------------------------------------------------" << endl;
@@ -72,7 +79,9 @@ void preLoginMenu() {
 
     switch (choice) {
     case 1:
-        // Implemenet Login functionality 
+        // Implemenet Login functionality
+	//userMenu(me); //for testing
+	//adminMenu(); //for testing
         break;
     case 2:
         // Implement registration functionality
@@ -87,6 +96,20 @@ void preLoginMenu() {
 }
 
 void userMenu(const User& user) {
+    ifstream qIn;
+    ofstream qOut;
+    linkedQueueType<Book> borrowedBooks;
+    char c;
+
+    qIn.open("Borrowed.txt");
+    qIn.get(c); //detect eof in existing, empty file
+    if(!qIn)
+    {
+      cout << "Borrowed books file not found! Shutting down." << endl;
+      exit(1);
+    }
+    loadQueue(qIn, borrowedBooks);
+
     cout << "Welcome " << user.username << " Thanks for using our Virtual Library!" << endl;
     cout << "--------------------------------" << endl;
     cout << "1. Search for Books" << endl;
@@ -118,6 +141,10 @@ void userMenu(const User& user) {
         break;
     case 6:
         cout << "Logging out..." << endl;
+	qOut.open("Borrowed.txt"); //storage file for books
+        saveQueue(qOut, borrowedBooks);
+        qIn.close();
+        qOut.close();
         preLoginMenu();
     default:
         cout << "Invalid choice. Please try again." << endl;
@@ -147,6 +174,20 @@ void updateProfile() {
 
 
 void adminMenu() {
+    ifstream qIn;
+    ofstream qOut;
+    linkedQueueType<Book> borrowedBooks;
+    char c;
+
+    qIn.open("Borrowed.txt");
+    qIn.get(c); //detect eof in existing, empty file
+    if(!qIn)
+    {
+      cout << "Borrowed books file not found! Shutting down." << endl;
+      exit(1);
+    }
+    loadQueue(qIn, borrowedBooks);
+
     cout << "Admin Dashboard" << endl;
     cout << "---------------" << endl;
     cout << "1. Add a Book" << endl;
@@ -174,6 +215,10 @@ void adminMenu() {
         addOrRemoveUser();
     case 6:
         cout << "Logging out..." << endl;
+        qOut.open("Borrowed.txt"); //storage file for books
+	saveQueue(qOut, borrowedBooks);
+        qIn.close();
+        qOut.close();
         preLoginMenu();
         break;
     default:
@@ -201,3 +246,56 @@ void viewAllBooks() {
 void addOrRemoveUser() {
     // Implement add or remove user functions
 }
+
+void loadQueue(ifstream& in, linkedQueueType<Book>& queue) //needs to be run once
+							   //before new borrows are added
+{
+
+  Book temp;
+  char c;
+
+  while(in)
+  {
+
+    in >> temp;
+    if(temp.getBorrowed() == true) //make sure this book should be in the queue (it is borrowed)
+    {
+      queue.addQueue(temp);
+    }
+    else //temp is not added to the queue
+    {
+      cout << "Error! " << temp.getTitle() << " should not be in the borrowed queue" << endl
+	   << "because it is not checked out. It will not be loaded from the file." << endl << endl;
+    }
+    in.get(c); //check for another entry (takes a char off a label (harmeless)) otherwise
+               //indicates eof to the while
+  }
+  //when save is run it will overwrite any erroneous entries left in the file
+
+}
+
+void saveQueue(ofstream& out, linkedQueueType<Book> queue)//must run before program ends?
+{
+  //forcing a load here could append older borrowed books to the end of the user's working queue
+  //so the programmer must be resposible for calling an initial load before any
+  //calls to addQueue or saveQueue
+
+
+  while(!queue.isEmptyQueue())
+  {
+    if(queue.front().getBorrowed() == true) //make sure this book should be in the queue (it is borrowed)
+    {
+      out << queue.front(); //if it is borrowed write it out
+    }
+    else
+    {
+      cout << "Error! " << queue.front().getTitle() << " should not be in the borrowed queue" << endl
+	   << "because it is not checked out. It will not be written to the file." << endl << endl;
+    }
+
+    queue.deleteQueue(); //either way, remove front item from the queue
+  }
+
+
+}
+

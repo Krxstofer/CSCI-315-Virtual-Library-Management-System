@@ -18,7 +18,8 @@ ofstream& operator<<(ofstream& fcout, const Book& entry)
 	<< "Copyright: " << entry.copyright << endl
         << "Publisher: " << entry.publisher << endl
         << "ID: " << entry.id << endl
-        << "Status: " << (entry.borrowed ? "Checked Out" : "Available") << endl << endl;
+        << "Status: " << (entry.borrowed ? "Checked Out" : "Available") << endl
+	<< "Borrowed by: " << entry.borrower << endl << endl;
   return fcout;
 
 }
@@ -28,8 +29,8 @@ ifstream& operator>>(ifstream& fcin, Book& entry)
   char c; //gets the final newline
 
   fcin >> label;  //Title
-  getline(fcin, str); //processes title even if it has spaces
-  entry.title = str.substr(1); //Remove the space after ':'
+  fcin.get(c); //Remove the space after ':'
+  getline(fcin, entry.title); //processes title even if it has spaces
 
   fcin >> label; //Author
   getline(fcin, str); //same for author
@@ -60,7 +61,12 @@ ifstream& operator>>(ifstream& fcin, Book& entry)
     cout << "Borrowed Value Error!" << endl; //maybe change to a throw later
   }
 
-  fcin.get(c); //final newline
+  //label is used twice because the label "Borrowed by:" is two strings
+  fcin >> label >> label >> entry.borrower; //Borrowed by:
+
+  getline(fcin, str); //discard the two final newlines (they are not stored in str)
+  getline(fcin, str); //getline is used instead of get() so that Windows' /n/r
+		      //can be processed
   return fcin;
 }
 
@@ -72,7 +78,8 @@ ostream& operator<<(ostream& out, const Book& entry)
 	<< "Copyright: " << entry.copyright << endl
         << "Publisher: " << entry.publisher << endl
         << "ID: " << entry.id << endl
-        << "Status: " << (entry.borrowed ?  "Checked Out" : "Available") << endl << endl;
+        << "Status: " << (entry.borrowed ?  "Checked Out" : "Available") << endl
+	<< "Borrowed by: " << entry.borrower << endl;
   return out;
 }
 
@@ -104,6 +111,16 @@ string Book :: getId() const
 bool Book :: getBorrowed() const
 {
   return borrowed;
+}
+string Book :: getBorrower() const
+{
+  return borrower;
+}
+
+void Book :: returnBook()
+{
+  borrowed = false;
+  borrower = "N/A";
 }
 
 //setters
@@ -138,16 +155,17 @@ void Book :: setId(string idCode)
 {
   id = idCode;
 }
-void Book :: setBorrowed(bool borrow)
+void Book :: setBorrower(string username)
 {
-  borrowed = borrow;
+  borrowed = true;
+  borrower = username;
 }
 
 //overload relational operators?
 
 //constructor
 Book :: Book(string bookName, string first, string last, int cDate, string publish,
-	string idCode, bool borrow)
+	string idCode, bool borrow, string username)
 {
   title = bookName;
   firstName = first;
@@ -155,5 +173,12 @@ Book :: Book(string bookName, string first, string last, int cDate, string publi
   setCopyright(cDate); //includes check for negative dates
   publisher = publish;
   id = idCode;
-  borrowed = borrow;
+  if(borrow == true) //set borrowed to true and set the borrower's name
+  {
+    setBorrower(username);
+  }
+  else //borrow is false, borrowed is set to false and borrower is set to "N/A"
+  {
+    returnBook();
+  }
 }
