@@ -1,5 +1,9 @@
-// Virtual Library Management System Project.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+//Name: Group 2
+//Description: Week 8 CSCI Group Project
+//Date: May 4, 2024
+
+// Virtual Library Management System Project.cpp :
+// This file contains the 'main' function. Program execution begins and ends there.
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -28,7 +32,7 @@ public:
     // Add more attributes as needed
 };
 
-// Define global variables 
+// Define global variables
 unordered_map<int, Book> bookCatalog;
 unordered_map<string, User> userDatabase;
 //vector<string> borrowedBooks; //borrowedBooks is now a queue
@@ -37,18 +41,18 @@ unordered_map<string, User> userDatabase;
 // Function prototypes
 void preLoginMenu();
 
-void userMenu(const User& user);
+void userMenu(const User& user); //user functions
 void searchBook();
 void borrowBook();
 void returnBook();
-void viewBorrowedBooks();
-void updateProfile();
+void viewBorrowedBooks(); //Andrew - in progress
+void updateProfile(); //Andrew - prototype ready (see below)
 
-void adminMenu();
+void adminMenu(); //admin functions
 void addBook();
 void removeBook();
 void updateBookInfo();
-void viewAllBooks();
+void viewAllBooks(); //Andrew - in progress
 void addOrRemoveUser();
 // Add more function prototypes for other functionalities
 
@@ -62,6 +66,7 @@ int main() {
     // You can replace this with actual data loading from files or databases
     
     preLoginMenu();
+    updateProfile(); //Andrew - this will execute so long as the user does not exist in preLoginMenu
 
     return 0;
 }
@@ -169,9 +174,47 @@ void viewBorrowedBooks() {
 }
 
 void updateProfile() {
-    // Implement update profile book functions
-}
+    int choice;
+    char error[] = "The input stream has invalid data";
+    string newName;
 
+    cout << "What user setting would you like to change" << endl;
+    cout << "------------------------------------------" << endl;
+    cout << "1. Username" << endl;
+    cout << "2. Password" << endl;
+
+    try
+    {
+        cout << "Please select an option: ";
+        cin >> choice;
+        if(!cin.good() || (choice < 1 || choice > 2))
+            throw error;
+    }
+    catch (const char errorStr[])
+    {
+        cout << errorStr << endl;
+        if(!cin.good())
+            cout << "***Cannot accept characters or fractional values.***" << endl;
+        else if(choice < 1 || choice > 2)
+            cout << "***Choice must be between 1 and 2.***" << endl;
+        cout << "    Clearing out the input stream" << endl;
+        cin.clear();
+        cin.ignore(200, '\n');
+    }
+    if(choice == 1)
+    {
+        cout << "Please enter your new username: ";
+        cin >> newName;
+        //Set username
+    }
+    else if(choice == 2)
+    {
+        cout << "Please enter your new password: ";
+        cin >> newName;
+        //Set password
+    }
+    cout << "Exiting update profile" << endl;
+}
 
 void adminMenu() {
     ifstream qIn;
