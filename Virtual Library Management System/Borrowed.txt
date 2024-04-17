@@ -1,4 +1,4 @@
-Title: A Christmas Carol
+Title: Christmas Carol, A
 Author: Dickens, Charles
 Copyright: 1992
 Publisher: Wordsworth
@@ -6,7 +6,7 @@ ID: DIC
 Status: Checked Out
 Borrowed by: You
 
-Title: A Tale of Two Cities
+Title: Tale of Two Cities, A
 Author: Dickens, Charles
 Copyright: 1990
 Publisher: Wordsworth

@@ -13,6 +13,7 @@ int main()
 
 /*temporary testing*/
 Book b1("Today","John", "Doe", 1780, "Miller and Sons", "1-566-46465-5", false), b2;
+Book b3("An Idea Today","John", "Doe", 1780, "Miller and Sons", "1-566-46465-5", false);
 //using a default variable for b1's borrower
 ifstream i;
 ofstream o;
@@ -33,6 +34,8 @@ o <<  b1; //print to file
 
 o << b2; //two books in file
 
+o << b3;
+
 i >> b2;//same book as b1 should come through
 
 i >> b1; //testing double input
@@ -46,6 +49,9 @@ cout << "Publisher:" << b2.getPublisher() << "."<< endl;
 cout << "Id:" << b2.getId() << "."<< endl;
 cout << "Borrowed Bool:" << b2.getBorrowed() << "."<< endl; //prints as an int
 cout << "Borrower:" << b2.getBorrower() << "."<< endl << endl;
+
+//Test for white space with title beginning with An
+cout << "Title:" << b3.getTitle() << "."<< endl << endl;
 
 cout << b2 << endl << b1 << endl;
 

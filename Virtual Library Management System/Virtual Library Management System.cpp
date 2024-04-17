@@ -11,6 +11,12 @@
 #include <vector>
 #include "Book.h"
 #include "linkedQueue.h"
+#include "binarySearchTree.h"
+
+//tOut is global since the binary tree's inorderTraversal() with a function
+//parameter only takes one parameter and out must be opened outside of 
+//saveTree (where it is used) since it is called multiple times
+ofstream tOut;
 
 using namespace std;
 
@@ -32,8 +38,10 @@ public:
     // Add more attributes as needed
 };
 
-// Define global variables
-unordered_map<int, Book> bookCatalog;
+
+// Define global variables 
+//unordered_map<int, Book> bookCatalog; //bookCatalog is now a binary Search Tree
+
 unordered_map<string, User> userDatabase;
 //vector<string> borrowedBooks; //borrowedBooks is now a queue
 // Add more as needed
@@ -56,10 +64,16 @@ void viewAllBooks(); //Andrew - in progress
 void addOrRemoveUser();
 // Add more function prototypes for other functionalities
 
+//Queue data persistence functions
 void loadQueue(ifstream& in, linkedQueueType<Book>& queue);
 void saveQueue(ofstream& out, linkedQueueType<Book> queue); //no & means the actual parameter is not
                                                             //emptied when the formal parmaeter is read
 							    //(reading uses deleteQueue to progress)
+//binary search tree data persistence functions
+void loadTree(ifstream& in, bSearchTreeType<Book>& tree);
+void saveTree(Book& x);
+
+void printTree(Book& x);
 
 int main() {
     // Populate book catalog and user database with sample data for testing
@@ -101,12 +115,14 @@ void preLoginMenu() {
 }
 
 void userMenu(const User& user) {
-    ifstream qIn;
-    ofstream qOut;
+    ifstream qIn, tIn;
+    ofstream qOut; //tOut is global
     linkedQueueType<Book> borrowedBooks;
+    bSearchTreeType<Book> bookCatalog;
     char c;
 
-    qIn.open("Borrowed.txt");
+    //loading queue
+    qIn.open("Borrowed.txt"); //storage file for borrowed books
     qIn.get(c); //detect eof in existing, empty file
     if(!qIn)
     {
@@ -114,6 +130,16 @@ void userMenu(const User& user) {
       exit(1);
     }
     loadQueue(qIn, borrowedBooks);
+
+    //loading tree
+    tIn.open("Library.txt"); //storage file for all books
+    tIn.get(c); //detect eof in exisitng empty file
+    if(!tIn)
+    {
+      cout << "File was not found, or the file is empty! Shutting down." << endl;
+      exit(1);
+    }
+    loadTree(tIn, bookCatalog);
 
     cout << "Welcome " << user.username << " Thanks for using our Virtual Library!" << endl;
     cout << "--------------------------------" << endl;
@@ -146,10 +172,19 @@ void userMenu(const User& user) {
         break;
     case 6:
         cout << "Logging out..." << endl;
-	qOut.open("Borrowed.txt"); //storage file for books
+
+	//Saving out queue
+	qOut.open("Borrowed.txt"); //storage file for borrowed books
         saveQueue(qOut, borrowedBooks);
         qIn.close();
         qOut.close();
+
+	//Saving out binary search tree
+	tOut.open("Library.txt"); //storage file for all books
+	bookCatalog.inorderTraversal(saveTree);
+	tIn.close();
+        tOut.close();
+
         preLoginMenu();
     default:
         cout << "Invalid choice. Please try again." << endl;
@@ -217,12 +252,14 @@ void updateProfile() {
 }
 
 void adminMenu() {
-    ifstream qIn;
-    ofstream qOut;
+    ifstream qIn, tIn;
+    ofstream qOut; //tOut is global
     linkedQueueType<Book> borrowedBooks;
+    bSearchTreeType<Book> bookCatalog;
     char c;
 
-    qIn.open("Borrowed.txt");
+    //Loading queue
+    qIn.open("Borrowed.txt"); //storage file for borrowed books
     qIn.get(c); //detect eof in existing, empty file
     if(!qIn)
     {
@@ -230,6 +267,16 @@ void adminMenu() {
       exit(1);
     }
     loadQueue(qIn, borrowedBooks);
+
+    //Loading tree
+    tIn.open("Library.txt"); //storage file for all books
+    tIn.get(c); //detect eof in exisitng empty file
+    if(!tIn)
+    {
+      cout << "File was not found, or the file is empty! Shutting down." << endl;
+      exit(1);
+    }
+    loadTree(tIn, bookCatalog);
 
     cout << "Admin Dashboard" << endl;
     cout << "---------------" << endl;
@@ -258,10 +305,19 @@ void adminMenu() {
         addOrRemoveUser();
     case 6:
         cout << "Logging out..." << endl;
-        qOut.open("Borrowed.txt"); //storage file for books
-	saveQueue(qOut, borrowedBooks);
+        
+	//Saving out queue
+	qOut.open("Borrowed.txt"); //storage file for borrowed books
+        saveQueue(qOut, borrowedBooks);
         qIn.close();
         qOut.close();
+
+	//Saving out binary search tree
+	tOut.open("Library.txt"); //storage file for all books
+	bookCatalog.inorderTraversal(saveTree);
+	tIn.close();
+        tOut.close();
+
         preLoginMenu();
         break;
     default:
@@ -290,6 +346,7 @@ void addOrRemoveUser() {
     // Implement add or remove user functions
 }
 
+//Queue functions
 void loadQueue(ifstream& in, linkedQueueType<Book>& queue) //needs to be run once
 							   //before new borrows are added
 {
@@ -297,6 +354,7 @@ void loadQueue(ifstream& in, linkedQueueType<Book>& queue) //needs to be run onc
   Book temp;
   char c;
 
+  in.get(c); //check for eof
   while(in)
   {
 
@@ -339,6 +397,35 @@ void saveQueue(ofstream& out, linkedQueueType<Book> queue)//must run before prog
     queue.deleteQueue(); //either way, remove front item from the queue
   }
 
+}
+
+//Tree functions
+void loadTree(ifstream& in, bSearchTreeType<Book>& tree) //needs to be run once
+							   //before save writes to the Library file
+{
+
+  Book temp;
+  char c;
+  in.get(c); //check for eof
+  while(in)
+  {
+    in >> temp;
+    tree.insert(temp);
+    in.get(c); //check for another entry (takes a char off a label (harmeless)) otherwise
+               //indicates eof to the while
+  }
 
 }
+
+void saveTree(Book& x)//must run before program end. Will overwrite Library.txt
+{
+  tOut << x;
+}
+
+void printTree(Book& x)
+{
+  cout << x << endl;
+}
+
+
 

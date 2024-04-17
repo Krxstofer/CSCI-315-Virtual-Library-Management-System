@@ -1,4 +1,12 @@
-Title: Today
+Title: Christmas Carol, A
+Author: Dickens, Charles
+Copyright: 1992
+Publisher: Wordsworth
+ID: DIC
+Status: Checked Out
+Borrowed by: You
+
+Title: Idea Today, An
 Author: Doe, John
 Copyright: 1780
 Publisher: Miller and Sons
@@ -6,11 +14,27 @@ ID: 1-566-46465-5
 Status: Available
 Borrowed by: N/A
 
-Title: The Secret Garden
+Title: Secret Garden, The
 Author: Hodgson Burnett, Frances
 Copyright: 0
 Publisher: Penguin
 ID: HOD
 Status: Checked Out
 Borrowed by: Me
+
+Title: Tale of Two Cities, A
+Author: Dickens, Charles
+Copyright: 1990
+Publisher: Wordsworth
+ID: DIC
+Status: Available
+Borrowed by: N/A
+
+Title: Today
+Author: Doe, John
+Copyright: 1780
+Publisher: Miller and Sons
+ID: 1-566-46465-5
+Status: Available
+Borrowed by: N/A
 

@@ -122,6 +122,7 @@ void loadQueue(ifstream& in, linkedQueueType<Book>& queue) //needs to be run onc
   Book temp;
   char c;
 
+  in.get(c);
   while(in)
   {
 

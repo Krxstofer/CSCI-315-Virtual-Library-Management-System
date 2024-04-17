@@ -26,18 +26,23 @@ ofstream& operator<<(ofstream& fcout, const Book& entry)
 ifstream& operator>>(ifstream& fcin, Book& entry)
 {
   string label, str; //takes in unwanted labels
+  int copyright;
   char c; //gets the final newline
 
   fcin >> label;  //Title
   fcin.get(c); //Remove the space after ':'
-  getline(fcin, entry.title); //processes title even if it has spaces
+  getline(fcin, str); //processes title even if it has spaces
+
+  entry.setTitle(str); //moves initial "A" , "An" or "The" to the end of the title
+		 //preceded by a ","
 
   fcin >> label; //Author
   getline(fcin, str); //same for author
   entry.lastName = str.substr(1, (str.find(",") -1)); //last name is before the ,
   entry.firstName = str.substr(str.find(",") + 2); //firstname is after latname,' '
 
-  fcin >> label >> entry.copyright; //Copyright
+  fcin >> label >> copyright; //Copyright
+  entry.setCopyright(copyright); //ensures copyright is positive 
  
   fcin >> label; //Publisher
   getline(fcin, str); //processes publisher even if it has spaces
@@ -50,19 +55,22 @@ ifstream& operator>>(ifstream& fcin, Book& entry)
   str = str.substr(1); //Remove the space after ':'
   if(str == "Available")
   {
-    entry.borrowed =  false;
+    entry.returnBook(); //set borrowed to false and borrower to "N/A"
+    //Read in borrower but ignore it
+    //label is used twice because the label "Borrowed by:" is two strings
+    fcin >> label >> label >> str; //Borrowed by:
   }
   else if(str == "Checked Out")
   {
-    entry.borrowed =  true;
+    fcin >> label >> label >> str; //Borrowed by:
+    entry.setBorrower(str); //sets borrowed to true and sets the borrower's name
   }
   else
   {
     cout << "Borrowed Value Error!" << endl; //maybe change to a throw later
+    //Read in borrower but ignore it
+    fcin >> label >> label >> str; //Borrowed by:
   }
-
-  //label is used twice because the label "Borrowed by:" is two strings
-  fcin >> label >> label >> entry.borrower; //Borrowed by:
 
   getline(fcin, str); //discard the two final newlines (they are not stored in str)
   getline(fcin, str); //getline is used instead of get() so that Windows' /n/r
@@ -126,7 +134,20 @@ void Book :: returnBook()
 //setters
 void Book :: setTitle(string bookName)
 {
-  title = bookName;
+  string temp;
+
+  //move initial "A" "An" or "The" in this title to the end preceded
+  //by a comma (useful for sorting)
+  temp = bookName.substr(0, bookName.find(" "));
+
+  if(temp == "A" || temp == "The" || temp == "An")
+  {
+    title = bookName.substr(bookName.find(" ") + 1) + ", " + temp;
+  }
+  else
+  {
+    title = bookName;
+  }
 }
 void Book :: setFirstName(string first)
 {
@@ -161,13 +182,24 @@ void Book :: setBorrower(string username)
   borrower = username;
 }
 
-//overload relational operators?
+//overload relational operators
+//since these titles are in book objects they must have already ben processed
+//by setTitle into the form tile, A/The/An if neccessary
+bool Book :: operator==(const Book& other) const
+{
+  return(this->title == other.title);
+}
+bool Book :: operator>(const Book& other) const
+{
+  return(this->title > other.title);
+}
 
 //constructor
 Book :: Book(string bookName, string first, string last, int cDate, string publish,
 	string idCode, bool borrow, string username)
 {
-  title = bookName;
+  setTitle(bookName);//move initial "A" "An" or "The" to the end of the title 
+		     //preceded by a comma
   firstName = first;
   lastName = last;
   setCopyright(cDate); //includes check for negative dates
