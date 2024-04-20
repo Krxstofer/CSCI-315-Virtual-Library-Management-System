@@ -49,18 +49,33 @@ unordered_map<string, User> userDatabase;
 // Function prototypes
 void preLoginMenu();
 
-void userMenu(const User& user); //user functions
+//User functions
+void userMenu(const User& user);
 void searchBook();
 void borrowBook();
 void returnBook();
-void viewBorrowedBooks(); //Andrew - in progress
-void updateProfile(); //Andrew - prototype ready (see below)
 
-void adminMenu(); //admin functions
+void viewBorrowedBooks(linkedQueueType<Book>&, string username);
+//function for users; it displays all books borrowed by that user
+//the final version will have a user object as a paremeter
+//Postcondition: None
+
+void updateProfile();
+//function for users; it allows users limited control to update their profile settings
+//final version will have a user object as a parameter
+//Postcondition: if the correct input is provided, it changes the username or password
+//      based on the user's choice. If the input is incorrect, postcondition is none.
+
+//Admin functions
+void adminMenu();
 void addBook();
 void removeBook();
 void updateBookInfo();
-void viewAllBooks(); //Andrew - in progress
+
+void viewAllLoans(linkedQueueType<Book>& );
+//function for admin; it displays all books currently borrowed by users
+//Postcondition: none
+
 void addOrRemoveUser();
 // Add more function prototypes for other functionalities
 
@@ -80,7 +95,27 @@ int main() {
     // You can replace this with actual data loading from files or databases
     
     preLoginMenu();
-    updateProfile(); //Andrew - this will execute so long as the user does not exist in preLoginMenu
+    //updateProfile(); //Andrew - commented out for testing purposes; feel free to test this function.
+    
+    //Testing latest commit (requires queue)
+    ifstream in;
+    ofstream out;
+    char c;
+    linkedQueueType<Book> borrowedQueue;
+
+    //open file
+    in.open("Borrowed.txt");
+
+    in.get(c); //detect eof in exisitng empty file
+    if(!in)
+    {
+        cout << "File was not found, or the file is empty! Shutting down." << endl;
+        exit(1);
+    }
+    loadQueue(in, borrowedQueue);
+
+    viewBorrowedBooks(borrowedQueue, "Me"); //new function that displays books borrowed by user
+    viewAllLoans(borrowedQueue); //Andrew - new function that dispalys all borrowed books
 
     return 0;
 }
@@ -204,8 +239,24 @@ void returnBook() {
     // Implement return book functions
 }
 
-void viewBorrowedBooks() {
-    // Implement view borrowed book functions
+void viewBorrowedBooks(linkedQueueType<Book>& queue, string username) //ready for commit; move to main
+{
+    //printing a queue requires deleting a queue, so a temporary queue is used.
+    linkedQueueType<Book> tempQueue = queue;
+    Book tempBook;
+    string user = username; //this will be replaced with a call to myUser.getUsername()
+
+    cout << "Here are all of the books you, " << user << ", have borrowed: " << endl;
+    while(!tempQueue.isEmptyQueue())
+    {
+        tempBook = tempQueue.front();
+        //every book in the queue is assumed to be borrowed,
+        //    so book.borrowed() does not need to be checked.
+        if(user == tempBook.getBorrower())
+            cout << tempBook << endl;
+        tempQueue.deleteQueue();
+    }
+    //If a user has not borrowed any books, no books would be printed.
 }
 
 void updateProfile() {
@@ -300,7 +351,7 @@ void adminMenu() {
     case 3:
         updateBookInfo();
     case 4:
-        viewAllBooks();
+        viewAllLoans(borrowedBooks);
     case 5:
         addOrRemoveUser();
     case 6:
@@ -338,8 +389,18 @@ void updateBookInfo() {
     // Implement update book info function
 }
 
-void viewAllBooks() {
-    // Implement view all books "loans" function
+void viewAllLoans(linkedQueueType<Book>& queue)
+{
+    //printing a queue requires deleting a queue, so a temporary queue is used.
+    linkedQueueType<Book> temp = queue;
+
+    cout << "Here are all the books currently loaned out: " << endl;
+    while(!temp.isEmptyQueue())
+    {
+        cout << temp.front() << endl;
+        temp.deleteQueue();
+    }
+    //If a user has not borrowed any books, no books would be printed.
 }
 
 void addOrRemoveUser() {
