@@ -62,7 +62,7 @@ elemType* bSearchTreeType<elemType>::search
                     (const elemType& searchItem) const
 {
     nodeTypeT<elemType> *current;
-    elemType *match; //new pointer to the matching entry
+    elemType *match = nullptr; //new pointer to the matching entry
     bool found = false;
 
     if (this->root == nullptr)
