@@ -15,6 +15,15 @@ public:
 
     virtual void displayMenu() = 0;
     virtual ~User() {}
+    // Getters
+    string getUsername() const { return username; }
+    string getPassword() const { return password; }
+    string getRole() const { return role; }
+
+    // Setters
+    void setUsername(const string& newUsername) { username = newUsername; }
+    void setPassword(const string& newPassword) { password = newPassword; }
+    void setRole(const string& newRole) { role = newRole; }
 };
 
 class StandardUser : public User {
@@ -53,6 +62,11 @@ int main() {
     // Example of using these classes:
     StandardUser user1("john_doe", "12345");
     Admin admin1("admin_user", "adminpass");
+
+    // Demonstration of setters and getters
+    cout << "Initial Username: " << user1.getUsername() << endl;
+    user1.setUsername("jane_doe");
+    cout << "New Username: " << user1.getUsername() << endl;
 
     user1.displayMenu();
     admin1.displayMenu();
