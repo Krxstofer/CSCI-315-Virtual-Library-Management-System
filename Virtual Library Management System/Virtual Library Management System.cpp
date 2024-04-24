@@ -51,7 +51,7 @@ void preLoginMenu();
 
 //User functions
 void userMenu(const User& user);
-void searchBook();
+void searchBook(bSearchTreeType<Book>& tree);
 void borrowBook();
 void returnBook();
 
@@ -114,14 +114,14 @@ int main() {
     }
     loadQueue(in, borrowedQueue);
 
-    viewBorrowedBooks(borrowedQueue, "Me"); //new function that displays books borrowed by user
-    viewAllLoans(borrowedQueue); //Andrew - new function that dispalys all borrowed books
+    //viewBorrowedBooks(borrowedQueue, "Me"); //new function that displays books borrowed by user
+    //viewAllLoans(borrowedQueue); //Andrew - new function that dispalys all borrowed books
 
     return 0;
 }
 
 void preLoginMenu() {
-//User me; //for testing
+User me; //for testing
     int choice;
     cout << "Welcome to the Virtual Library Management System" << endl;
     cout << "------------------------------------------------" << endl;
@@ -134,7 +134,7 @@ void preLoginMenu() {
     switch (choice) {
     case 1:
         // Implemenet Login functionality
-	//userMenu(me); //for testing
+	userMenu(me); //for testing
 	//adminMenu(); //for testing
         break;
     case 2:
@@ -191,19 +191,19 @@ void userMenu(const User& user) {
 
     switch (choice) {
     case 1:
-        void searchBook();
+        searchBook(bookCatalog);
         break;
     case 2:
-        void borrowBook();
+        borrowBook();
         break;
     case 3:
-        void returnBook();
+        returnBook();
         break;
     case 4:
-        void viewBorrowedBooks();
+        //viewBorrowedBooks();
         break;
     case 5:
-        void addOrRemoveUser();
+        addOrRemoveUser();
         break;
     case 6:
         cout << "Logging out..." << endl;
@@ -227,8 +227,29 @@ void userMenu(const User& user) {
     }
 }
 
-void searchBook() {
+void searchBook(bSearchTreeType<Book>& tree) {
     // Implement search book functions
+    string title = "";
+    Book searchTemp;
+
+    cin.ignore();
+    cout << endl << "Please enter the title you would like to search for.\n";
+    getline(cin, title);
+    cout << endl;
+    searchTemp.setTitle(title);
+
+    if (tree.search(searchTemp) != nullptr)
+    {
+        searchTemp = *tree.search(searchTemp);
+        cout << "The following was found:\n";
+        cout << "--------------------------------" << endl;
+        cout << searchTemp;
+        cout << "--------------------------------" << endl;
+    }
+    else
+    {
+        cout << title << " Could not be found in the libary.\n\n";
+    }
 }
 
 void borrowBook() {
