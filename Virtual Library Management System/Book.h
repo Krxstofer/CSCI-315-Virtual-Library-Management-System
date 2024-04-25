@@ -106,7 +106,7 @@ public:
   //constructor with default parameters
   Book(string bookName = "", string first = "", string last = "",
        int cDate = 0, string publish = "", string idCode = "000-0-000-00000-0",
-       bool borrow = false, string username = "N/A");
+       bool borrow = false, string username = "");
   //sets memeber variables to the values of the parameters. If values are not specified, default values
   //are used. Ensures username is only given a value other than "N/A" if borrow == true
   //Postcondition: id = idCode title = bookName however if bookname's first word was "A" "An" or "The"

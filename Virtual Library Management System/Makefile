@@ -18,3 +18,8 @@ queue:
 tree:
 	g++ -g TreeTest.cpp -o Tree
 	Tree
+
+test:
+	g++ -c MGoogleTest.cpp
+	g++ MGoogleTest.o -o Test -lgtest_main -lgtest -lpthread
+	Test
