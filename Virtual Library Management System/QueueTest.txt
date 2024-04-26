@@ -1,0 +1,8 @@
+Title: Christmas Carol, A
+Author: Dickens, Charles
+Copyright: 1992
+Publisher: Wordsworth
+ID: DIC
+Status: Checked Out
+Borrowed by: You
+

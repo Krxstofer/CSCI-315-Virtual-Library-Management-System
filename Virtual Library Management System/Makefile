@@ -1,25 +1,41 @@
 #makefile for testing the Book object and Queue
 
 main:
-	g++ -g Virtual\ Library\ Management\ System.cpp -o Main
+	g++ -g -c Book.cpp
+	g++ -g -c LoadSave.cpp
+	g++ -g -c Virtual\ Library\ Management\ System.cpp
+	g++ -g Book.o LoadSave.o Virtual\ Library\ Management\ System.o -o Main
 	Main
 
 
 book:
-	g++ -g BookTest.cpp -o Book
+	g++ -g -c Book.cpp
+	g++ -g -c BookTest.cpp
+	g++ -g Book.o BookTest.o -o Book
+#	g++ -g BookTest.cpp -o Book
 	Book
 menu:
 	g++ -g Menu.cpp -o Menu
 	Menu
 
 queue:
-	g++ -g QueueTest.cpp -o Queue
+	g++ -g -c QueueTest.cpp
+	g++ -g -c LoadSave.cpp
+	g++ -g -c Book.cpp
+	g++ -g QueueTest.o LoadSave.o Book.o -o Queue
+#	g++ -g QueueTest.cpp -o Queue
 	Queue
 tree:
-	g++ -g TreeTest.cpp -o Tree
+	g++ -g -c Book.cpp
+	g++ -g -c LoadSave.cpp
+	g++ -g -c TreeTest.cpp
+	g++ Book.o LoadSave.o TreeTest.o -o Tree
+#	g++ -g TreeTest.cpp -o Tree
 	Tree
 
 test:
+	g++ -g -c Book.cpp
+	g++ -g -c LoadSave.cpp
 	g++ -c MGoogleTest.cpp
-	g++ MGoogleTest.o -o Test -lgtest_main -lgtest -lpthread
+	g++ Book.o LoadSave.o MGoogleTest.o -o Test -lgtest_main -lgtest -lpthread
 	Test
