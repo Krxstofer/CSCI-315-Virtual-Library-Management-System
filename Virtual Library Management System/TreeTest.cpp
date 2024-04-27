@@ -8,16 +8,14 @@
 #include <iostream>
 #include "Book.h"
 #include "binarySearchTree.h"
+#include "LoadSave.h"
 
-//out is global since inorder only takes one parameter
-//and out must be opened outside of saveTree since it is called multiple times
-ofstream out;
+//tOut is a global in LoadSave since the binary search tree's inorder 
+//traversal with a function parameter function only takes one parameter for that function
+//and tOut must be opened outside of saveTree since it is called multiple times
+//by inorder traversal
 
 using namespace std;
-
-void loadTree(ifstream& in, bSearchTreeType<Book>& tree);
-void saveTree(Book& x);
-void printTree(Book& x);
 
 int main()
 {
@@ -92,7 +90,7 @@ else
 cout << endl;
 
 //Testing saveTree
-out.open("Library.txt"); //storage file for books
+tOut.open("Library.txt"); //global pointer for storage file for books
 cout << "Saving:" << endl;
 library.inorderTraversal(saveTree);//the function saveTree is a parameter
 in.open("Library.txt");
@@ -118,38 +116,10 @@ cout << "The tree after saving:" << endl;
 library.inorderTraversal(printTree);
 
 in.close();
-out.close();
+tOut.close();
 
 cout << "end" << endl;
 /*test*/
 
   return 0;
 }//end of main
-
-void loadTree(ifstream& in, bSearchTreeType<Book>& tree) //needs to be run once
-							   //before save writes to the Library file
-{
-
-  Book temp;
-  char c;
-  in.get(c); //check for eof
-  while(in)
-  {
-    in >> temp;
-    tree.insert(temp);
-    in.get(c); //check for another entry (takes a char off a label (harmeless)) otherwise
-               //indicates eof to the while
-  }
-
-}
-
-void saveTree(Book& x)//must run before program end. Will overwrite Library.txt
-{
-  out << x;
-}
-
-void printTree(Book& x)
-{
-  cout << x << endl;
-}
-

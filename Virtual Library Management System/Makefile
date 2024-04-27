@@ -5,8 +5,9 @@ main:
 	g++ -g -c LoadSave.cpp
 	g++ -c -g UserFun.cpp
 	g++ -c -g AdminFun.cpp
+	g++ -g -c GeneralFunctions.cpp
 	g++ -g -c Virtual\ Library\ Management\ System.cpp
-	g++ -g Book.o LoadSave.o UserFun.o AdminFun.o Virtual\ Library\ Management\ System.o -o Main
+	g++ -g Book.o LoadSave.o GeneralFunctions.o UserFun.o AdminFun.o Virtual\ Library\ Management\ System.o -o Main
 	Main
 
 
@@ -41,9 +42,19 @@ tree:
 #	g++ -g TreeTest.cpp -o Tree
 	Tree
 
+func:
+	g++ -g -c Book.cpp
+	g++ -g -c LoadSave.cpp
+	g++ -g -c GeneralFunctions.cpp
+	g++ -g -c FuncTest.cpp
+	g++ Book.o LoadSave.o GeneralFunctions.o FuncTest.o -o Func
+#	g++ -g TreeTest.cpp -o Tree
+	Func
+
 test:
 	g++ -g -c Book.cpp
 	g++ -g -c LoadSave.cpp
+	g++ -g -c GeneralFunctions.cpp
 	g++ -c MGoogleTest.cpp
-	g++ Book.o LoadSave.o MGoogleTest.o -o Test -lgtest_main -lgtest -lpthread
+	g++ Book.o LoadSave.o GeneralFunctions.o MGoogleTest.o -o Test -lgtest_main -lgtest -lpthread
 	Test

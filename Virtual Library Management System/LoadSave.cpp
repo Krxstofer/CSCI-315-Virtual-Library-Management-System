@@ -2,14 +2,18 @@
 //Description:  CSCI Group Project
 //Date:  05/04/2024
 //LoadSave.cpp: contains the defintions of the queue and tree data persistence functions
-//(and printTree())
+//(and printTree()) and global ofstream variable tOut for use in saveTree()
 
 #include <iostream>
 #include <fstream>
 #include "Book.h"
 #include "linkedQueue.h"
+#include "binarySearchTree.h"
+#include "LoadSave.h"
 
 using namespace std;
+
+ofstream tOut; //global file pointer for saveTree()
 
 void loadQueue(ifstream& in, linkedQueueType<Book>& queue) //needs to be run once
 							   //before new borrows are added
@@ -64,3 +68,29 @@ void saveQueue(ofstream& out, linkedQueueType<Book> queue)//must run before prog
 
 }
 
+void loadTree(ifstream& in, bSearchTreeType<Book>& tree) //needs to be run once
+                                                           //before save writes to the Library file
+{
+
+  Book temp;
+  char c;
+  in.get(c); //check for eof
+  while(in)
+  {
+    in >> temp;
+    tree.insert(temp);
+    in.get(c); //check for another entry (takes a char off a label (harmeless)) otherwise
+               //indicates eof to the while
+  }
+
+}
+
+void saveTree(Book& x)//must run before program end. Will overwrite Library.txt
+{
+  tOut << x;
+}
+
+void printTree(Book& x)
+{
+  cout << x << endl;
+}

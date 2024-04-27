@@ -9,6 +9,7 @@
 #include "linkedQueue.h"
 #include "binarySearchTree.h"
 #include "LoadSave.h"
+#include "GeneralFunctions.h"
 #include <gtest/gtest.h>
 
 TEST(LibraryTest, Book)
@@ -88,7 +89,7 @@ TEST(LibraryTest, QueueIO)
   ifstream in;
   ofstream out;
   int i = 0;
-  char c = 'M';
+  char c;
   linkedQueueType<Book> borrowedBooks;
   Book b1("A Tale of Two Cities", "Charles", "Dickens", 1990, "Wordsworth", "DIC", true, "Me");
   Book b2("A Christmas Carol", "Charles", "Dickens", 1992, "Wordsworth", "DIC", true, "You");
@@ -151,7 +152,7 @@ TEST(LibraryTest, QueueIO)
   out.open("QueueTest.txt");//reset
 
   ASSERT_FALSE(borrowedBooks.isEmptyQueue());
-  saveQueue(out, borrowedBooks);
+  saveQueue(out, borrowedBooks); //saveQueue sends an error message to cout
 
   in.open("QueueTest.txt");
   in >> tempBook; //check for b1 not being in file
@@ -230,10 +231,69 @@ TEST(LibraryTest, QueueFuncs)
 
 TEST(LibraryTest, Tree)
 {
+  //tOut is a global in LoadSave
+  ifstream in;
+  char c;
+
+  bSearchTreeType<Book> library;
+  Book b1("A Tale of Two Cities", "Charles", "Dickens", 1990, "Wordsworth", "DIC", false, "N/A");
+  Book b2("A Christmas Carol", "Charles", "Dickens", 1992, "Wordsworth", "DIC", true, "You");
+  Book dummy;
+
+  //Test loadTree()
+  tOut.open("TreeTest.txt");
+  tOut << b1 << b2; //prime file
+  tOut.close();
+
+  in.open("TreeTest.txt");
+
+  ASSERT_TRUE(library.isEmpty());
+  loadTree(in, library);
+  in.close();
+
+  EXPECT_FALSE(library.isEmpty());
+  //search for a book with b1's title return a pointer to that book if found in the tree
+  EXPECT_EQ(b1, *(library.search(b1)) ); //expect to find b1 in the tree now
+  EXPECT_EQ(b2, *(library.search(b2)) ); //expect to find b2 in the tree now
+
+  //Test the duplicate excluder
+  dummy.setTitle("A Tale of Two Cities");
+  library.insert(dummy); //dummy should not be inserted because its title matches b1
+			 //insert sends an error message to cout
+  library.deleteNode(b1);
+  EXPECT_EQ(nullptr, library.search(dummy)); //dummy should not be in the tree
+
+  library.insert(b1);//restore the tree 
+
+  //Test search
+  //(search now returns a pointer to the element or nullptr if not found instead of a boolean)
+  EXPECT_EQ(b1, *(library.search(dummy)) );
+
+  dummy.setTitle("A Tree");
+  EXPECT_EQ(nullptr, library.search(dummy) );
+
+  //Test saveTree
+  tOut.open("TreeTest.txt");
+  ASSERT_FALSE(library.isEmpty());
+  library.inorderTraversal(saveTree);//the function saveTree is in LoadSave
+
+  //check if books were copied to file
+  in.open("TreeTest.txt");
+  in.get(c); //check for eof
+  EXPECT_FALSE(in.eof());
+
+  ASSERT_FALSE(library.isEmpty());
+  in >> dummy;
+  EXPECT_EQ(dummy, *(library.search(b2)) ); //books were written to file alphabetically
+  in >> dummy;
+  EXPECT_EQ(dummy, *(library.search(b1)) );
+
+  in.close();
+  tOut.close();
 
 }
 
-/*
+/*Cannot test until functions are complete
 
 TEST(LibraryTest, Register)
 {
@@ -244,9 +304,70 @@ TEST(LibraryTest, addRemoveUsers)
 {
 
 }
+*/
 
 TEST(LibraryTest, Logout)
 {
+  ifstream qIn, tIn;
+  ofstream qOut; //tOut is in LoadSave
+  linkedQueueType<Book> queue;
+  bSearchTreeType<Book> tree;
+  Book temp, test1("Tada!", "Logout" "Test"), test2("The Last", "John", "Doe");
+  int i = 0;
+  char c;
 
+  test1.setBorrower("Test");
+  test2.setBorrower("Testing");
+
+  //prime queue file
+  qOut.open("Borrowed.txt"); //this file is used in logout
+  qOut << test1 << test2;
+  //load queue
+  qIn.open("Borrowed.txt"); //storage file for borrowed books
+  loadQueue(qIn, queue);
+  qOut.close(); //qIn will be closed in logout
+  ASSERT_FALSE(queue.isEmptyQueue());
+
+  //prime tree file
+  tOut.open("Library.txt"); //this file is used in logout
+  tOut << test1 << test2;
+  //load tree
+  tIn.open("Library.txt"); //storage file for all books
+  loadTree(tIn, tree);
+  tOut.close(); //tIn will be closed in logout
+  ASSERT_FALSE(tree.isEmpty());
+
+  //Test that logout saved the data correctly
+  //logout will print to cout
+  logout(qIn, tIn, queue, tree); //closes the ifstream variables
+
+  qIn.open("Borrowed.txt");
+  qIn.get(c); //check for eof
+  ASSERT_FALSE(qIn.eof());
+  ASSERT_FALSE(queue.isEmptyQueue());
+  while(!queue.isEmptyQueue())
+  {
+    qIn >> temp;
+    EXPECT_EQ(temp, queue.front());
+    queue.deleteQueue();
+    i++;
+  }
+  i = 0;
+  qIn.get(c); //check for eof
+  EXPECT_TRUE(qIn.eof());
+  qIn.close();
+
+  tIn.open("Library.txt");
+  tIn.get(c); //check for eof
+  ASSERT_FALSE(tIn.eof());
+  ASSERT_FALSE(tree.isEmpty());
+  tIn >> temp;
+  EXPECT_EQ(temp, *(tree.search(test2)) ); //books were written to file alphabetically
+  tIn >> temp;
+  EXPECT_EQ(temp, *(tree.search(test1)) );
+  tIn.get(c); //check for eof
+  EXPECT_TRUE(tIn.eof());
+
+  tIn.close();
 }
-*/
+

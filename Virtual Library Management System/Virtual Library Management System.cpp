@@ -15,11 +15,11 @@
 #include "LoadSave.h"
 #include "UserFun.h"
 #include "AdminFun.h"
+#include "GeneralFunctions.h"
 
-//tOut is global since the binary tree's inorderTraversal() with a function
-//parameter only takes one parameter and out must be opened outside of
+//tOut is a global in LoadSave since the binary tree's inorderTraversal() with a function
+//parameter only takes one parameter and out must be opened outside of 
 //saveTree (where it is used) since it is recurisive and thus called multiple times
-ofstream tOut;
 
 using namespace std;
 
@@ -52,14 +52,6 @@ void updateBookInfo();
 
 void addOrRemoveUser();
 // Add more function prototypes for other functionalities
-
-//binary search tree data persistence functions
-void loadTree(ifstream& in, bSearchTreeType<Book>& tree);
-void saveTree(Book& x);
-
-void printTree(Book& x);
-
-void logout(ifstream& qIn, ifstream& tIn, linkedQueueType<Book>& queue, bSearchTreeType<Book>& tree);
 
 int main() {
     // Populate book catalog and user database with sample data for testing
@@ -314,55 +306,5 @@ void updateBookInfo() {
 
 void addOrRemoveUser() {
     // Implement add or remove user functions
-}
-
-//Tree functions
-void loadTree(ifstream& in, bSearchTreeType<Book>& tree) //needs to be run once
-							   //before save writes to the Library file
-{
-
-  Book temp;
-  char c;
-  in.get(c); //check for eof
-  while(in)
-  {
-    in >> temp;
-    tree.insert(temp);
-    in.get(c); //check for another entry (takes a char off a label (harmeless)) otherwise
-               //indicates eof to the while
-  }
-
-}
-
-void saveTree(Book& x)//must run before program end. Will overwrite Library.txt
-{
-  tOut << x;
-}
-
-void printTree(Book& x)
-{
-  cout << x << endl;
-}
-
-void logout(ifstream& qIn, ifstream& tIn, linkedQueueType<Book>& queue, bSearchTreeType<Book>& tree)
-{
-  ofstream qOut; //tOut is global
-
-  cout << "Logging out..." << endl; //Kristofer
-
-  //Saving out queue
-  qOut.open("Borrowed.txt"); //storage file for borrowed books
-  saveQueue(qOut, queue);
-  qIn.close();
-  qOut.close();
-
-  //Saving out binary search tree
-  tOut.open("Library.txt"); //storage file for all books
-  tree.inorderTraversal(saveTree);
-  tIn.close();
-  tOut.close();
-
-  preLoginMenu(); //Kristofer
-
 }
 
