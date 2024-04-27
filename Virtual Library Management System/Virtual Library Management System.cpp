@@ -53,8 +53,8 @@ void preLoginMenu();
 //User functions
 void userMenu(const User& user);
 void searchBook(bSearchTreeType<Book>& tree);
-void borrowBook();
-void returnBook();
+void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user);
+void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user);
 
 void viewBorrowedBooks(linkedQueueType<Book>&, string username);
 //function for users; it displays all books borrowed by that user
@@ -191,10 +191,10 @@ void userMenu(const User& user) {
         searchBook(bookCatalog);
         break;
     case 2:
-        borrowBook();
+        borrowBook(bookCatalog, borrowedBooks, user);
         break;
     case 3:
-        returnBook();
+        returnBook(bookCatalog, borrowedBooks, user);
         break;
     case 4:
         //viewBorrowedBooks();
@@ -235,12 +235,34 @@ void searchBook(bSearchTreeType<Book>& tree) {
     }
 }
 
-void borrowBook() {
-    // Implement borrow book functions
+void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user) {    // Implement borrow book functions
+
+    string title = "";
+    Book searchTemp;
+
+    cin.ignore();
+    cout << endl << "What book would you like to borrow ?" << endl;
+    getline(cin, title);
+    cout << endl;
+    searchTemp.setTitle(title);
+
+    if (tree.search(searchTemp) != nullptr)
+    {
+        searchTemp = *tree.search(searchTemp);
+        searchTemp.setBorrower("user.getUsername()"); //will need getUsername funtion to work properly
+        queue.addQueue(searchTemp);
+    }
+    else
+    {
+        cout << title << " Could not be found in the libary.\n\n";
+    }
 }
 
-void returnBook() {
-    // Implement return book functions
+void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue) {    // Implement return book functions
+    Book temp;
+    temp = queue.front();
+    temp.setBorrower("N/A"); //Functionality to change the borrowed status is needed
+    queue.deleteQueue();
 }
 
 void viewBorrowedBooks(linkedQueueType<Book>& queue, string username) //ready for commit; move to main
