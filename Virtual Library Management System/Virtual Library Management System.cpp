@@ -13,9 +13,11 @@
 #include "linkedQueue.h"
 #include "binarySearchTree.h"
 #include "LoadSave.h"
+#include "UserFun.h"
+#include "AdminFun.h"
 
 //tOut is global since the binary tree's inorderTraversal() with a function
-//parameter only takes one parameter and out must be opened outside of 
+//parameter only takes one parameter and out must be opened outside of
 //saveTree (where it is used) since it is recurisive and thus called multiple times
 ofstream tOut;
 
@@ -23,27 +25,13 @@ using namespace std;
 
 // Book class is now in Book.h
 
-// Define Admin class
-class Admin {
-public:
-    string username;
-    string password;
-    // Add more attributes as needed
-};
+//Admin and User class were removed here since they are implemented in AdminFun.h and
+//	UserFun.h, respectively. The relevant functions are also under those header files
 
-// Define User class
-class User {
-public:
-    string username;
-    string password;
-    // Add more attributes as needed
-};
-
-
-// Define global variables 
+// Define global variables
 //unordered_map<int, Book> bookCatalog; //bookCatalog is now a binary Search Tree
 
-unordered_map<string, User> userDatabase;
+//unordered_map<string, User> userDatabase;
 //vector<string> borrowedBooks; //borrowedBooks is now a queue
 // Add more as needed
 
@@ -51,31 +39,16 @@ unordered_map<string, User> userDatabase;
 void preLoginMenu();
 
 //User functions
-void userMenu(const User& user);
+void userMenu(StandardUser& user); //made user not constant because updateProfile needs to change user
 void searchBook(bSearchTreeType<Book>& tree);
 void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user);
 static void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user);
 
-void viewBorrowedBooks(linkedQueueType<Book>&, string username);
-//function for users; it displays all books borrowed by that user
-//the final version will have a user object as a paremeter
-//Postcondition: None
-
-void updateProfile();
-//function for users; it allows users limited control to update their profile settings
-//final version will have a user object as a parameter
-//Postcondition: if the correct input is provided, it changes the username or password
-//      based on the user's choice. If the input is incorrect, postcondition is none.
-
 //Admin functions
-void adminMenu();
+void adminMenu(Admin& admin); //added admin object as a parameter
 void addBook();
 void removeBook();
 void updateBookInfo();
-
-void viewAllLoans(linkedQueueType<Book>& );
-//function for admin; it displays all books currently borrowed by users
-//Postcondition: none
 
 void addOrRemoveUser();
 // Add more function prototypes for other functionalities
@@ -91,10 +64,10 @@ void logout(ifstream& qIn, ifstream& tIn, linkedQueueType<Book>& queue, bSearchT
 int main() {
     // Populate book catalog and user database with sample data for testing
     // You can replace this with actual data loading from files or databases
-    
+
     preLoginMenu();
     //updateProfile(); //Andrew - commented out for testing purposes; feel free to test this function.
-    
+
     //Testing latest commit (requires queue)
     ifstream in;
     ofstream out;
@@ -120,6 +93,7 @@ int main() {
 
 void preLoginMenu() {
 //User me; //for testing
+Admin you("you", "N3ssi3"); //for testing
     int choice;
     cout << "Welcome to the Virtual Library Management System" << endl;
     cout << "------------------------------------------------" << endl;
@@ -133,7 +107,7 @@ void preLoginMenu() {
     case 1:
         // Implemenet Login functionality
 	//userMenu(me); //for testing
-	adminMenu(); //for testing
+	adminMenu(you); //for testing
         break;
     case 2:
         // Implement registration functionality
@@ -147,7 +121,7 @@ void preLoginMenu() {
     }
 }
 
-void userMenu(const User& user) {
+void userMenu(StandardUser& user) {
     ifstream qIn, tIn;
     linkedQueueType<Book> borrowedBooks;
     bSearchTreeType<Book> bookCatalog;
@@ -173,7 +147,7 @@ void userMenu(const User& user) {
     }
     loadTree(tIn, bookCatalog);
 
-    cout << "Welcome " << user.username << " Thanks for using our Virtual Library!" << endl;
+    cout << "Welcome " << user.getUsername() << " Thanks for using our Virtual Library!" << endl;
     cout << "--------------------------------" << endl;
     cout << "1. Search for Books" << endl;
     cout << "2. Borrow a Book" << endl;
@@ -197,10 +171,10 @@ void userMenu(const User& user) {
         returnBook(bookCatalog, borrowedBooks, user);
         break;
     case 4:
-        //viewBorrowedBooks();
+        viewBorrowedBooks(borrowedBooks, user.getUsername());
         break;
     case 5:
-        updateProfile(); //was add/remove user changed to reflect menu
+        updateProfile(user);
         break;
     case 6:
         logout(qIn,tIn, borrowedBooks, bookCatalog);
@@ -266,70 +240,7 @@ static void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue
     queue.deleteQueue();
 }
 
-void viewBorrowedBooks(linkedQueueType<Book>& queue, string username) //ready for commit; move to main
-{
-    //printing a queue requires deleting a queue, so a temporary queue is used.
-    linkedQueueType<Book> tempQueue = queue;
-    Book tempBook;
-    string user = username; //this will be replaced with a call to myUser.getUsername()
-
-    cout << "Here are all of the books you, " << user << ", have borrowed: " << endl;
-    while(!tempQueue.isEmptyQueue())
-    {
-        tempBook = tempQueue.front();
-        //every book in the queue is assumed to be borrowed,
-        //    so book.borrowed() does not need to be checked.
-        if(user == tempBook.getBorrower())
-            cout << tempBook << endl;
-        tempQueue.deleteQueue();
-    }
-    //If a user has not borrowed any books, no books would be printed.
-}
-
-void updateProfile() {
-    int choice;
-    char error[] = "The input stream has invalid data";
-    string newName;
-
-    cout << "What user setting would you like to change" << endl;
-    cout << "------------------------------------------" << endl;
-    cout << "1. Username" << endl;
-    cout << "2. Password" << endl;
-
-    try
-    {
-        cout << "Please select an option: ";
-        cin >> choice;
-        if(!cin.good() || (choice < 1 || choice > 2))
-            throw error;
-    }
-    catch (const char errorStr[])
-    {
-        cout << errorStr << endl;
-        if(!cin.good())
-            cout << "***Cannot accept characters or fractional values.***" << endl;
-        else if(choice < 1 || choice > 2)
-            cout << "***Choice must be between 1 and 2.***" << endl;
-        cout << "    Clearing out the input stream" << endl;
-        cin.clear();
-        cin.ignore(200, '\n');
-    }
-    if(choice == 1)
-    {
-        cout << "Please enter your new username: ";
-        cin >> newName;
-        //Set username
-    }
-    else if(choice == 2)
-    {
-        cout << "Please enter your new password: ";
-        cin >> newName;
-        //Set password
-    }
-    cout << "Exiting update profile" << endl;
-}
-
-void adminMenu() {
+void adminMenu(Admin& admin) {
     ifstream qIn, tIn;
     linkedQueueType<Book> borrowedBooks;
     bSearchTreeType<Book> bookCatalog;
@@ -385,7 +296,7 @@ void adminMenu() {
         break;
     default:
         cout << "Invalid choice. Please try again." << endl;
-        adminMenu();
+        adminMenu(admin);
     }
 }
 
@@ -399,20 +310,6 @@ void removeBook() {
 
 void updateBookInfo() {
     // Implement update book info function
-}
-
-void viewAllLoans(linkedQueueType<Book>& queue)
-{
-    //printing a queue requires deleting a queue, so a temporary queue is used.
-    linkedQueueType<Book> temp = queue;
-
-    cout << "Here are all the books currently loaned out: " << endl;
-    while(!temp.isEmptyQueue())
-    {
-        cout << temp.front() << endl;
-        temp.deleteQueue();
-    }
-    //If a user has not borrowed any books, no books would be printed.
 }
 
 void addOrRemoveUser() {

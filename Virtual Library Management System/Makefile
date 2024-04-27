@@ -3,8 +3,10 @@
 main:
 	g++ -g -c Book.cpp
 	g++ -g -c LoadSave.cpp
+	g++ -c -g UserFun.cpp
+	g++ -c -g AdminFun.cpp
 	g++ -g -c Virtual\ Library\ Management\ System.cpp
-	g++ -g Book.o LoadSave.o Virtual\ Library\ Management\ System.o -o Main
+	g++ -g Book.o LoadSave.o UserFun.o AdminFun.o Virtual\ Library\ Management\ System.o -o Main
 	Main
 
 
@@ -15,7 +17,13 @@ book:
 #	g++ -g BookTest.cpp -o Book
 	Book
 menu:
-	g++ -g Menu.cpp -o Menu
+	g++ -c -g Book.cpp
+#	g++ -c -g QueueTest.cpp
+	g++ -c -g MenuTest.cpp
+	g++ -c -g LoadSave.cpp
+	g++ -c -g UserFun.cpp
+	g++ -c -g AdminFun.cpp
+	g++ -g Book.o MenuTest.o LoadSave.o UserFun.o AdminFun.o -o Menu
 	Menu
 
 queue:
