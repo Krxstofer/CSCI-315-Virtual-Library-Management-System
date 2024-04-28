@@ -38,7 +38,7 @@ void updateProfile(StandardUser &myUser)
 {
     int choice;
     char error[] = "The input stream has invalid data";
-    string newName;
+    string newName, newPass;
 
     cout << "What user setting would you like to change" << endl;
     cout << "------------------------------------------" << endl;
@@ -72,8 +72,16 @@ void updateProfile(StandardUser &myUser)
     else if(choice == 2)
     {
 	cout << "Please enter your new password: ";
-	cin >> newName;
+	cin >> newPass;
+	do
+	{
+	    cout << "Please re-type your password to confirm: ";
+	    cin >> newName;
+	}
+	while(newPass != newName);
 	myUser.setPassword(newName);
     }
+    //Add user to hash
+
     cout << "Exiting update profile" << endl;
 }

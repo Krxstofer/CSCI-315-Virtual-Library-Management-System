@@ -41,8 +41,8 @@ void preLoginMenu();
 //User functions
 void userMenu(StandardUser& user); //made user not constant because updateProfile needs to change user
 void searchBook(bSearchTreeType<Book>& tree);
-void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user);
-static void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user);
+void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, StandardUser user);
+static void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, StandardUser user);
 
 //Admin functions
 void adminMenu(Admin& admin); //added admin object as a parameter
@@ -202,7 +202,7 @@ void searchBook(bSearchTreeType<Book>& tree) // Implement search book functions
     }
 }
 
-void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user) {    // Implement borrow book functions
+void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, StandardUser user) {    // Implement borrow book functions
 
     string title = "";
     Book searchTemp;
@@ -226,7 +226,7 @@ void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User 
     }
 }
 
-static void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user) // Implement return book functions
+static void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, StandardUser user) // Implement return book functions
 {
     tree.search(queue.front())->returnBook();
     queue.deleteQueue();

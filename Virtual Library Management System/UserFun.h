@@ -52,7 +52,6 @@ public:
 
 void viewBorrowedBooks(linkedQueueType<Book>&, string username);
 //function for users; it displays all books borrowed by that user
-//the final version will have a user object as a paremeter
 //Postcondition: None
 
 void updateProfile(StandardUser& );
