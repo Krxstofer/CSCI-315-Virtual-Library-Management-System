@@ -1,7 +1,6 @@
 #include <iostream>
 #include "hash.h"
 #include "user.h"
-#include "admin.h"
 
 // Function to handle user login
 User* login(HashTable& table, const std::string& username, const std::string& password) {
