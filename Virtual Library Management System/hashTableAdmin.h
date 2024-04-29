@@ -1,7 +1,7 @@
 #ifndef ADMIN_H
 #define ADMIN_H
 
-#include "user.h"
+#include "hashTableUser.h"
 
 class Admin : public User {
 public:
