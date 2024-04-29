@@ -1,35 +1,41 @@
-#include "User.h"
-#include "UserFactory.h"
-#include <unordered_map>
-
-// Global variable for user storage
-unordered_map<string, pair<string, string>> userDatabase = {
-    {"john_doe", {"12345", "user"}},
-    {"admin_user", {"adminpass", "admin"}}
-};
+#include <iostream>
+#include "hash.h"
+#include "user.h"
+#include "admin.h"
 
 // Function to handle user login
-User* login(const string& username, const string& password) {
-    auto it = userDatabase.find(username);
-    if (it != userDatabase.end() && it->second.first == password) {
-        return UserFactory::createUser(username, password, it->second.second);
+User* login(HashTable& table, const std::string& username, const std::string& password) {
+    std::string storedPassword = table.searchTable(username);
+    if (!storedPassword.empty() && storedPassword == password) {
+        int hashValue = table.hashFunction(username);
+        auto& users = table.getUsersTable()[hashValue];
+        for (auto& user : users) {
+            if (user.getUsername() == username) return new User(user);  // Assuming copy constructor exists
+        }
+        auto& admins = table.getAdminsTable()[hashValue];
+        for (auto& admin : admins) {
+            if (admin.getUsername() == username) return new Admin(admin);  // Assuming copy constructor exists
+        }
     }
     return nullptr;
 }
 
 int main() {
-    string username, password;
-    cout << "Enter username: ";
-    cin >> username;
-    cout << "Enter password: ";
-    cin >> password;
+    HashTable table;
+    // Presumably, users and admins would be inserted into the table earlier in the program
 
-    User* user = login(username, password);
+    std::string username, password;
+    std::cout << "Enter username: ";
+    std::cin >> username;
+    std::cout << "Enter password: ";
+    std::cin >> password;
+
+    User* user = login(table, username, password);
     if (user) {
         user->displayMenu();
         delete user;  // Clean up the created user object
     } else {
-        cout << "Invalid username or password!" << endl;
+        std::cout << "Invalid username or password!" << std::endl;
     }
 
     return 0;
