@@ -101,6 +101,7 @@ TEST(LibraryTest, QueueIO)
   //Test loadQueue()
   out.open("QueueTest.txt");
   out << b1 << b2; //prime file
+  out.close();
 
   in.open("QueueTest.txt");
 
@@ -116,9 +117,23 @@ TEST(LibraryTest, QueueIO)
   }
   i = 0;
 
-  //Test saveQueue
-  //check that queue is empty before adding
+  //Test loadQueue's not borrowed excluder
+  b1.returnBook();
+  out.open("QueueTest.txt");
+  out << b1 << b2; 
+
+  in.open("QueueTest.txt");
+
+  loadQueue(in, borrowedBooks, false);
+  in.close();
+
+  EXPECT_EQ(b2, borrowedBooks.front());
+  borrowedBooks.deleteQueue(); //remove front item from the queue*/
   EXPECT_TRUE(borrowedBooks.isEmptyQueue());
+  b1.setBorrower("Me"); //restore b1
+
+  //Test saveQueue
+  //checked that queue was empty before adding above
   borrowedBooks.addQueue(b1);
   borrowedBooks.addQueue(b2);
 
@@ -152,7 +167,7 @@ TEST(LibraryTest, QueueIO)
   out.open("QueueTest.txt");//reset
 
   ASSERT_FALSE(borrowedBooks.isEmptyQueue());
-  saveQueue(out, borrowedBooks); //saveQueue sends an error message to cout
+  saveQueue(out, borrowedBooks, false); //false prevents saveQueue from sending an error message to cout
 
   in.open("QueueTest.txt");
   in >> tempBook; //check for b1 not being in file
@@ -258,7 +273,7 @@ TEST(LibraryTest, Tree)
 
   //Test the duplicate excluder
   dummy.setTitle("A Tale of Two Cities");
-  library.insert(dummy); //dummy should not be inserted because its title matches b1
+  library.insert(dummy, false); //dummy should not be inserted because its title matches b1
 			 //insert sends an error message to cout
   library.deleteNode(b1);
   EXPECT_EQ(nullptr, library.search(dummy)); //dummy should not be in the tree
@@ -293,13 +308,19 @@ TEST(LibraryTest, Tree)
 
 }
 
-/*Cannot test until functions are complete
+//Cannot test until functions are complete
 
 TEST(LibraryTest, Register)
 {
+std::istringstream fake_input("1\nTestUser\nt1\nt1\n");
+registerUser(fake_input, false);
+//assert user is added to hash
+//EXPECT_EQ("TestUser", registerUser(fake_input));
+//do tests for incorrect output or leaving?
 
 }
 
+/*
 TEST(LibraryTest, addRemoveUsers)
 {
 
@@ -339,7 +360,7 @@ TEST(LibraryTest, Logout)
 
   //Test that logout saved the data correctly
   //logout will print to cout
-  logout(qIn, tIn, queue, tree); //closes the ifstream variables
+  logout(qIn, tIn, queue, tree, false); //closes the ifstream variables
 
   qIn.open("Borrowed.txt");
   qIn.get(c); //check for eof

@@ -6,7 +6,7 @@
 //D. S. Malik's bSearchTreeType from the provided CSCI315_data_files.zip
 //https://regent.instructure.com/courses/14753/modules/items/959303
 //Chapter 19/binarySearchTree/binarySearchTree.h
-//search() modified by Megan Palermo
+//search() and insert modified by Megan Palermo
 
 //Header File Binary Search Tree
 
@@ -31,7 +31,7 @@ public:
       //	       This allows easy viewing and manipulation of
       //	       the requested entry.
 
-    void insert(const elemType& insertItem);
+    void insert(const elemType& insertItem, bool display = true); //changed
       //Function to insert insertItem in the binary search tree.
       //Postcondition: If there is no node in the binary search
       //               tree that has the same info as 
@@ -100,7 +100,7 @@ elemType* bSearchTreeType<elemType>::search
 
 template <class elemType>
 void bSearchTreeType<elemType>::insert
-                 (const elemType& insertItem)
+                 (const elemType& insertItem, bool display)
 {
     nodeTypeT<elemType> *current; //pointer to traverse the tree
     nodeTypeT<elemType> *trailCurrent = nullptr; //pointer 
@@ -124,9 +124,12 @@ void bSearchTreeType<elemType>::insert
 
             if (current->info == insertItem)
             {
-                cout << "The item to be inserted is already ";
-                cout << "in the tree -- duplicates are not "
-                     << "allowed." << endl;
+                if(display)
+                {
+                  cout << "The item to be inserted is already ";
+                  cout << "in the tree -- duplicates are not "
+                       << "allowed." << endl;
+                }
                 return;
             }
             else if (current->info > insertItem)

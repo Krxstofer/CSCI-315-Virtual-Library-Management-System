@@ -47,7 +47,12 @@ func:
 	g++ -g -c LoadSave.cpp
 	g++ -g -c GeneralFunctions.cpp
 	g++ -g -c FuncTest.cpp
-	g++ Book.o LoadSave.o GeneralFunctions.o FuncTest.o -o Func
+	g++ -g -c AdminFun.cpp
+	#temporary
+#	g++ -g -c 'hash (1).cpp'
+#	g++ -g -c '(ht) admin.cpp'
+#	g++ -g -c '(ht) user.cpp'
+	g++ -g Book.o LoadSave.o GeneralFunctions.o AdminFun.o FuncTest.o -o Func
 #	g++ -g TreeTest.cpp -o Tree
 	Func
 

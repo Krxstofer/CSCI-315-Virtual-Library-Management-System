@@ -10,6 +10,7 @@
 #include "Book.h"
 #include "linkedQueue.h"
 #include "UserFun.h"
+//#include "hash.h" broken
 
 using namespace std;
 
@@ -18,20 +19,7 @@ void viewAllLoans(linkedQueueType<Book>& );
 //Postcondition: none
 
 //PLACE your admin prototype(s) here
+void addOrRemoveUser(/*HashTable& hash*/);
 
-class Admin : public User {
-public:
-    Admin(string username, string password)
-        : User(username, password, "admin") {}
 
-    void displayMenu() override {
-        cout << "Admin Dashboard\n---------------\n";
-        cout << "1. Add a Book\n";
-        cout << "2. Remove a Book\n";
-        cout << "3. Update Book Information\n";
-        cout << "4. View All Loans\n";
-        cout << "5. Add/Remove User (Admins)\n";
-        cout << "6. Logout\n";
-    }
-};
 #endif

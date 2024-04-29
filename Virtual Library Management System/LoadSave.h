@@ -13,10 +13,9 @@
 
 using namespace std;
 
-void loadQueue(ifstream& in, linkedQueueType<Book>& queue);
-void saveQueue(ofstream& out, linkedQueueType<Book> queue); //no & means the actual parameter is not
-							    //passed since queue needs to be mostly
-							    //deleted to be read
+void loadQueue(ifstream& in, linkedQueueType<Book>& queue, bool display = true);
+void saveQueue(ofstream& out, linkedQueueType<Book> queue, bool display = true); //no & means the actual parameter is
+//passed since queue needs to be mostly deleted to be read
 
 //tOut is global since the binary tree's inorderTraversal() with a function
 //parameter only takes one parameter and tOut must be opened outside of

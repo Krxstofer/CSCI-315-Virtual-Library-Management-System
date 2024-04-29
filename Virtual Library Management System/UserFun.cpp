@@ -34,7 +34,7 @@ void viewBorrowedBooks(linkedQueueType<Book>& queue, string username)
     }
     //If a user has not borrowed any books, no books would be printed.
 }
-void updateProfile(StandardUser &myUser)
+void updateProfile(/*StandardUser &myUser*/)
 {
     int choice;
     char error[] = "The input stream has invalid data";
@@ -67,11 +67,12 @@ void updateProfile(StandardUser &myUser)
     {
 	cout << "Please enter your new username: ";
 	cin >> newName;
-	myUser.setUsername(newName);
+	//myUser.setUsername(newName);
     }
     else if(choice == 2)
     {
 	cout << "Please enter your new password: ";
+
 	cin >> newPass;
 	do
 	{
@@ -80,6 +81,10 @@ void updateProfile(StandardUser &myUser)
 	}
 	while(newPass != newName);
 	myUser.setPassword(newName);
+
+	cin >> newName;
+//	myUser.setPassword(newName);
+
     }
     //Add user to hash
 
