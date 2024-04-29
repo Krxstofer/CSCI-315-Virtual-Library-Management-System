@@ -11,6 +11,7 @@
 #include "linkedQueue.h"
 #include "binarySearchTree.h"
 //#include "hash.h"
+#include "user.h"
 #include "LoadSave.h"
 #include "GeneralFunctions.h"
 
@@ -48,7 +49,7 @@ void registerUser(/*HashTable& hash,*/ istream& in_stream, bool display)
 {
     int choice;
     string user = "", pass = "", passcheck = "";
-    //StandardUser temp(user, pass);//initialize User temp'
+    User temp(user, pass, "user");//initialize User temp'
 
     if(display)
     {
@@ -135,8 +136,8 @@ void registerUser(/*HashTable& hash,*/ istream& in_stream, bool display)
       }
 
       //Add the information to temp
-      //temp.setUsername(user);
-      //temp.setPassword(pass);
+      temp.setUsername(user);
+      temp.setPassword(pass);
       //role is already set in the constructor
 
       //add temp to the table Note!!(cannot do so until next version of hash)Note!!

@@ -7,6 +7,7 @@
 #include "Book.h"
 #include "UserFun.h"
 #include "linkedQueue.h"
+#include "user.h"
 
 using namespace std;
 
@@ -34,7 +35,7 @@ void viewBorrowedBooks(linkedQueueType<Book>& queue, string username)
     }
     //If a user has not borrowed any books, no books would be printed.
 }
-void updateProfile(/*StandardUser &myUser*/)
+void updateProfile(User &myUser)
 {
     int choice;
     char error[] = "The input stream has invalid data";
@@ -67,7 +68,7 @@ void updateProfile(/*StandardUser &myUser*/)
     {
 	cout << "Please enter your new username: ";
 	cin >> newName;
-	//myUser.setUsername(newName);
+	myUser.setUsername(newName);
     }
     else if(choice == 2)
     {
@@ -83,7 +84,7 @@ void updateProfile(/*StandardUser &myUser*/)
 	myUser.setPassword(newName);
 
 	cin >> newName;
-//	myUser.setPassword(newName);
+	myUser.setPassword(newName);
 
     }
     //Add user to hash

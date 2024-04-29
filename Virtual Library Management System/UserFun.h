@@ -9,6 +9,7 @@
 #include <string>
 #include "Book.h"
 #include "linkedQueue.h"
+#include "user.h"
 
 using namespace std;
 
@@ -17,7 +18,7 @@ void viewBorrowedBooks(linkedQueueType<Book>&, string username);
 //function for users; it displays all books borrowed by that user
 //Postcondition: None
 
-void updateProfile(/*StandardUser&*/ );
+void updateProfile(User&);
 //function for users; it allows users limited control to update their profile settings
 //Postcondition: if the correct input is provided, it changes the username or password
 //	based on the user's choice. If the input is incorrect, the postcondition is none.

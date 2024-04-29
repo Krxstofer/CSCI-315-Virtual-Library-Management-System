@@ -12,13 +12,7 @@
 #include "LoadSave.h"
 #include "GeneralFunctions.h"
 #include "AdminFun.h"
-
-/*User Objects*/
-#include <iostream>
-#include <string>
-#include <unordered_map>
-
-using namespace std;
+#include "user.h"
 
 /*prelogin*/
 void preLoginMenu() {
@@ -35,8 +29,6 @@ void preLoginMenu() {
     switch (choice) {
     case 1:
         // Implemenet Login functionality
-        //userMenu(me); //for testing
-        //adminMenu(); //for testing
         break;
     case 2:
         // Implement registration functionality

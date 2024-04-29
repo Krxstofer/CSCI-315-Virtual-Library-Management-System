@@ -7,6 +7,7 @@
 #include "Book.h"
 #include "AdminFun.h"
 #include "linkedQueue.h"
+#include "user.h"
 //#include "hash.h" needs fixed
 
 using namespace std;
@@ -34,7 +35,7 @@ void addOrRemoveUser(/*HashTable& hash*/)
 {
     int choice;
     string user = "", pass = "", passcheck = "";
-    //Admin temp(user, pass); //initialize Admin temp
+    User temp(user, pass, "admin"); //initialize Admin temp
 
     cout << "Add or Remove an Admin Account" << endl; //modified admin menu
     cout << "------------------------------" << endl;
@@ -95,8 +96,8 @@ void addOrRemoveUser(/*HashTable& hash*/)
       }
 
       //Add the information to temp
-      //temp.setUsername(user);
-      //temp.setPassword(pass);
+      temp.setUsername(user);
+      temp.setPassword(pass);
       //role is already set in the constructor
 
       //add temp to the table Note!!(cannot do so until next version of hash)Note!!
