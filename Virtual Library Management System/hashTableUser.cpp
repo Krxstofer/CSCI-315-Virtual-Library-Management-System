@@ -1,4 +1,4 @@
-#include "user.h"
+#include "hashTableUser.h"
 
 User::User(const std::string& uname, const std::string& pwd) : username(uname), password(pwd) {}
 
