@@ -14,3 +14,11 @@ ID: 000-0-000-00000-0
 Status: Checked Out
 Borrowed by: Test
 
+Title: Tale of Two Cities, A
+Author: Dickens, Charles
+Copyright: 1990
+Publisher: Wordsworth
+ID: DIC
+Status: Available
+Borrowed by: N/A
+

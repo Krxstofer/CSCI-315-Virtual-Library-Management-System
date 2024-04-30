@@ -1,26 +1,18 @@
-Title: Tada!
-Author: , LogoutTest
-Copyright: 0
-Publisher: 
-ID: 000-0-000-00000-0
+Title: Christmas Carol, A
+Author: Dickens, Charles
+Copyright: 1992
+Publisher: Wordsworth
+ID: DIC
 Status: Checked Out
-Borrowed by: Test
+Borrowed by: You
 
-Title: Last, The
-Author: Doe, John
-Copyright: 0
-Publisher: 
-ID: 000-0-000-00000-0
+Title: Tale of Two Cities, A
+Author: Dickens, Charles
+Copyright: 1990
+Publisher: Wordsworth
+ID: DIC
 Status: Checked Out
-Borrowed by: Testing
-
-Title: Tada!
-Author: , FuncTest
-Copyright: 0
-Publisher: 
-ID: 000-0-000-00000-0
-Status: Checked Out
-Borrowed by: Test
+Borrowed by: Me
 
 Title: Tada!
 Author: , FuncTest

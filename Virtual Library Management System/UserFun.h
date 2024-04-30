@@ -9,6 +9,7 @@
 #include <string>
 #include "Book.h"
 #include "linkedQueue.h"
+#include "binarySearchTree.h"
 #include "user.h"
 
 using namespace std;
