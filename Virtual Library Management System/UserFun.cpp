@@ -8,10 +8,70 @@
 #include "UserFun.h"
 #include "linkedQueue.h"
 #include "user.h"
+#include "linkedQueue.h"
+#include "binarySearchTree.h"
 
 using namespace std;
 
 //PLACE the implementation for your user function here
+
+void searchBook(bSearchTreeType<Book>& tree) // Implement search book functions
+{
+
+    string title = "";
+    Book searchTemp;
+
+    cin.ignore();
+    cout << endl << "Please enter the title you would like to search for." << endl;
+    getline(cin, title);
+    cout << endl;
+    searchTemp.setTitle(title);
+
+    if (tree.search(searchTemp) != nullptr)
+    {
+        searchTemp = *tree.search(searchTemp);
+        cout << "The following was found:" << endl;
+        cout << "--------------------------------" << endl;
+        cout << searchTemp;
+        cout << "--------------------------------" << endl;
+    }
+    else
+    {
+        cout << title << " Could not be found in the libary." << endl << endl;
+    }
+}
+
+
+void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user) {    // Implement borrow book functions
+
+
+    string title = "";
+    Book searchTemp;
+
+    cin.ignore();
+    cout << endl << "What book would you like to borrow ?" << endl;
+    getline(cin, title);
+    cout << endl;
+    searchTemp.setTitle(title);
+
+    if (tree.search(searchTemp) != nullptr)
+    {
+        searchTemp = *tree.search(searchTemp);
+        searchTemp.setBorrower(user.getUsername());
+        tree.search(searchTemp)->setBorrower(user.getUsername());
+        queue.addQueue(searchTemp);
+    }
+    else
+    {
+        cout << title << " Could not be found in the libary." << endl << endl;
+    }
+}
+
+void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user) // Implement return book functions
+{
+    tree.search(queue.front())->returnBook();
+    queue.deleteQueue();
+}
 
 void viewBorrowedBooks(linkedQueueType<Book>& queue, string username)
 {

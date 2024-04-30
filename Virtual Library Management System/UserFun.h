@@ -14,6 +14,15 @@
 using namespace std;
 
 
+void searchBook(bSearchTreeType<Book>& tree);
+//funciton to search for a book, and prints the book's information if found
+
+void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user);
+//function for a user to borrow a book
+
+void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user);
+//function to return the oldest book in the borrowed queue
+
 void viewBorrowedBooks(linkedQueueType<Book>&, string username);
 //function for users; it displays all books borrowed by that user
 //Postcondition: None
