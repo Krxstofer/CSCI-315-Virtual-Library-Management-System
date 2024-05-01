@@ -34,4 +34,3 @@ std::string User::getRole() const { return role; }
 // Setters
 void User::setUsername(const std::string& newUsername) { username = newUsername; }
 void User::setPassword(const std::string& newPassword) { password = newPassword; }
-void User::setRole(const std::string& newRole) { role = newRole; }
