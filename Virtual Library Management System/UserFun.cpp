@@ -97,7 +97,7 @@ void viewBorrowedBooks(linkedQueueType<Book>& queue, string username)
 }
 void updateProfile(User &myUser)
 {
-    int choice;
+    int choice, max = 3;
     char error[] = "The input stream has invalid data";
     string newName, newPass;
 
@@ -105,12 +105,13 @@ void updateProfile(User &myUser)
     cout << "------------------------------------------" << endl;
     cout << "1. Username" << endl;
     cout << "2. Password" << endl;
+    cout << "3. Return to User Menu" << endl;
 
     try
     {
 	cout << "Please select an option: ";
 	cin >> choice;
-        if(!cin.good() || (choice < 1 || choice > 2))
+        if(!cin.good() || (choice < 1 || choice > 3))
 	    throw error;
     }
     catch (const char errorStr[])
@@ -130,7 +131,7 @@ void updateProfile(User &myUser)
 	cin >> newName;
 	myUser.setUsername(newName);
     }
-    else if(choice == 2)
+    else if(choice == 2) //Add user to hash
     {
 	cout << "Please enter your new password: ";
 
@@ -140,14 +141,21 @@ void updateProfile(User &myUser)
 	    cout << "Please re-type your password to confirm: ";
 	    cin >> newName;
 	}
-	while(newPass != newName);
-	myUser.setPassword(newName);
-
-	cin >> newName;
-	myUser.setPassword(newName);
-
+	while(newPass != newName && --max);
+	if(max > 0)
+	{
+	    myUser.setPassword(newName);
+	    cout << endl << "***Password was succesfully changed***" << endl;
+	    cout << "Returning to user menu" << endl;
+	}
+	else if(max <= 0)
+	{
+	    cout << endl << "***Maximum number of attempts exceeded***" << endl;
+	    cout << "Password was not changed; returning to user menu" << endl;
+	}
     }
-    //Add user to hash
-
-    cout << "Exiting update profile" << endl;
+    else if(choice == 3)
+    {
+	cout << "***Exiting update profile***" << endl;
+    }
 }

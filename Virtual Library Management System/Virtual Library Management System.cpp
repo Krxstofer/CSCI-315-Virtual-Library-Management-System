@@ -91,8 +91,8 @@ User you("you", "N3ssi3", "admin"); //for testing
     switch (choice) {
     case 1:
         // Implemenet Login functionality
-	//userMenu(me); //for testing
-	adminMenu(you); //for testing
+	userMenu(you); //for testing
+	//adminMenu(you); //for testing
         break;
     case 2:
         // Implement registration functionality
@@ -163,10 +163,12 @@ void userMenu(User& user) {
         break;
     case 6:
         logout(qIn,tIn, borrowedBooks, bookCatalog);
+	break;
     default:
         cout << "Invalid choice. Please try again." << endl;
-        userMenu(user);
     }
+    if(choice != 6)
+	userMenu(user);
 }
 
 
@@ -215,19 +217,24 @@ void adminMenu(User& admin) {
         break;
     case 2:
         removeBook();
+	break;
     case 3:
         updateBookInfo();
+	break;
     case 4:
         viewAllLoans(borrowedBooks);
+	break;
     case 5:
         addOrRemoveUser();
+	break;
     case 6:
         logout(qIn,tIn, borrowedBooks, bookCatalog);
         break;
     default:
         cout << "Invalid choice. Please try again." << endl;
-        adminMenu(admin);
     }
+    if(choice != 6)
+	adminMenu(admin);
 }
 
 void addBook() {
