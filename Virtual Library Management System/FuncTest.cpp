@@ -58,7 +58,7 @@ char c;
 test.setBorrower("Test");
 
 //loading queue
-    qIn.open("Borrowed.txt"); //storage file for borrowed books
+    qIn.open("Borrow.txt"); //storage file for borrowed books
     qIn.get(c); //detect eof in existing, empty file
     if(!qIn)
     {
@@ -68,7 +68,7 @@ test.setBorrower("Test");
     loadQueue(qIn, queue);
 queue.addQueue(test);
     //loading tree
-    tIn.open("Library.txt"); //storage file for all books
+    tIn.open("Lib.txt"); //storage file for all books
     tIn.get(c); //detect eof in exisitng empty file
     if(!tIn)
     {

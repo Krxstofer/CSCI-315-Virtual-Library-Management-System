@@ -18,8 +18,8 @@ Book b3("An Idea Today","John", "Doe", 1780, "Miller and Sons", "1-566-46465-5",
 ifstream i;
 ofstream o;
 
-o.open("Library.txt"); //storage file for books
-i.open("Library.txt");
+o.open("Lib.txt"); //storage file for books
+i.open("Lib.txt");
 
 //setters
 b2.setFirstName("Frances");

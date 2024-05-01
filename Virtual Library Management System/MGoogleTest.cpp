@@ -341,28 +341,28 @@ TEST(LibraryTest, Logout)
   test2.setBorrower("Testing");
 
   //prime queue file
-  qOut.open("Borrowed.txt"); //this file is used in logout
+  qOut.open("qLog.txt"); //this file is used in logout
   qOut << test1 << test2;
   //load queue
-  qIn.open("Borrowed.txt"); //storage file for borrowed books
+  qIn.open("qLog.txt"); //storage file for borrowed books
   loadQueue(qIn, queue);
   qOut.close(); //qIn will be closed in logout
   ASSERT_FALSE(queue.isEmptyQueue());
 
   //prime tree file
-  tOut.open("Library.txt"); //this file is used in logout
+  tOut.open("tLog.txt"); //this file is used in logout
   tOut << test1 << test2;
   //load tree
-  tIn.open("Library.txt"); //storage file for all books
+  tIn.open("tLog.txt"); //storage file for all books
   loadTree(tIn, tree);
   tOut.close(); //tIn will be closed in logout
   ASSERT_FALSE(tree.isEmpty());
 
   //Test that logout saved the data correctly
   //logout will print to cout
-  logout(qIn, tIn, queue, tree, false); //closes the ifstream variables
+  logout(qIn, "qLog.txt", tIn, "tLog.txt", queue, tree, false); //closes the ifstream variables
 
-  qIn.open("Borrowed.txt");
+  qIn.open("qLog.txt");
   qIn.get(c); //check for eof
   ASSERT_FALSE(qIn.eof());
   ASSERT_FALSE(queue.isEmptyQueue());
@@ -378,7 +378,7 @@ TEST(LibraryTest, Logout)
   EXPECT_TRUE(qIn.eof());
   qIn.close();
 
-  tIn.open("Library.txt");
+  tIn.open("tLog.txt");
   tIn.get(c); //check for eof
   ASSERT_FALSE(tIn.eof());
   ASSERT_FALSE(tree.isEmpty());

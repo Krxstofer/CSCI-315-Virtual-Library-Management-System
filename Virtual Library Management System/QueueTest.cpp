@@ -22,7 +22,7 @@ linkedQueueType<Book> temp, copy, borrowedBooks;
 Book b1("A Tale of Two Cities", "Charles", "Dickens", 1990, "Wordsworth", "DIC", false, "N/A");
 Book b2("A Christmas Carol", "Charles", "Dickens", 1992, "Wordsworth", "DIC", true, "You");
 
-in.open("Borrowed.txt");
+in.open("Borrow.txt");
 
 in.get(c); //detect eof in exisitng empty file
 if(!in)
@@ -33,7 +33,7 @@ if(!in)
 
 loadQueue(in, borrowedBooks);
 temp = copy = borrowedBooks; //assignment test
-cout << "Books in Borrowed.txt: " << endl;
+cout << "Books in Borrow.txt: " << endl;
 while(!borrowedBooks.isEmptyQueue()) //view queue
 {
   cout << borrowedBooks.front() << endl; //print front item
@@ -88,7 +88,7 @@ cout << "No crashes" << endl << endl;
 
 borrowedBooks.addQueue(b1);//testing saveQueue borrowed = false excluder
 borrowedBooks.addQueue(b2);//testing addQueue where borrowed = true
-out.open("Borrowed.txt"); //storage file for books
+out.open("Borrow.txt"); //storage file for books
 saveQueue(out, borrowedBooks); //writes out only borrowed books, but does not remove erroneous
 			       //entries from the queue itself the programmer should ensure
                                //that only borrowed books are used as parameters for addQueue()

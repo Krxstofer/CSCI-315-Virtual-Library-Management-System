@@ -1,12 +1,4 @@
-Title: Christmas Carol, A
-Author: Dickens, Charles
-Copyright: 1992
-Publisher: Wordsworth
-ID: DIC
-Status: Checked Out
-Borrowed by: You
-
-Title: Idea Today, An
+Title: Today
 Author: Doe, John
 Copyright: 1780
 Publisher: Miller and Sons
@@ -22,15 +14,7 @@ ID: HOD
 Status: Checked Out
 Borrowed by: Me
 
-Title: Tale of Two Cities, A
-Author: Dickens, Charles
-Copyright: 1990
-Publisher: Wordsworth
-ID: DIC
-Status: Available
-Borrowed by: N/A
-
-Title: Today
+Title: Idea Today, An
 Author: Doe, John
 Copyright: 1780
 Publisher: Miller and Sons

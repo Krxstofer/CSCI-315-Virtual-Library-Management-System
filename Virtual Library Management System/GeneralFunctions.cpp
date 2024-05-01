@@ -17,7 +17,7 @@
 
 using namespace std;
 
-void logout(ifstream& qIn, ifstream& tIn, linkedQueueType<Book>& queue, bSearchTreeType<Book>& tree, bool display)
+void logout(ifstream& qIn, string qBook, ifstream& tIn, string tBook, linkedQueueType<Book>& queue, bSearchTreeType<Book>& tree, bool display)
 {
   ofstream qOut; //tOut is global
 
@@ -27,13 +27,13 @@ void logout(ifstream& qIn, ifstream& tIn, linkedQueueType<Book>& queue, bSearchT
   }
 
   //Saving out queue
-  qOut.open("Borrowed.txt"); //storage file for borrowed books
+  qOut.open(qBook); //storage file for borrowed books
   saveQueue(qOut, queue);
   qIn.close();
   qOut.close();
 
   //Saving out binary search tree
-  tOut.open("Library.txt"); //storage file for all books
+  tOut.open(tBook); //storage file for all books
   tree.inorderTraversal(saveTree);
   tIn.close();
   tOut.close();

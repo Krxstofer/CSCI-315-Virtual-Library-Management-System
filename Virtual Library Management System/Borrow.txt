@@ -6,11 +6,11 @@ ID: DIC
 Status: Checked Out
 Borrowed by: You
 
-Title: Secret Garden, The
-Author: Hodgson Burnett, Frances
-Copyright: 0
-Publisher: Penguin
-ID: HOD
+Title: Tale of Two Cities, A
+Author: Dickens, Charles
+Copyright: 1990
+Publisher: Wordsworth
+ID: DIC
 Status: Checked Out
 Borrowed by: Me
 

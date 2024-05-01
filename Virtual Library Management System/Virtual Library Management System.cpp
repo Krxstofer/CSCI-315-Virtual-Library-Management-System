@@ -162,7 +162,7 @@ void userMenu(User& user) {
         updateProfile(user);
         break;
     case 6:
-        logout(qIn,tIn, borrowedBooks, bookCatalog);
+        logout(qIn, "Borrowed.txt", tIn, "Library.txt", borrowedBooks, bookCatalog);
 	break;
     default:
         cout << "Invalid choice. Please try again." << endl;
@@ -228,7 +228,7 @@ void adminMenu(User& admin) {
         addOrRemoveUser();
 	break;
     case 6:
-        logout(qIn,tIn, borrowedBooks, bookCatalog);
+        logout(qIn, "Borrowed.txt", tIn, "Library.txt", borrowedBooks, bookCatalog);
         break;
     default:
         cout << "Invalid choice. Please try again." << endl;

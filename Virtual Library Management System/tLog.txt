@@ -1,0 +1,16 @@
+Title: Last, The
+Author: Doe, John
+Copyright: 0
+Publisher: 
+ID: 000-0-000-00000-0
+Status: Checked Out
+Borrowed by: Testing
+
+Title: Tada!
+Author: , LogoutTest
+Copyright: 0
+Publisher: 
+ID: 000-0-000-00000-0
+Status: Checked Out
+Borrowed by: Test
+

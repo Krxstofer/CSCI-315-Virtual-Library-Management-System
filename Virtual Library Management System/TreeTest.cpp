@@ -28,7 +28,7 @@ Book b1("A Tale of Two Cities", "Charles", "Dickens", 1990, "Wordsworth", "DIC",
 Book b2("A Christmas Carol", "Charles", "Dickens", 1992, "Wordsworth", "DIC", true, "You");
 Book dummy;
 
-in.open("Library.txt");
+in.open("Lib.txt");
 
 in.get(c); //detect eof in exisitng empty file
 if(!in)
@@ -90,10 +90,10 @@ else
 cout << endl;
 
 //Testing saveTree
-tOut.open("Library.txt"); //global pointer for storage file for books
+tOut.open("Lib.txt"); //global pointer for storage file for books
 cout << "Saving:" << endl;
 library.inorderTraversal(saveTree);//the function saveTree is a parameter
-in.open("Library.txt");
+in.open("Lib.txt");
 
 //reopen Library.txt to see how it has been changed
 in.get(c);
@@ -103,7 +103,7 @@ if(!in)
   exit(1);
 }
 
-cout << "Library.txt after saving: " << endl;
+cout << "Lib.txt after saving: " << endl;
 in.get(c);
 while(in) //checks
 {
