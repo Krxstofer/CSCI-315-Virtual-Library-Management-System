@@ -185,63 +185,40 @@ void exitApplication() {
     exit(0);  // Exits the program
 }
 
-int main() {
-    while (true) {
-        cout << "Main Menu\n";
-        cout << "1. Login\n";
-        cout << "2. Exit\n";
-        cout << "Choose an option or 2 to exit: ";
-        int mainChoice;
-        cin >> mainChoice;
-
-        switch (mainChoice) {
-            case 1:
-                userMenu();  // Goes into the user menu
-                break;
-            case 2:
-                exitApplication();  // Call the exit function
-                break;
-            default:
-                cout << "Invalid option, try again.\n";
-        }
-    }
-    return 0;  // Not typically reached
-}
-
 // Function to handle user login
-User* login(HashTable& table, const std::string& username, const std::string& password) {
-    std::string storedPassword = table.searchTable(username);
-    if (!storedPassword.empty() && storedPassword == password) {
-        int hashValue = table.hashFunction(username);
-        auto& users = table.getUsersTable()[hashValue];
-        for (auto& user : users) {
-            if (user.getUsername() == username) return new User(user);  // Assuming copy constructor exists
-        }
-        auto& admins = table.getAdminsTable()[hashValue];
-        for (auto& admin : admins) {
-            if (admin.getUsername() == username) return new Admin(admin);  // Assuming copy constructor exists
-        }
-    }
-    return nullptr;
-}
+//User* login(HashTable& table, const std::string& username, const std::string& password) {
+   //std::string storedPassword = table.searchTable(username);
+    //if (!storedPassword.empty() && storedPassword == password) {
+        //int hashValue = table.hashFunction(username);
+        //auto& users = table.getUsersTable()[hashValue];
+       // for (auto& user : users) {
+           //if (user.getUsername() == username) return new User(user);  // Assuming copy constructor exists
+       // }
+       // auto& admins = table.getAdminsTable()[hashValue];
+       // for (auto& admin : admins) {
+         //   if (admin.getUsername() == username) return new Admin(admin);  // Assuming copy constructor exists
+        //}
+   // }
+    //return nullptr;
+//}
 
-int main() {
-    HashTable table;
+//int main() {
+    //HashTable table;
     // Presumably, users and admins would be inserted into the table earlier in the program
 
-    std::string username, password;
-    std::cout << "Enter username: ";
-    std::cin >> username;
-    std::cout << "Enter password: ";
-    std::cin >> password;
+    //std::string username, password;
+    //std::cout << "Enter username: ";
+    //std::cin >> username;
+    //std::cout << "Enter password: ";
+    //std::cin >> password;
 
-    User* user = login(table, username, password);
-    if (user) {
-        user->displayMenu();
-        delete user;  // Clean up the created user object
-    } else {
-        std::cout << "Invalid username or password!" << std::endl;
-    }
+    //User* user = login(table, username, password);
+    //if (user) {
+       // user->displayMenu();
+       // delete user;  // Clean up the created user object
+   // } else {
+        //std::cout << "Invalid username or password!" << std::endl;
+   // }
 
-    return 0;
-}
+    //return 0;
+//}
