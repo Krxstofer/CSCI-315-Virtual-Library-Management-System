@@ -57,9 +57,20 @@ void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User 
     if (tree.search(searchTemp) != nullptr)
     {
         searchTemp = *tree.search(searchTemp);
-        searchTemp.setBorrower(user.getUsername());
-        tree.search(searchTemp)->setBorrower(user.getUsername());
-        queue.addQueue(searchTemp);
+        if (!searchTemp.getBorrowed())
+        {
+            searchTemp.setBorrower(user.getUsername());
+            tree.search(searchTemp)->setBorrower(user.getUsername());
+            queue.addQueue(searchTemp);
+            cout << "You have borrowed:" << endl;
+            cout << "--------------------------------" << endl;
+            cout << searchTemp;
+            cout << "--------------------------------" << endl;
+        }
+        else
+        {
+            cout << title << " is already borrowed by another user." << endl << endl;
+        }
     }
     else
     {
@@ -67,10 +78,21 @@ void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User 
     }
 }
 
-void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user) // Implement return book functions
+void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue) // Implement return book functions
 {
-    tree.search(queue.front())->returnBook();
-    queue.deleteQueue();
+    if (!queue.isEmptyQueue())
+    {
+        tree.search(queue.front().getTitle())->returnBook();
+        cout << "Returned:" << endl;
+        cout << "--------------------------------" << endl;
+        cout << *tree.search(queue.front().getTitle());
+        cout << "--------------------------------" << endl;
+        queue.deleteQueue();
+    }
+    else
+    {
+        cout << "There are no books to return." << endl << endl;
+    }
 }
 
 void viewBorrowedBooks(linkedQueueType<Book>& queue, string username)
