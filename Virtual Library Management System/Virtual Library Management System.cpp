@@ -153,7 +153,7 @@ void userMenu(User& user) {
         borrowBook(bookCatalog, borrowedBooks, user);
         break;
     case 3:
-        returnBook(bookCatalog, borrowedBooks, user);
+        returnBook(bookCatalog, borrowedBooks);
         break;
     case 4:
         viewBorrowedBooks(borrowedBooks, user.getUsername());

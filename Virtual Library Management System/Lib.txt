@@ -1,4 +1,4 @@
-Title: Today
+Title: Idea Today, An
 Author: Doe, John
 Copyright: 1780
 Publisher: Miller and Sons
@@ -14,7 +14,15 @@ ID: HOD
 Status: Checked Out
 Borrowed by: Me
 
-Title: Idea Today, An
+Title: Tale of Two Cities, A
+Author: Dickens, Charles
+Copyright: 1990
+Publisher: Wordsworth
+ID: DIC
+Status: Available
+Borrowed by: N/A
+
+Title: Today
 Author: Doe, John
 Copyright: 1780
 Publisher: Miller and Sons
