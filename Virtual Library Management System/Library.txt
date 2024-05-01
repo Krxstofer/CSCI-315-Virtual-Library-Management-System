@@ -4,7 +4,7 @@ Copyright: 1992
 Publisher: Wordsworth
 ID: DIC
 Status: Checked Out
-Borrowed by: You
+Borrowed by: you
 
 Title: Idea Today, An
 Author: Doe, John
@@ -20,7 +20,7 @@ Copyright: 0
 Publisher: Penguin
 ID: HOD
 Status: Checked Out
-Borrowed by: Me
+Borrowed by: you
 
 Title: Tale of Two Cities, A
 Author: Dickens, Charles

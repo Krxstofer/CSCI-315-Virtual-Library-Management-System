@@ -35,10 +35,10 @@ using namespace std;
 void preLoginMenu();
 
 //User functions
-void userMenu(User& user); //made user not constant because updateProfile needs to change user
+void userMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn, bSearchTreeType<Book> bookCatalog, User& user); //made user not constant because updateProfile needs to change user
 
 //Admin functions
-void adminMenu(User& admin); //added admin object as a parameter
+void adminMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn, bSearchTreeType<Book> bookCatalog, User& admin); //added admin object as a parameter
 void addBook();
 void removeBook();
 void updateBookInfo();
@@ -77,36 +77,9 @@ int main() {
 }
 
 void preLoginMenu() {
-//User me; //for testing
 User you("you", "N3ssi3", "admin"); //for testing
-    int choice;
-    cout << "Welcome to the Virtual Library Management System" << endl;
-    cout << "------------------------------------------------" << endl;
-    cout << "1. Login" << endl;
-    cout << "2. Register" << endl;
-    cout << "3. Exit" << endl;
-    cout << "Please select an option: ";
-    cin >> choice;
 
-    switch (choice) {
-    case 1:
-        // Implemenet Login functionality
-	userMenu(you); //for testing
-	//adminMenu(you); //for testing
-        break;
-    case 2:
-        // Implement registration functionality
-        break;
-    case 3:
-        cout << "Exiting program..." << endl;
-        exit(0);
-    default:
-        cout << "Invalid choice. Please try again." << endl;
-        preLoginMenu();
-    }
-}
-
-void userMenu(User& user) {
+    //setup
     ifstream qIn, tIn;
     linkedQueueType<Book> borrowedBooks;
     bSearchTreeType<Book> bookCatalog;
@@ -131,7 +104,37 @@ void userMenu(User& user) {
       exit(1);
     }
     loadTree(tIn, bookCatalog);
+    //setup
 
+    int choice;
+    cout << "Welcome to the Virtual Library Management System" << endl;
+    cout << "------------------------------------------------" << endl;
+    cout << "1. Login" << endl;
+    cout << "2. Register" << endl;
+    cout << "3. Exit" << endl;
+    cout << "Please select an option: ";
+    cin >> choice;
+
+    switch (choice) {
+    case 1:
+        // Implemenet Login functionality
+	userMenu(qIn, borrowedBooks, tIn, bookCatalog, you); //for testing
+	//adminMenu(qIn, borrowedBooks, tIn, bookCatalog, you); //for testing
+        break;
+    case 2:
+        // Implement registration functionality
+        break;
+    case 3:
+        cout << "Exiting program..." << endl;
+        exit(0);
+    default:
+        cout << "Invalid choice. Please try again." << endl;
+        preLoginMenu();
+    }
+}
+
+void userMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn, bSearchTreeType<Book> bookCatalog, User& user) {
+    
     cout << "Welcome " << user.getUsername() << " Thanks for using our Virtual Library!" << endl;
     cout << "--------------------------------" << endl;
     cout << "1. Search for Books" << endl;
@@ -168,36 +171,12 @@ void userMenu(User& user) {
         cout << "Invalid choice. Please try again." << endl;
     }
     if(choice != 6)
-	userMenu(user);
+	userMenu(qIn, borrowedBooks, tIn, bookCatalog, user);
 }
 
 
-void adminMenu(User& admin) {
-    ifstream qIn, tIn;
-    linkedQueueType<Book> borrowedBooks;
-    bSearchTreeType<Book> bookCatalog;
-    char c;
-
-    //Loading queue
-    qIn.open("Borrowed.txt"); //storage file for borrowed books
-    qIn.get(c); //detect eof in existing, empty file
-    if(!qIn)
-    {
-      cout << "Borrowed books file not found! Shutting down." << endl;
-      exit(1);
-    }
-    loadQueue(qIn, borrowedBooks);
-
-    //Loading tree
-    tIn.open("Library.txt"); //storage file for all books
-    tIn.get(c); //detect eof in exisitng empty file
-    if(!tIn)
-    {
-      cout << "Library file not found, or the file is empty! Shutting down." << endl;
-      exit(1);
-    }
-    loadTree(tIn, bookCatalog);
-
+void adminMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn, bSearchTreeType<Book> bookCatalog, User& admin) {
+    
     cout << "Admin Dashboard" << endl;
     cout << "---------------" << endl;
     cout << "1. Add a Book" << endl;
@@ -234,7 +213,7 @@ void adminMenu(User& admin) {
         cout << "Invalid choice. Please try again." << endl;
     }
     if(choice != 6)
-	adminMenu(admin);
+	adminMenu(qIn, borrowedBooks, tIn, bookCatalog, admin);
 }
 
 void addBook() {
