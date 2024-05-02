@@ -144,13 +144,20 @@ void userMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn,
 
     int choice;
     cin >> choice;
+    string title;
 
     switch (choice) {
     case 1:
-        searchBook(bookCatalog);
+        cin.ignore();
+        cout << endl << "Please enter the title you would like to search for." << endl;
+        getline(cin, title);
+        searchBook(bookCatalog, title);
         break;
     case 2:
-        borrowBook(bookCatalog, borrowedBooks, user);
+        cin.ignore();
+        cout << endl << "Please enter the title you would like to borrow." << endl;
+        getline(cin, title);
+        borrowBook(bookCatalog, borrowedBooks, user, title);
         break;
     case 3:
         returnBook(bookCatalog, borrowedBooks, user);

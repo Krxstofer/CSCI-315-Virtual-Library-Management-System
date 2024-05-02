@@ -15,10 +15,10 @@
 using namespace std;
 
 
-void searchBook(bSearchTreeType<Book>& tree);
+bool searchBook(bSearchTreeType<Book>& tree, string title);
 //funciton to search for a book, and prints the book's information if found
 
-void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user);
+void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user, string title);
 //function for a user to borrow a book
 
 void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user);

@@ -15,41 +15,42 @@ using namespace std;
 
 //PLACE the implementation for your user function here
 
-void searchBook(bSearchTreeType<Book>& tree) // Implement search book functions
+bool searchBook(bSearchTreeType<Book>& tree, string title) // Implement search book functions
 {
-
-    string title = "";
+    //string title;
     Book searchTemp;
-
-    cin.ignore();
-    cout << endl << "Please enter the title you would like to search for." << endl;
-    getline(cin, title);
     cout << endl;
     searchTemp.setTitle(title);
 
     if (tree.search(searchTemp) != nullptr)
     {
+        //cin.ignore();
+        //cout << endl << "Please enter the title you would like to search for." << endl;
+        //getline(cin, title);
+
         searchTemp = *tree.search(searchTemp);
         cout << "The following was found:" << endl;
         cout << "--------------------------------" << endl;
         cout << searchTemp;
         cout << "--------------------------------" << endl;
+        return true;
     }
     else
     {
         cout << title << " Could not be found in the libary." << endl << endl;
+        return false;
     }
 }
 
-
-void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user)    // Implement borrow book functions
+// Implement borrow book functions
+void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user, string title)
 {
-    string title = "";
+    //string title = "";
     Book searchTemp;
 
-    cin.ignore();
-    cout << endl << "What book would you like to borrow?" << endl;
-    getline(cin, title);
+    //cin.ignore();
+    //cout << endl << "What book would you like to borrow ?" << endl;
+    //getline(cin, title);
     cout << endl;
     searchTemp.setTitle(title);
 
