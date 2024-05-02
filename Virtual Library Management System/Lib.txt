@@ -14,6 +14,14 @@ ID: HOD
 Status: Checked Out
 Borrowed by: Me
 
+Title: Tada!
+Author: , FuncTest
+Copyright: 0
+Publisher: 
+ID: 000-0-000-00000-0
+Status: Checked Out
+Borrowed by: Test
+
 Title: Tale of Two Cities, A
 Author: Dickens, Charles
 Copyright: 1990

@@ -10,13 +10,14 @@
 #include "Book.h"
 #include "linkedQueue.h"
 #include "binarySearchTree.h"
-//#include "hash.h" broken
 #include "Login.h"
 #include "ExitFunction.h"
+#include "hash.h"
 
 using namespace std;
 
 void logout(ifstream& qIn, string qBook, ifstream& tIn, string tBook, linkedQueueType<Book>& queue, bSearchTreeType<Book>& tree, bool display = true);
-void registerUser(/*HashTable& hash,*/ istream& in_stream = cin, bool display = true);
+bool registerUser(HashTable& hash, istream& in_stream = cin, bool display = true);
+
 
 #endif

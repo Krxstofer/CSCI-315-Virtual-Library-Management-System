@@ -10,7 +10,7 @@
 #include "Book.h"
 #include "linkedQueue.h"
 #include "UserFun.h"
-//#include "hash.h" broken
+#include "hash.h"
 
 using namespace std;
 
@@ -28,7 +28,7 @@ void viewAllLoans(linkedQueueType<Book>& );
 //Postcondition: none
 
 //PLACE your admin prototype(s) here
-void addOrRemoveUser(/*HashTable& hash*/);
+void addOrRemoveUser(HashTable& hash, istream& in_stream = cin, bool display = true);
 
 
 #endif

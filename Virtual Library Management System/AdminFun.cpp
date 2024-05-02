@@ -9,7 +9,7 @@
 #include "linkedQueue.h"
 #include "user.h"
 #include <cctype>
-//#include "hash.h" needs fixed
+#include "hash.h"
 
 using namespace std;
 
@@ -228,67 +228,98 @@ void viewAllLoans(linkedQueueType<Book>& queue)
     //If no user has borrowed any books, no books would be printed.
 }
 
-void addOrRemoveUser(/*HashTable& hash*/)
+void addOrRemoveUser(HashTable& hash, istream& in_stream, bool display)
 {
     int choice;
     string user = "", pass = "", passcheck = "";
     User temp(user, pass, "admin"); //initialize Admin temp
 
-    cout << "Add or Remove an Admin Account" << endl; //modified admin menu
-    cout << "------------------------------" << endl;
-    cout << "1. Add an Admin" << endl;
-    cout << "2. Remove an Admin" << endl;
-    cout << "3. Leave this Menu" << endl;
-    cout << "Please select an option: ";
-
-    cin >> choice;
-    while(!cin || choice > 3 || choice < 1) //validate input
+    if(display)
     {
-      cout << endl;
-      cout << "Invalid option! Please enter the number corresponding" << endl
-           << "to your selection: " << endl;
-      cin.clear();
-      cin.ignore(200, '\n');
-
+      cout << "Add or Remove an Admin Account" << endl; //modified admin menu
+      cout << "------------------------------" << endl;
       cout << "1. Add an Admin" << endl;
       cout << "2. Remove an Admin" << endl;
       cout << "3. Leave this Menu" << endl;
       cout << "Please select an option: ";
+    }
+    in_stream >> choice;
 
-      cin >> choice;
+    while(!in_stream || choice > 3 || choice < 1) //validate input
+    {
+      if(display)
+      {
+        cout << endl;
+        cout << "Invalid option! Please enter the number corresponding" << endl
+             << "to your selection: " << endl;
+      }
+      in_stream.clear();
+      in_stream.ignore(200, '\n');
+
+      if(display)
+      {
+        cout << "1. Add an Admin" << endl;
+        cout << "2. Remove an Admin" << endl;
+        cout << "3. Leave this Menu" << endl;
+        cout << "Please select an option: ";
+      }
+
+      in_stream >> choice;
 
     }
-    cout << endl << endl;
+
+    if(display)
+    {
+      cout << endl << endl;
+    }
 
     //Add admin
     if(choice == 1)
     {
-      cout << "Please enter the new Admin's username: ";
-      cin >> user;
-       //!!search hash!!
-      /*while(user is found)
+      if(display)
       {
-        cout << "Sorry, that username has already been taken." << endl
-             << "Please enter a different username: ";
-        cin >> user;
+        cout << "Please enter the new Admin's username: ";
+      }
 
-      }*/
-      cout << endl << endl;
-      cout << "Please enter the new Admin's password: ";
-      cin >> pass;
+      in_stream >> user;
+      while("" != hash.getUserRole(user))//if user already exists
+      {
+        if(display)
+        {
+          cout << "Sorry, that username has already been taken." << endl
+               << "Please enter a different username: ";
+        }
+        in_stream >> user;
+      }
 
-      cout << "Confirm the new Admin's password: ";
-      cin >> passcheck;
+      if(display)
+      {
+        cout << endl << endl;
+        cout << "Please enter the new Admin's password: ";
+      }
+      in_stream >> pass;
+
+      if(display)
+      {
+        cout << "Confirm the new Admin's password: ";
+      }
+      in_stream >> passcheck;
 
       while(pass != passcheck) //password confirmation
       {
-        cout << endl;
-        cout << "The passwords do not match! Note: passwords are case-sensitive." << endl;
-        cout << "Please re-enter the new Admin's password: ";
-        cin >> pass;
+        if(display)
+        {
+          cout << endl;
+          cout << "The passwords do not match! Note: passwords are case-sensitive." << endl;
+          cout << "Please re-enter the new Admin's password: ";
+        }
+        in_stream >> pass;
 
-        cout << "Re-confirm the new Admin's password: ";
-        cin >> passcheck;
+        if(display)
+        {
+          cout << "Re-confirm the new Admin's password: ";
+        }
+        in_stream >> passcheck;
 
       }
 
@@ -297,24 +328,52 @@ void addOrRemoveUser(/*HashTable& hash*/)
       temp.setPassword(pass);
       //role is already set in the constructor
 
-      //add temp to the table Note!!(cannot do so until next version of hash)Note!!
-      //hash.insertUser(temp);
+      hash.insertUser(temp);
 
-      cout << "The new Admin has been added to the system!" << endl << endl;
-
-    }//remove Admin
-    else if (choice == 2)
-    {
-      cout << "Please enter the username of the Admin to be removed: ";
-      cin >> user;
-      //need more hash table for this
-      //search does this username exist and is it an admin's username?
-      //get password confirmation before deletion? nah
-      //if so
-      //hash.removeUser(user);
-      //else print not an admin or not found as neccesary
+      if(display)
+      {
+        cout << "The new Admin has been added to the system!" << endl << endl;
+      }
 
     }
+    else if (choice == 2) //remove Admin
+    {
+      if(display)
+      {
+        cout << "Please enter the username and password of the Admin to be removed: ";
+      }
+      in_stream >> user >> pass;
+
+      if("admin" == hash.getUserRole(user)) //before removing ensure this is an admin's account
+      {
+	if(hash.checkPassword(user, pass) == true)//password check before removing for security
+	{
+	  hash.removeUser(user);
+	  if(display)
+          {
+            cout << "The admin " << user << " has been removed." << endl;
+	  }
+	}
+	else //password check failed
+	{
+	  if(display)
+          {
+            cout << pass << " is not " << user << "'s password."<< endl
+		 << "Removal failed." << endl
+		 << "Now leaving the Add or Remove an Admin Menu." << endl << endl;
+	  }
+	}
+      }//end of check if admin
+      else //not an admin account or account doesn't exist
+      {
+	if(display)
+        {
+	  cout << "There is no Admin with that username." << endl
+	       << "Now leaving the Add or Remove an Admin Menu." << endl << endl;
+	}
+      }
+
+    }//end choice 2
 
     //if choice is neither 1 or 2  (it is 3) the function simply returns
 

@@ -17,6 +17,7 @@
 #include "AdminFun.h"
 #include "GeneralFunctions.h"
 #include "user.h"
+#include "hash.h"
 
 //tOut is a global in LoadSave since the binary tree's inorderTraversal() with a function
 //parameter only takes one parameter and out must be opened outside of 
@@ -24,21 +25,16 @@
 
 using namespace std;
 
-// Define global variables
-//unordered_map<int, Book> bookCatalog; //bookCatalog is now a binary Search Tree
-
-//unordered_map<string, User> userDatabase;
-//vector<string> borrowedBooks; //borrowedBooks is now a queue
-// Add more as needed
-
 // Function prototypes
 void preLoginMenu();
 
 //User functions
-void userMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn, bSearchTreeType<Book> bookCatalog, User& user); //made user not constant because updateProfile needs to change user
+void userMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn, 
+	bSearchTreeType<Book> bookCatalog, User& user, HashTable userDatabase); //made user not constant because updateProfile needs to change user
 
 //Admin functions
-void adminMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn, bSearchTreeType<Book> bookCatalog, User& admin); //added admin object as a parameter
+void adminMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn, 
+	bSearchTreeType<Book> bookCatalog, User& admin, HashTable userDatabase); //added admin object as a parameter
 
 void addOrRemoveUser();
 // Add more function prototypes for other functionalities
@@ -78,6 +74,7 @@ User you("you", "N3ssi3", "admin"); //for testing
 
     //setup
     ifstream qIn, tIn;
+    HashTable userDatabase;
     linkedQueueType<Book> borrowedBooks;
     bSearchTreeType<Book> bookCatalog;
     char c;
@@ -115,12 +112,18 @@ User you("you", "N3ssi3", "admin"); //for testing
     switch (choice) {
     case 1:
         // Implemenet Login functionality
-	userMenu(qIn, borrowedBooks, tIn, bookCatalog, you); //for testing
-	//adminMenu(qIn, borrowedBooks, tIn, bookCatalog, you); //for testing
+	userMenu(qIn, borrowedBooks, tIn, bookCatalog, you, userDatabase); //for testing
+	//adminMenu(qIn, borrowedBooks, tIn, bookCatalog, you, userDatabase); //for testing
         break;
     case 2:
-        // Implement registration functionality
-        break;
+        if(registerUser(userDatabase))//if registration succeeds procede to the user menu
+				      //(only users register here, admins register in
+				      //addRemoveAdmin for security)
+        {
+	  userMenu(qIn, borrowedBooks, tIn, bookCatalog, you, userDatabase);
+	}
+	//if registration did not succeed fall through
+        //removed break
     case 3:
         cout << "Exiting program..." << endl;
         exit(0);
@@ -130,7 +133,8 @@ User you("you", "N3ssi3", "admin"); //for testing
     }
 }
 
-void userMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn, bSearchTreeType<Book> bookCatalog, User& user) {
+void userMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn, 
+	bSearchTreeType<Book> bookCatalog, User& user, HashTable userDatabase) {
     
     cout << "Welcome " << user.getUsername() << " Thanks for using our Virtual Library!" << endl;
     cout << "--------------------------------" << endl;
@@ -162,17 +166,20 @@ void userMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn,
         updateProfile(user);
         break;
     case 6:
+	cout << "Logging out..." << endl; //Kristofer
         logout(qIn, "Borrowed.txt", tIn, "Library.txt", borrowedBooks, bookCatalog);
+	preLoginMenu();
 	break;
     default:
         cout << "Invalid choice. Please try again." << endl;
     }
     if(choice != 6)
-	userMenu(qIn, borrowedBooks, tIn, bookCatalog, user);
+	userMenu(qIn, borrowedBooks, tIn, bookCatalog, user, userDatabase);
 }
 
 
-void adminMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn, bSearchTreeType<Book> bookCatalog, User& admin) {
+void adminMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn, 
+	bSearchTreeType<Book> bookCatalog, User& admin, HashTable userDatabase) {
     
     cout << "Admin Dashboard" << endl;
     cout << "---------------" << endl;
@@ -194,23 +201,23 @@ void adminMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn
     case 2:
         removeBook(bookCatalog);
         break;
-	break;
     case 3:
         updateBookInfo(bookCatalog);
         break;
-	break;
     case 4:
         viewAllLoans(borrowedBooks);
 	break;
     case 5:
-        addOrRemoveUser();
+        addOrRemoveUser(userDatabase);
 	break;
     case 6:
+	cout << "Logging out..." << endl;
         logout(qIn, "Borrowed.txt", tIn, "Library.txt", borrowedBooks, bookCatalog);
+	preLoginMenu();
         break;
     default:
         cout << "Invalid choice. Please try again." << endl;
     }
     if(choice != 6)
-	adminMenu(qIn, borrowedBooks, tIn, bookCatalog, admin);
+	adminMenu(qIn, borrowedBooks, tIn, bookCatalog, admin, userDatabase);
 }

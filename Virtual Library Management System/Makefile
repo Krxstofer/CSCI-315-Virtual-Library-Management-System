@@ -7,8 +7,9 @@ main:
 	g++ -c -g AdminFun.cpp
 	g++ -g -c GeneralFunctions.cpp
 	g++ -g -c User.cpp
+	g++ -g -c hash.cpp
 	g++ -g -c Virtual\ Library\ Management\ System.cpp
-	g++ -g Book.o LoadSave.o GeneralFunctions.o UserFun.o AdminFun.o User.o Virtual\ Library\ Management\ System.o -o Main
+	g++ -g Book.o LoadSave.o GeneralFunctions.o UserFun.o AdminFun.o User.o hash.o Virtual\ Library\ Management\ System.o -o Main
 	Main
 
 
@@ -58,12 +59,8 @@ func:
 	g++ -g -c FuncTest.cpp
 	g++ -g -c AdminFun.cpp
 	g++ -g -c User.cpp
-	#temporary
-#	g++ -g -c 'hash (1).cpp'
-#	g++ -g -c '(ht) admin.cpp'
-#	g++ -g -c '(ht) user.cpp'
-	g++ -g Book.o LoadSave.o GeneralFunctions.o AdminFun.o User.o FuncTest.o -o Func
-#	g++ -g TreeTest.cpp -o Tree
+	g++ -g -c hash.cpp
+	g++ -g Book.o LoadSave.o GeneralFunctions.o AdminFun.o User.o hash.o FuncTest.o -o Func
 	Func
 
 test:

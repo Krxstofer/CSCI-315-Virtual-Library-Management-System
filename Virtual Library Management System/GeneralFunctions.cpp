@@ -10,7 +10,7 @@
 #include "Book.h"
 #include "linkedQueue.h"
 #include "binarySearchTree.h"
-//#include "hash.h"
+#include "hash.h"
 #include "user.h"
 #include "LoadSave.h"
 #include "GeneralFunctions.h"
@@ -21,14 +21,9 @@ void logout(ifstream& qIn, string qBook, ifstream& tIn, string tBook, linkedQueu
 {
   ofstream qOut; //tOut is global
 
-  if(display)
-  {
-    cout << "Logging out..." << endl; //Kristofer
-  }
-
   //Saving out queue
   qOut.open(qBook); //storage file for borrowed books
-  saveQueue(qOut, queue);
+  saveQueue(qOut, queue, display);
   qIn.close();
   qOut.close();
 
@@ -38,18 +33,15 @@ void logout(ifstream& qIn, string qBook, ifstream& tIn, string tBook, linkedQueu
   tIn.close();
   tOut.close();
 
-  if(display)
-  {
   //maybe wipe current user info here, see login()
-  // need .h file preLoginMenu(); //Kristofer
-  }
+
 }
 
-void registerUser(/*HashTable& hash,*/ istream& in_stream, bool display)
+bool registerUser(HashTable& hash, istream& in_stream, bool display)
 {
     int choice;
     string user = "", pass = "", passcheck = "";
-    User temp(user, pass, "user");//initialize User temp'
+    User temp(user, pass, "user");//initialize User temp
 
     if(display)
     {
@@ -93,16 +85,16 @@ void registerUser(/*HashTable& hash,*/ istream& in_stream, bool display)
         cout << "Please enter a username: ";
       }
       in_stream >> user;
-      //!!search hash!!
-      /*while(user is found)
+
+      while("" != hash.getUserRole(user))//if user already exists
       {
-        if(display)
+	if(display)
         {
           cout << "Sorry, that username has already been taken." << endl
 	       << "Please enter a different username: ";
         }
         in_stream >> user;
-      }*/
+      }
 
       if(display)
       {
@@ -140,19 +132,19 @@ void registerUser(/*HashTable& hash,*/ istream& in_stream, bool display)
       temp.setPassword(pass);
       //role is already set in the constructor
 
-      //add temp to the table Note!!(cannot do so until next version of hash)Note!!
-      //hash.insertUser(temp);
+      hash.insertUser(temp);
 
       if(display)
       {
-        cout << "Welcome to the Virtual Library!" << endl << endl;
+        cout << "Thank you for joining the Virtual Library!" << endl << endl;
       }
-      //!!user will return to pre login menu to login or could call login here!!
+      return true; //registration successful
 
    }
    //if choice is 2 control will simply return
+   return false; //did not register
 
-}
+}//end of registerUser
 
 //void userMenu() {
     //int choice = 0;
