@@ -1,8 +1,10 @@
 #include <iostream>
-#include "hash.h"
+#include "hash.h"   // Assuming hash.h has been included properly and configured
+#include "user.h"   // Assuming this contains the User class definition
 
+// Assuming HashTable has a method login that performs user authentication and returns the role or an empty string if failed
 bool login(HashTable& ht, const std::string& username, const std::string& password) {
-    std::string role = ht.login(username, password);  // Combined authentication and role retrieval
+    std::string role = ht.login(username, password);  // Use the combined login method
     if (!role.empty()) {
         std::cout << "Login successful! Welcome, " << username << ". You are logged in as a(n) " << role << "." << std::endl;
         return true;
@@ -25,8 +27,12 @@ int main() {
     std::cout << "Enter password: ";
     std::cin >> password;
 
-    login(ht, username, password);  // Performing login
+    if (login(ht, username, password)) {
+        // Additional logic for logged-in users
+        std::cout << "Access to user-specific features...\n";
+    } else {
+        std::cout << "Access denied.\n";
+    }
 
     return 0;
 }
-
