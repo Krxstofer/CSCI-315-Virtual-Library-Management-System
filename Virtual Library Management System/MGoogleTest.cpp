@@ -83,7 +83,7 @@ TEST(LibraryTest, Book)
 
 }
 
-//could maybe use fixture class for redundant data
+
 TEST(LibraryTest, QueueIO)
 {
   ifstream in;
@@ -128,7 +128,7 @@ TEST(LibraryTest, QueueIO)
   in.close();
 
   EXPECT_EQ(b2, borrowedBooks.front());
-  borrowedBooks.deleteQueue(); //remove front item from the queue*/
+  borrowedBooks.deleteQueue(); //remove front item from the queue
   EXPECT_TRUE(borrowedBooks.isEmptyQueue());
   b1.setBorrower("Me"); //restore b1
 
@@ -167,7 +167,8 @@ TEST(LibraryTest, QueueIO)
   out.open("QueueTest.txt");//reset
 
   ASSERT_FALSE(borrowedBooks.isEmptyQueue());
-  saveQueue(out, borrowedBooks, false); //false prevents saveQueue from sending an error message to cout
+  saveQueue(out, borrowedBooks, false); //false prevents saveQueue 
+				//from sending an error message to cout
 
   in.open("QueueTest.txt");
   in >> tempBook; //check for b1 not being in file
@@ -341,25 +342,24 @@ TEST(LibraryTest, Logout)
   test2.setBorrower("Testing");
 
   //prime queue file
-  qOut.open("qLog.txt"); //this file is used in logout
+  qOut.open("qLog.txt");
   qOut << test1 << test2;
   //load queue
-  qIn.open("qLog.txt"); //storage file for borrowed books
+  qIn.open("qLog.txt");
   loadQueue(qIn, queue);
   qOut.close(); //qIn will be closed in logout
   ASSERT_FALSE(queue.isEmptyQueue());
 
   //prime tree file
-  tOut.open("tLog.txt"); //this file is used in logout
+  tOut.open("tLog.txt");
   tOut << test1 << test2;
   //load tree
-  tIn.open("tLog.txt"); //storage file for all books
+  tIn.open("tLog.txt");
   loadTree(tIn, tree);
   tOut.close(); //tIn will be closed in logout
   ASSERT_FALSE(tree.isEmpty());
 
   //Test that logout saved the data correctly
-  //logout will print to cout
   logout(qIn, "qLog.txt", tIn, "tLog.txt", queue, tree, false); //closes the ifstream variables
 
   qIn.open("qLog.txt");

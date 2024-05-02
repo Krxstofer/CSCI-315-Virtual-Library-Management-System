@@ -122,12 +122,10 @@ private:
   string lastName; //author lastname
   int copyright;
   string publisher;
-  string id; //e.g. ISBN or first three letters of lastname? changed to string
+  string id; //e.g. ISBN or first three letters of lastname
   bool borrowed;
   string borrower; //username of the borrower. could make it a user object, but the
                    //password member is not needed here
-  //int quantity; remove? might make borrowing harder to implement
-    // Add more attributes as needed
 };
 
 #endif

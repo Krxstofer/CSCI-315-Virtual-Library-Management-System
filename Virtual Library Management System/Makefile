@@ -43,6 +43,14 @@ tree:
 #	g++ -g TreeTest.cpp -o Tree
 	Tree
 
+hash:
+	g++ -g -c User.cpp
+	g++ -g -c hash.cpp
+	g++ -g -c hashMain.cpp
+	g++ User.o hash.o hashMain.o -o Hash
+#	g++ -g TreeTest.cpp -o Tree
+	Hash
+
 func:
 	g++ -g -c Book.cpp
 	g++ -g -c LoadSave.cpp

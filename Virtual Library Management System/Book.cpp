@@ -159,11 +159,11 @@ void Book :: setLastName(string last)
 }
 void Book :: setCopyright(int cDate)
 {
-  if(cDate < 0) //can change to historically accurate date?
+  if(cDate < 0)
   {
     copyright = 0;
   }
-  else //should I check for future dates?
+  else
   {
     copyright = cDate;
   }
@@ -183,7 +183,7 @@ void Book :: setBorrower(string username)
 }
 
 //overload relational operators
-//since these titles are in book objects they must have already ben processed
+//since these titles are in book objects they must have already been processed
 //by setTitle into the form tile, A/The/An if neccessary
 bool Book :: operator==(const Book& other) const
 {

@@ -8,6 +8,7 @@
 //Chapter 19/binarySearchTreeAndVisitFunc/binaryTree.h
 //search header changed by Megan Palermo
 //nodeType renamed nodeTypeT by Megan Palermo to prevent confusion with queue's nodes
+//nodeCount and leafCount implmented by Megan Palermo
 
 //Header File Binary Search Tree
 #ifndef H_binaryTree
@@ -366,19 +367,35 @@ int binaryTreeType<elemType>::max(int x, int y) const
 template <class elemType>
 int binaryTreeType<elemType>::nodeCount(nodeTypeT<elemType> *p) const
 {
-    cout << "Write the definition of the function nodeCount."
-         << endl;
-
+  /*changes*/
+  if(p == 0) //based off of D. S. Malik's height() function above (see p. 1367)
+  {
     return 0;
+  }
+  else
+  {
+    return 1 + nodeCount(p->lLink) + nodeCount(p->rLink);
+  }
+  /*changes*/
 }
 
 template <class elemType>
 int binaryTreeType<elemType>::leavesCount(nodeTypeT<elemType> *p) const
 {
-    cout << "Write the definition of the function leavesCount."
-         << endl;
-
+  /*changes*/
+  if(p == 0) //based off of D. S. Malik's height() function above (see p. 1367)
+  {
     return 0;
+  }
+  else if(p->lLink == 0 && p->rLink == 0)
+  {
+    return 1;
+  }
+  else //traverse left and right trees
+  {
+     return leavesCount(p->lLink) + leavesCount(p->rLink);
+  }
+  /*changes*/
 }
 
 template <class elemType>
