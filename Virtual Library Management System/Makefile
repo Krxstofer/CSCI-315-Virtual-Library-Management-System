@@ -67,7 +67,9 @@ test:
 	g++ -g -c Book.cpp
 	g++ -g -c LoadSave.cpp
 	g++ -g -c GeneralFunctions.cpp
+	g++ -g -c AdminFun.cpp
 	g++ -g -c User.cpp
+	g++ -g -c hash.cpp
 	g++ -c MGoogleTest.cpp
-	g++ Book.o LoadSave.o GeneralFunctions.o User.o MGoogleTest.o -o Test -lgtest_main -lgtest -lpthread
+	g++ Book.o LoadSave.o GeneralFunctions.o User.o AdminFun.o hash.o MGoogleTest.o -o Test -lgtest_main -lgtest -lpthread
 	Test

@@ -236,10 +236,10 @@ void addOrRemoveUser(HashTable& hash, istream& in_stream, bool display)
 
     if(display)
     {
-      cout << "Add or Remove an Admin Account" << endl; //modified admin menu
+      cout << "Add an Admin or Remove an Admin or User" << endl; //modified admin menu
       cout << "------------------------------" << endl;
       cout << "1. Add an Admin" << endl;
-      cout << "2. Remove an Admin" << endl;
+      cout << "2. Remove an Admin or User" << endl;
       cout << "3. Leave this Menu" << endl;
       cout << "Please select an option: ";
     }
@@ -259,7 +259,7 @@ void addOrRemoveUser(HashTable& hash, istream& in_stream, bool display)
       if(display)
       {
         cout << "1. Add an Admin" << endl;
-        cout << "2. Remove an Admin" << endl;
+        cout << "2. Remove an Admin or User" << endl;
         cout << "3. Leave this Menu" << endl;
         cout << "Please select an option: ";
       }
@@ -336,45 +336,122 @@ void addOrRemoveUser(HashTable& hash, istream& in_stream, bool display)
       }
 
     }
-    else if (choice == 2) //remove Admin
+    else if (choice == 2) //remove
     {
       if(display)
       {
-        cout << "Please enter the username and password of the Admin to be removed: ";
+        cout << "1. Remove an Admin" << endl;
+        cout << "2. Remove a User" << endl;
+        cout << "3. Leave this Menu" << endl;
+        cout << "Please select an option: ";
       }
-      in_stream >> user >> pass;
+      in_stream >> choice;
 
-      if("admin" == hash.getUserRole(user)) //before removing ensure this is an admin's account
+      while(!in_stream || choice > 3 || choice < 1) //validate input
       {
-	if(hash.checkPassword(user, pass) == true)//password check before removing for security
-	{
-	  hash.removeUser(user);
-	  if(display)
-          {
-            cout << "The admin " << user << " has been removed." << endl;
-	  }
-	}
-	else //password check failed
-	{
-	  if(display)
-          {
-            cout << pass << " is not " << user << "'s password."<< endl
-		 << "Removal failed." << endl
-		 << "Now leaving the Add or Remove an Admin Menu." << endl << endl;
-	  }
-	}
-      }//end of check if admin
-      else //not an admin account or account doesn't exist
-      {
-	if(display)
+        if(display)
         {
-	  cout << "There is no Admin with that username." << endl
-	       << "Now leaving the Add or Remove an Admin Menu." << endl << endl;
-	}
+          cout << endl;
+          cout << "Invalid option! Please enter the number corresponding" << endl
+               << "to your selection: " << endl;
+        }
+        in_stream.clear();
+        in_stream.ignore(200, '\n');
+
+        if(display)
+        {
+          cout << "1. Remove an Admin" << endl;
+          cout << "2. Remove a User" << endl;
+          cout << "3. Leave this Menu" << endl;
+          cout << "Please select an option: ";
+        }
+
+        in_stream >> choice;
+
       }
+
+      if(display)
+      {
+        cout << endl << endl;
+      }
+
+      if(choice == 1)//remove admin
+      {
+        if(display)
+        {
+          cout << "Please enter the username and password of the Admin to be removed: ";
+        }
+        in_stream >> user >> pass;
+
+        if("admin" == hash.getUserRole(user)) //before removing ensure this is an admin's account
+        {
+	  if(hash.checkPassword(user, pass) == true)//password check before removing for security
+	  {
+	    hash.removeUser(user);
+	    if(display)
+            {
+              cout << "The admin " << user << " has been removed." << endl;
+	    }
+	  }
+	  else //password check failed
+	  {
+	    if(display)
+            {
+              cout << pass << " is not " << user << "'s password."<< endl
+		   << "Removal failed." << endl
+		   << "Now leaving the Add or Remove Menu." << endl << endl;
+	    }
+	  }
+        }//end of check if admin
+        else //not an admin account or account doesn't exist
+        {
+  	  if(display)
+          {
+	    cout << "There is no Admin with that username." << endl
+	         << "Now leaving the Add or Remove Menu." << endl << endl;
+	  }
+        }
+      }//end remove admin
+      if(choice == 2)//remove user
+      {
+        if(display)
+        {
+          cout << "Please enter the username and password of the User to be removed: ";
+        }
+        in_stream >> user >> pass;
+
+        if("user" == hash.getUserRole(user)) //before removing ensure this is an user's account
+        {
+	  if(hash.checkPassword(user, pass) == true)//password check before removing for security
+	  {
+	    hash.removeUser(user);
+	    if(display)
+            {
+              cout << "The user " << user << " has been removed." << endl;
+	    }
+	  }
+	  else //password check failed
+	  {
+	    if(display)
+            {
+              cout << pass << " is not " << user << "'s password."<< endl
+		   << "Removal failed." << endl
+		   << "Now leaving the Add or Remove Menu." << endl << endl;
+	    }
+	  }
+        }//end of check if user
+        else //not a user account or account doesn't exist
+        {
+  	  if(display)
+          {
+	    cout << "There is no normal user with that username." << endl
+	         << "Now leaving the Add or Remove an Menu." << endl << endl;
+	  }
+        }
+      }//end remove user
 
     }//end choice 2
 
-    //if choice is neither 1 or 2  (it is 3) the function simply returns
+    //if choice is neither 1 or 2 (it is 3) the function simply returns
 
 }
