@@ -1,6 +1,7 @@
-#include <iostream>  // Include for I/O stream operations
+#include <iostream>
+#include "ExitFunction.h"  // Include the exit function header
 
-using namespace std;  // Make all names under std accessible without std::
+using namespace std;
 
 void userMenu() {
     int choice = 0;
@@ -26,11 +27,6 @@ void userMenu() {
                 cout << "Invalid option, try again.\n";
         }
     }
-}
-
-void exitApplication() {
-    cout << "Exiting application...\n";
-    exit(0);  // Exits the program
 }
 
 int main() {
