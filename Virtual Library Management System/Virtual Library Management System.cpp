@@ -39,9 +39,6 @@ void userMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn,
 
 //Admin functions
 void adminMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn, bSearchTreeType<Book> bookCatalog, User& admin); //added admin object as a parameter
-void addBook();
-void removeBook();
-void updateBookInfo();
 
 void addOrRemoveUser();
 // Add more function prototypes for other functionalities
@@ -192,13 +189,15 @@ void adminMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn
 
     switch (choice) {
     case 1:
-        addBook();
+        addBook(bookCatalog);
         break;
     case 2:
-        removeBook();
+        removeBook(bookCatalog);
+        break;
 	break;
     case 3:
-        updateBookInfo();
+        updateBookInfo(bookCatalog);
+        break;
 	break;
     case 4:
         viewAllLoans(borrowedBooks);
@@ -216,14 +215,4 @@ void adminMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn
 	adminMenu(qIn, borrowedBooks, tIn, bookCatalog, admin);
 }
 
-void addBook() {
-    // Implement add book functions
-}
 
-void removeBook() {
-    // Implement remove book function
-}
-
-void updateBookInfo() {
-    // Implement update book info function
-}

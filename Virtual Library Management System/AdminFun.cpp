@@ -8,11 +8,199 @@
 #include "AdminFun.h"
 #include "linkedQueue.h"
 #include "user.h"
+#include <cctype>
 //#include "hash.h" needs fixed
 
 using namespace std;
 
 //PLACE the implementation for your admin function here
+
+// Implement add book functions
+void addBook(bSearchTreeType<Book>& tree)
+{
+    string title, fn, ln, pub, ID;
+    int copyR = 0;
+    cin.ignore();
+    cout << endl << "Please fill out the following information for the new book:" << endl;
+
+    cout << "Book's title: ";
+    getline(cin, title);
+    cout << endl;
+
+    cout << "Author's first and last name: ";
+    cin >> fn >> ln;
+    cout << endl;
+
+    cout << "Copyright year:  ";
+    cin >> copyR;
+    cout << endl;
+
+    cin.ignore();
+    cout << "Publisher: ";
+    getline(cin, pub);
+    cout << endl;
+
+    ID = ln.substr(0, 2) + fn[0];
+    ID[0] = toupper(ID[0]);
+    ID[1] = toupper(ID[1]);
+    ID[2] = toupper(ID[2]);
+
+    Book Added(title, fn, ln, copyR, pub, ID, false, "N/A");
+    tree.insert(Added);
+    cout << title << " has been added to the library:" << endl;
+    cout << "--------------------------------" << endl;
+    cout << Added;
+    cout << "--------------------------------" << endl;
+}
+
+// Implement remove book function
+void removeBook(bSearchTreeType<Book>& tree)
+{
+    string title = "";
+    Book searchTemp;
+    char choice;
+
+    cin.ignore();
+    cout << endl << "What book would you like to remove?" << endl;
+    getline(cin, title);
+    cout << endl;
+    searchTemp.setTitle(title);
+
+    if (tree.search(searchTemp) != nullptr)
+    {
+        searchTemp = *tree.search(searchTemp);
+        cout << "Book found:" << endl;
+        cout << "--------------------------------" << endl;
+        cout << searchTemp;
+        cout << "--------------------------------" << endl;
+        cout << "Are you sure you would like to remove this book from the library? This can not be undone. (Enter 'y' to accept)" << endl;
+        cin >> choice;
+        choice = tolower(choice);
+        switch (choice)
+        {
+        case 'y':
+            tree.deleteNode(searchTemp);
+            cout << title << " has been removed." << endl;
+            break;
+        defult:
+            cout << "Removal canceled." << endl;
+            return;
+        }
+    }
+    else
+    {
+        cout << title << " Could not be found in the libary." << endl << endl;
+    }
+    cout << endl;
+    return;
+}
+
+// Implement update book info function
+void updateBookInfo(bSearchTreeType<Book>& tree)
+{
+    string search = "";
+    Book searchTemp;
+    int choice = 0;
+    string title, fn, ln, pub, ID;
+    int copyR;
+
+    cin.ignore();
+    cout << endl << "What book would you like to edit? ";
+    getline(cin, search);
+    cout << endl;
+    searchTemp.setTitle(search);
+
+    if (tree.search(searchTemp) != nullptr)
+    {
+        choice = 0;
+        searchTemp = *tree.search(searchTemp);
+        cout << "Book found:" << endl;
+        cout << "--------------------------------" << endl;
+        cout << searchTemp;
+        cout << "--------------------------------" << endl;
+        while (choice != 6)
+        {
+            cout << "What information would you like to edit?" << endl;
+            cout << "1. Title" << endl;
+            cout << "2. Author" << endl;
+            cout << "3. Copyright" << endl;
+            cout << "4. Publisher" << endl;
+            cout << "5. ID" << endl;
+            cout << "6. Exit" << endl;
+            cin >> choice;
+            switch (choice)
+            {
+            case 1:
+            {
+                cin.ignore();
+                cout << "Enter new title: ";
+                getline(cin, title);
+                cout << endl;
+                searchTemp.setTitle(title);
+                cout << "Title changed." << endl;
+                break;
+            }
+            case 2:
+            {
+                cout << "Enter new author's first and last name: ";
+                cin >> fn >> ln;
+                cout << endl;
+                searchTemp.setFirstName(fn);
+                searchTemp.setLastName(ln);
+                cout << "Author changed." << endl << endl;
+                break;
+            }
+            case 3:
+            {
+                cout << "Enter new copyright year:  ";
+                cin >> copyR;
+                cout << endl;
+                searchTemp.setCopyright(copyR);
+                cout << "Copyright changed." << endl << endl;
+                break;
+            }
+            case 4:
+            {
+                cin.ignore();
+                cout << "Enter new publisher: ";
+                getline(cin, pub);
+                cout << endl;
+                searchTemp.setPublisher(pub);
+                cout << "Publisher changed." << endl << endl;
+                break;
+            }
+            case 5:
+            {
+                cout << "Enter new ID: ";
+                cin >> ID;
+                cout << endl;
+                searchTemp.setId(ID);
+                cout << "ID changed." << endl << endl;
+                break;
+            }
+            case 6:
+            {
+                cout << "New book information:" << endl;
+                cout << "--------------------------------" << endl;
+                cout << searchTemp;
+                cout << "--------------------------------" << endl;
+                return;
+            }
+            default:
+            {
+                cout << "Your choice must be from 1 and 6." << endl;
+            }
+            }
+        }
+    }
+    else
+    {
+        cout << search << " Could not be found in the libary." << endl << endl;
+    }
+    cout << endl;
+    return;
+}
+
 
 void viewAllLoans(linkedQueueType<Book>& queue)
 {

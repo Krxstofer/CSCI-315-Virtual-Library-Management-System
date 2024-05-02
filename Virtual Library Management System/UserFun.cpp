@@ -42,14 +42,13 @@ void searchBook(bSearchTreeType<Book>& tree) // Implement search book functions
 }
 
 
-void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user) {    // Implement borrow book functions
-
-
+void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user)    // Implement borrow book functions
+{
     string title = "";
     Book searchTemp;
 
     cin.ignore();
-    cout << endl << "What book would you like to borrow ?" << endl;
+    cout << endl << "What book would you like to borrow?" << endl;
     getline(cin, title);
     cout << endl;
     searchTemp.setTitle(title);
