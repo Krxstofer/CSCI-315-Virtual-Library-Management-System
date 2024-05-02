@@ -11,6 +11,8 @@
 #include "linkedQueue.h"
 #include "binarySearchTree.h"
 //#include "hash.h" broken
+#include "Login.h"
+#include "ExitFunction.h"
 
 using namespace std;
 
