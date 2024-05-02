@@ -172,10 +172,6 @@ bool registerUser(HashTable& hash, istream& in_stream, bool display)
     //}
 //}
 
-void exitApplication() {
-    cout << "Exiting application...\n";
-    exit(0);  // Exits the program
-}
 
 // Function to handle user login
 //User* login(HashTable& table, const std::string& username, const std::string& password) {
@@ -194,23 +190,45 @@ void exitApplication() {
     //return nullptr;
 //}
 
-//int main() {
-    //HashTable table;
-    // Presumably, users and admins would be inserted into the table earlier in the program
 
-    //std::string username, password;
-    //std::cout << "Enter username: ";
-    //std::cin >> username;
-    //std::cout << "Enter password: ";
-    //std::cin >> password;
+//Login function
+bool login(HashTable& ht, const std::string& username, const std::string& password) {
+    std::string role = ht.login(username, password);  // Use the combined login method
+    if (!role.empty()) {
+        std::cout << "Login successful! Welcome, " << username << ". You are logged in as a(n) " << role << "." << std::endl;
+        return true;
+    } else {
+        std::cout << "Login failed: Invalid username or password." << std::endl;
+        return false;
+    }
+}
 
-    //User* user = login(table, username, password);
-    //if (user) {
-       // user->displayMenu();
-       // delete user;  // Clean up the created user object
-   // } else {
-        //std::cout << "Invalid username or password!" << std::endl;
-   // }
+//Exit Function
+using namespace std;
 
-    //return 0;
-//}
+void userMenu() {
+    int choice = 0;
+    while (true) {
+        cout << "\nUser Menu\n";
+        cout << "1. View Profile\n";
+        cout << "2. Edit Profile\n";
+        cout << "3. Logout\n";
+        cout << "Choose an option or 3 to exit: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Viewing profile...\n";
+                break;
+            case 2:
+                cout << "Editing profile...\n";
+                break;
+            case 3:
+                cout << "Logging out...\n";
+                return;  // Returns to the calling function, effectively exiting the menu
+            default:
+                cout << "Invalid option, try again.\n";
+        }
+    }
+}
+
