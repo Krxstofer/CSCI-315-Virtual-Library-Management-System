@@ -21,7 +21,7 @@ void searchBook(bSearchTreeType<Book>& tree);
 void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user);
 //function for a user to borrow a book
 
-void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue);
+void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user);
 //function to return the oldest book in the borrowed queue
 
 void viewBorrowedBooks(linkedQueueType<Book>&, string username);

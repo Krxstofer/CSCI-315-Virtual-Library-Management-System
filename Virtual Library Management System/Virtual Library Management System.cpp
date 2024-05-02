@@ -156,7 +156,7 @@ void userMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn,
         borrowBook(bookCatalog, borrowedBooks, user);
         break;
     case 3:
-        returnBook(bookCatalog, borrowedBooks);
+        returnBook(bookCatalog, borrowedBooks, user);
         break;
     case 4:
         viewBorrowedBooks(borrowedBooks, user.getUsername());

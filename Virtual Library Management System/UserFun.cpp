@@ -78,16 +78,24 @@ void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User 
     }
 }
 
-void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue) // Implement return book functions
+void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user) // Implement return book functions
 {
+
     if (!queue.isEmptyQueue())
     {
-        tree.search(queue.front().getTitle())->returnBook();
-        cout << "Returned:" << endl;
-        cout << "--------------------------------" << endl;
-        cout << *tree.search(queue.front().getTitle());
-        cout << "--------------------------------" << endl;
-        queue.deleteQueue();
+        if (user.getUsername() == queue.front().getBorrower())
+        {
+            tree.search(queue.front().getTitle())->returnBook();
+            cout << "Returned:" << endl;
+            cout << "--------------------------------" << endl;
+            cout << *tree.search(queue.front().getTitle());
+            cout << "--------------------------------" << endl;
+            queue.deleteQueue();
+        }
+        else
+        {
+            cout << "Only the borrower of the first book in the queue may return it. Return Canceled" << endl << endl;
+        }
     }
     else
     {
