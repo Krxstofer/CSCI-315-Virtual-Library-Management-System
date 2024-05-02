@@ -20,7 +20,7 @@
 #include "hash.h"
 
 //tOut is a global in LoadSave since the binary tree's inorderTraversal() with a function
-//parameter only takes one parameter and out must be opened outside of 
+//parameter only takes one parameter and out must be opened outside of
 //saveTree (where it is used) since it is recurisive and thus called multiple times
 
 using namespace std;
@@ -44,27 +44,6 @@ int main() {
     // You can replace this with actual data loading from files or databases
 
     preLoginMenu();
-    //updateProfile(); //Andrew - commented out for testing purposes; feel free to test this function.
-
-    //Testing latest commit (requires queue)
-    ifstream in;
-    ofstream out;
-    char c;
-    linkedQueueType<Book> borrowedQueue;
-
-    //open file
-    in.open("Borrowed.txt");
-
-    in.get(c); //detect eof in exisitng empty file
-    if(!in)
-    {
-        cout << "File was not found, or the file is empty! Shutting down." << endl;
-        exit(1);
-    }
-    loadQueue(in, borrowedQueue);
-
-    //viewBorrowedBooks(borrowedQueue, "Me"); //new function that displays books borrowed by user
-    //viewAllLoans(borrowedQueue); //Andrew - new function that dispalys all borrowed books
 
     return 0;
 }
