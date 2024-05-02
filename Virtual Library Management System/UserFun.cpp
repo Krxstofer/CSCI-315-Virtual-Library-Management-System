@@ -10,48 +10,55 @@
 #include "user.h"
 #include "linkedQueue.h"
 #include "binarySearchTree.h"
+#incldue "nullBuffer.h"
 
 using namespace std;
 
-//PLACE the implementation for your user function here
 
-bool searchBook(bSearchTreeType<Book>& tree, string title) // Implement search book functions
+bool searchBook(bSearchTreeType<Book>& tree, istream& inStream, bool print) // Implement search book functions
 {
-    //string title;
+    NullBuffer nullBuffer;
+    ostream nullStream(&nullBuffer);
+    ostream& outStream = print ? cout : nullStream;
+
+    string title;
     Book searchTemp;
-    cout << endl;
+    inStream.ignore();
+    outStream << endl << "Please enter the title you would like to search for." << endl;
+    getline(inStream, title);
+    outStream << endl;
     searchTemp.setTitle(title);
 
     if (tree.search(searchTemp) != nullptr)
     {
-        //cin.ignore();
-        //cout << endl << "Please enter the title you would like to search for." << endl;
-        //getline(cin, title);
-
         searchTemp = *tree.search(searchTemp);
-        cout << "The following was found:" << endl;
-        cout << "--------------------------------" << endl;
-        cout << searchTemp;
-        cout << "--------------------------------" << endl;
+        outStream << "The following was found:" << endl;
+        outStream << "--------------------------------" << endl;
+        outStream << searchTemp;
+        outStream << "--------------------------------" << endl;
         return true;
     }
     else
     {
-        cout << title << " Could not be found in the libary." << endl << endl;
+        outStream << title << " Could not be found in the libary." << endl << endl;
         return false;
     }
 }
 
 // Implement borrow book functions
-void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user, string title)
+void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user, istream& inStream, bool print)
 {
-    //string title = "";
+    NullBuffer nullBuffer;
+    ostream nullStream(&nullBuffer);
+    ostream& outStream = print ? cout : nullStream;
+
+    string title;
     Book searchTemp;
 
-    //cin.ignore();
-    //cout << endl << "What book would you like to borrow ?" << endl;
-    //getline(cin, title);
-    cout << endl;
+    inStream.ignore();
+    outStream << endl << "What book would you like to borrow ?" << endl;
+    getline(inStream, title);
+    outStream << endl;
     searchTemp.setTitle(title);
 
     if (tree.search(searchTemp) != nullptr)
@@ -62,44 +69,47 @@ void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User 
             searchTemp.setBorrower(user.getUsername());
             tree.search(searchTemp)->setBorrower(user.getUsername());
             queue.addQueue(searchTemp);
-            cout << "You have borrowed:" << endl;
-            cout << "--------------------------------" << endl;
-            cout << searchTemp;
-            cout << "--------------------------------" << endl;
+            outStream << "You have borrowed:" << endl;
+            outStream << "--------------------------------" << endl;
+            outStream << searchTemp;
+            outStream << "--------------------------------" << endl;
         }
         else
         {
-            cout << title << " is already borrowed by another user." << endl << endl;
+            outStream << title << " is already borrowed by another user." << endl << endl;
         }
     }
     else
     {
-        cout << title << " Could not be found in the libary." << endl << endl;
+        outStream << title << " Could not be found in the libary." << endl << endl;
     }
 }
 
-void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user) // Implement return book functions
+void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user, bool print) // Implement return book functions
 {
+    NullBuffer nullBuffer;
+    ostream nullStream(&nullBuffer);
+    ostream& outStream = print ? cout : nullStream;
 
     if (!queue.isEmptyQueue())
     {
         if (user.getUsername() == queue.front().getBorrower())
         {
             tree.search(queue.front().getTitle())->returnBook();
-            cout << "Returned:" << endl;
-            cout << "--------------------------------" << endl;
-            cout << *tree.search(queue.front().getTitle());
-            cout << "--------------------------------" << endl;
+            outStream << "Returned:" << endl;
+            outStream << "--------------------------------" << endl;
+            outStream << *tree.search(queue.front().getTitle());
+            outStream << "--------------------------------" << endl;
             queue.deleteQueue();
         }
         else
         {
-            cout << "Only the borrower of the first book in the queue may return it. Return Canceled" << endl << endl;
+            outStream << endl << "Only the borrower of the first book in the queue may return it. Return Canceled" << endl << endl;
         }
     }
     else
     {
-        cout << "There are no books to return." << endl << endl;
+        outStream << "There are no books to return." << endl << endl;
     }
 }
 

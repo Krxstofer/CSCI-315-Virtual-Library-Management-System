@@ -27,8 +27,12 @@ void addBook(bSearchTreeType<Book>& tree)
     getline(cin, title);
     cout << endl;
 
-    cout << "Author's first and last name: ";
-    cin >> fn >> ln;
+    cout << "Author's first name: ";
+    getline(cin, fn);
+    cout << endl;
+
+    cout << "Author's last name: ";
+    getline(cin, ln);
     cout << endl;
 
     cout << "Copyright year:  ";
@@ -40,10 +44,9 @@ void addBook(bSearchTreeType<Book>& tree)
     getline(cin, pub);
     cout << endl;
 
-    ID = ln.substr(0, 2) + fn[0];
-    ID[0] = toupper(ID[0]);
-    ID[1] = toupper(ID[1]);
-    ID[2] = toupper(ID[2]);
+    cout << "ID: ";
+    getline(cin, ID);
+    cout << endl;
 
     Book Added(title, fn, ln, copyR, pub, ID, false, "N/A");
     tree.insert(Added);
@@ -136,17 +139,23 @@ void updateBookInfo(bSearchTreeType<Book>& tree)
                 cout << "Enter new title: ";
                 getline(cin, title);
                 cout << endl;
-                searchTemp.setTitle(title);
+                tree.search(searchTemp)->setTitle(title);
                 cout << "Title changed." << endl;
                 break;
             }
             case 2:
             {
-                cout << "Enter new author's first and last name: ";
-                cin >> fn >> ln;
+                cin.ignore();
+                cout << "Enter new author's first name: ";
+                getline(cin, fn);
                 cout << endl;
-                searchTemp.setFirstName(fn);
-                searchTemp.setLastName(ln);
+
+                cout << "Enter new author's last name: ";
+                getline(cin, ln);
+                cout << endl;
+
+                tree.search(searchTemp)->setFirstName(fn);
+                tree.search(searchTemp)->setLastName(ln);
                 cout << "Author changed." << endl << endl;
                 break;
             }
@@ -155,7 +164,7 @@ void updateBookInfo(bSearchTreeType<Book>& tree)
                 cout << "Enter new copyright year:  ";
                 cin >> copyR;
                 cout << endl;
-                searchTemp.setCopyright(copyR);
+                tree.search(searchTemp)->setCopyright(copyR);
                 cout << "Copyright changed." << endl << endl;
                 break;
             }
@@ -165,7 +174,7 @@ void updateBookInfo(bSearchTreeType<Book>& tree)
                 cout << "Enter new publisher: ";
                 getline(cin, pub);
                 cout << endl;
-                searchTemp.setPublisher(pub);
+                tree.search(searchTemp)->setPublisher(pub);
                 cout << "Publisher changed." << endl << endl;
                 break;
             }
@@ -174,7 +183,7 @@ void updateBookInfo(bSearchTreeType<Book>& tree)
                 cout << "Enter new ID: ";
                 cin >> ID;
                 cout << endl;
-                searchTemp.setId(ID);
+                tree.search(searchTemp)->setId(ID);
                 cout << "ID changed." << endl << endl;
                 break;
             }
@@ -182,7 +191,7 @@ void updateBookInfo(bSearchTreeType<Book>& tree)
             {
                 cout << "New book information:" << endl;
                 cout << "--------------------------------" << endl;
-                cout << searchTemp;
+                cout << *tree.search(searchTemp);
                 cout << "--------------------------------" << endl;
                 return;
             }

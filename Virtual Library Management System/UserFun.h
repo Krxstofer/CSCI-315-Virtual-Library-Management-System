@@ -15,13 +15,13 @@
 using namespace std;
 
 
-bool searchBook(bSearchTreeType<Book>& tree, string title);
+bool searchBook(bSearchTreeType<Book>& tree, istream& inStream = cin, bool print = true);
 //funciton to search for a book, and prints the book's information if found
 
-void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user, string title);
+void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user, istream& inStream = cin, bool print = true);
 //function for a user to borrow a book
 
-void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user);
+void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user, bool print = true);
 //function to return the oldest book in the borrowed queue
 
 void viewBorrowedBooks(linkedQueueType<Book>&, string username);
