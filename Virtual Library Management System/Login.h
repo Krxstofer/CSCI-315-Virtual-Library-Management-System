@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include "hash.h"  // Include the hash table that contains the user credentials and login method
+#include "hash.h"  // Includes the HashTable class definition
 
-bool login(HashTable& ht, const std::string& username, const std::string& password);
-
+// Adjust the function to return a string (role)
+std::string login(HashTable& ht, const std::string& username, const std::string& password);
