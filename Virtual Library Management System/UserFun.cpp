@@ -24,7 +24,7 @@ bool searchBook(bSearchTreeType<Book>& tree, istream& inStream, bool print) // I
 
     string title;
     Book searchTemp;
-    inStream.ignore();
+    cin.ignore();
     outStream << endl << "Please enter the title you would like to search for." << endl;
     getline(inStream, title);
     outStream << endl;
@@ -56,7 +56,7 @@ bool borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User 
     string title;
     Book searchTemp;
 
-    inStream.ignore();
+    cin.ignore();
     outStream << endl << "What book would you like to borrow ?" << endl;
     getline(inStream, title);
     outStream << endl;
