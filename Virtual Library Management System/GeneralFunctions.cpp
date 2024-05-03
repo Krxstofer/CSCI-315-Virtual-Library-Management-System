@@ -199,5 +199,26 @@ void userMenu() {
                 cout << "Invalid option, try again.\n";
         }
     }
+std::string username, password;
+    std::cout << "Enter username: ";
+    std::cin >> username;
+    std::cout << "Enter password: ";
+    std::cin >> password;
+
+    std::string role = login(ht, username, password);
+    if (!role.empty()) {
+        if (role == "admin") {
+            std::cout << "Admin menu goes here.\n";
+        } else if (role == "standard") {
+            std::cout << "Standard user menu goes here.\n";
+        } else {
+            std::cout << "Special role menu goes here.\n";
+        }
+    } else {
+        std::cout << "Access denied.\n";
+    }
+
+    return 0;
+}
 }
 
