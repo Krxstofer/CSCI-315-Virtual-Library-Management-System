@@ -1,26 +1,16 @@
-#include <iostream>
-#include "Login.h"  // Includes login function declaration and implicitly includes hash.h
+#include "Login.h"
 
-int main() {
-    HashTable ht;
+// Implementation of the login function
+bool login(HashTable& ht, const std::string& username, const std::string& password) {
+    // Assuming HashTable has a method called authenticate that checks if the username and password are correct
+    // and returns the user's role if successful, or an empty string if the login fails.
+    std::string role = ht.authenticate(username, password);
 
-    // Example users inserted into the hash table
-    ht.insertUser(User("Alice", "alice123", "admin"));
-    ht.insertUser(User("Bob", "bob456", "standard"));
-
-    std::string username, password;
-    std::cout << "Enter username: ";
-    std::cin >> username;
-    std::cout << "Enter password: ";
-    std::cin >> password;
-
-    if (login(ht, username, password)) {
-        // If login is successful, show user-specific features
-        std::cout << "Access to user-specific features...\n";
+    if (!role.empty()) {
+        std::cout << "Login successful! Welcome, " << username << ". You are logged in as a(n) " << role << "." << std::endl;
+        return true;
     } else {
-        // If login fails, deny access
-        std::cout << "Access denied.\n";
+        std::cout << "Login failed: Invalid username or password." << std::endl;
+        return false;
     }
-
-    return 0;
 }
