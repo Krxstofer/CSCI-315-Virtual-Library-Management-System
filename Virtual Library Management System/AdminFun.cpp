@@ -16,7 +16,7 @@ using namespace std;
 //PLACE the implementation for your admin function here
 
 // Implement add book functions
-bool addBook(bSearchTreeType<Book>& tree, istream& inStream, bool print)
+Book* addBook(bSearchTreeType<Book>& tree, istream& inStream, bool print)
 {
     NullBuffer nullBuffer;
     ostream nullStream(&nullBuffer);
@@ -25,7 +25,7 @@ bool addBook(bSearchTreeType<Book>& tree, istream& inStream, bool print)
     string title, fn, ln, pub, ID;
     int copyR = 0;
     if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
-    outStream << endl << endl << "Please fill out the following information for the new book:" << endl;
+    outStream << endl << "Please fill out the following information for the new book:" << endl;
 
     outStream << "Book's title: ";
     getline(inStream, title);
@@ -43,7 +43,7 @@ bool addBook(bSearchTreeType<Book>& tree, istream& inStream, bool print)
     inStream >> copyR;
     outStream << endl;
 
-    if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
+    if (inStream.rdbuf()->in_avail() > 0) inStream.ignore(100, '\n');
     outStream << "Publisher: ";
     getline(inStream, pub);
     outStream << endl;
@@ -58,7 +58,7 @@ bool addBook(bSearchTreeType<Book>& tree, istream& inStream, bool print)
     outStream << "--------------------------------" << endl;
     outStream << Added;
     outStream << "--------------------------------" << endl;
-    return true;
+    return tree.search(Added);
 }
 
 // Implement remove book function
@@ -92,6 +92,7 @@ bool removeBook(bSearchTreeType<Book>& tree, istream& inStream, bool print)
         {
         case 'y':
             tree.deleteNode(searchTemp);
+
             outStream << title << " has been removed." << endl;
             return true;
         default:
@@ -164,6 +165,7 @@ void updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
                 getline(inStream, fn);
                 outStream << endl;
 
+                if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
                 outStream << "Enter new author's last name: ";
                 getline(inStream, ln);
                 outStream << endl;
