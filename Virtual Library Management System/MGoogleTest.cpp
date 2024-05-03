@@ -12,7 +12,9 @@
 #include "GeneralFunctions.h"
 #include "AdminFun.h"
 #include <gtest/gtest.h>
-
+#include <iostream>
+#include <stdexcept>  // Include for std::runtime_error
+#include <cstdlib>    // Include for exit()
 TEST(LibraryTest, Book)
 {
   Book b1("Today","John", "Doe", 1780, "Miller and Sons", "1-566-46465-5", false);
@@ -490,3 +492,23 @@ TEST(LibraryTest, Logout)
   tIn.close();
 }
 
+// exit_function_test.cpp
+
+// Test part
+TEST(LibraryTest, ExitFunction) {
+    try {
+        exitApplication(true);  // Call with test mode true to throw exception instead of exiting
+        FAIL() << "Expected std::runtime_error";
+    } catch (std::runtime_error const & err) {
+        EXPECT_EQ(err.what(), std::string("Exit called"));
+    } catch (...) {
+        FAIL() << "Caught unexpected exception type";
+    }
+}
+
+// Main function to run the tests
+//int main(int argc, char **argv) {
+    //::testing::InitGoogleTest(&argc, argv);
+    //return RUN_ALL_TESTS();
+g++ ExitFunctionTest.cpp -lgtest_main -lgtest -lpthread
+}
