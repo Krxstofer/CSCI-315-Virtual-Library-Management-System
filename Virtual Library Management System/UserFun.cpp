@@ -46,7 +46,7 @@ bool searchBook(bSearchTreeType<Book>& tree, istream& inStream, bool print) // I
 }
 
 // Implement borrow book functions
-void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user, istream& inStream, bool print)
+bool borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user, istream& inStream, bool print)
 {
     NullBuffer nullBuffer;
     ostream nullStream(&nullBuffer);
@@ -73,15 +73,18 @@ void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User 
             outStream << "--------------------------------" << endl;
             outStream << searchTemp;
             outStream << "--------------------------------" << endl;
+            return true;
         }
         else
         {
             outStream << title << " is already borrowed by another user." << endl << endl;
+            return false;
         }
     }
     else
     {
         outStream << title << " Could not be found in the libary." << endl << endl;
+        return false;
     }
 }
 

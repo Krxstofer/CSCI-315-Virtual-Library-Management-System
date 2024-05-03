@@ -18,7 +18,7 @@ using namespace std;
 bool searchBook(bSearchTreeType<Book>& tree, istream& inStream = cin, bool print = true);
 //funciton to search for a book, and prints the book's information if found
 
-void borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user, istream& inStream = cin, bool print = true);
+bool borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user, istream& inStream = cin, bool print = true);
 //function for a user to borrow a book
 
 void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user, bool print = true);
