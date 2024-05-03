@@ -18,6 +18,7 @@
 #include "GeneralFunctions.h"
 #include "user.h"
 #include "hash.h"
+#include "Login.h" 
 
 //tOut is a global in LoadSave since the binary tree's inorderTraversal() with a function
 //parameter only takes one parameter and out must be opened outside of
@@ -197,4 +198,52 @@ void adminMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn
     }
     if(choice != 6)
 	adminMenu(qIn, borrowedBooks, tIn, bookCatalog, admin, userDatabase);
+}
+
+// Declare the login function
+std::string login(HashTable& ht, const std::string& username, const std::string& password, bool verbose);
+
+
+    return 0;
+}
+
+// Adjust the login function to include the verbose parameter to control output
+std::string login(HashTable& ht, const std::string& username, const std::string& password, bool verbose) {
+    if (ht.checkPassword(username, password)) {
+        std::string role = ht.getUserRole(username);
+        if (!role.empty()) {
+            if (verbose) {
+                std::cout << "Login successful! Welcome, " << username << ". You are logged in as a(n) " << role << "." << std::endl;
+            }
+        } else {
+            if (verbose) {
+                std::cout << "User role not found." << std::endl;
+            }
+        }
+        return role;
+    } else {
+        if (verbose) {
+            std::cout << "Login failed: Invalid username or password." << std::endl;
+        }
+        return "";  // Return an empty string if authentication fails
+    }
+ std::string username, password;
+    std::cout << "Enter username: ";
+    std::cin >> username;
+    std::cout << "Enter password: ";
+    std::cin >> password;
+
+    // Pass the verbose parameter according to the desired output behavior
+    std::string role = login(ht, username, password, true);
+    if (!role.empty()) {
+        if (role == "admin") {
+            std::cout << "Admin menu goes here.\n";
+        } else if (role == "standard") {
+            std::cout << "Standard user menu goes here.\n";
+        } else {
+            std::cout << "Special role menu goes here.\n";
+        }
+    } else {
+        std::cout << "Access denied.\n";
+    }
 }
