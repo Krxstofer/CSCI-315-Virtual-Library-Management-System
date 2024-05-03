@@ -17,7 +17,7 @@
 using namespace std;
 
 void logout(ifstream& qIn, string qBook, ifstream& tIn, string tBook, linkedQueueType<Book>& queue, bSearchTreeType<Book>& tree, bool display = true);
-bool registerUser(HashTable& hash, istream& in_stream = cin, bool display = true);
+bool registerUser(HashTable& hash, User& user, istream& in_stream = cin, bool display = true);
 
 
 #endif

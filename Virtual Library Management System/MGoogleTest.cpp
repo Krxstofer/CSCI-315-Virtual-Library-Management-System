@@ -312,10 +312,10 @@ TEST(LibraryTest, Tree)
 
 }
 
-//do these!!
 TEST(LibraryTest, Register)
 {
   HashTable hash;
+  User test("", "", "user");
   std::istringstream fake_input1("1\nTestUser1\nt1\nt1\n");
   std::istringstream fake_input2("2\nTestUser2\nt2\nt2\n");
   std::istringstream fake_input3("0\nt\n1\nTestUser3\nt3\nt3\n");
@@ -323,24 +323,34 @@ TEST(LibraryTest, Register)
   std::istringstream fake_input5("1\nTestUser5\nt5\nt2\nt5\nt5\n");
 
   //1. Test that user is correctly added to the hash
-  EXPECT_TRUE(registerUser(hash, fake_input1, false)); //returns true for a successful registration
-  EXPECT_TRUE(hash.checkPassword("TestUser1", "t1"));
+  EXPECT_TRUE(registerUser(hash, test, fake_input1, false)); //returns true for a successful registration
+  EXPECT_TRUE(hash.checkPassword("TestUser1", "t1")); //is user in the hash now?
+  EXPECT_EQ("TestUser1", test.getUsername()); //is the proper username set and returned?
+  EXPECT_EQ("t1", test.getPassword()); //is the proper password set and returned?
 
   //2. Test that 2 exits the menu without inputting a new user
-  EXPECT_FALSE(registerUser(hash, fake_input2, false));
+  EXPECT_FALSE(registerUser(hash, test, fake_input2, false));
   EXPECT_FALSE(hash.checkPassword("TestUser2", "t2"));
+  EXPECT_NE("TestUser2", test.getUsername());
+  EXPECT_NE("t2", test.getPassword());
 
   //3. Test that registerUser can recover from bad input (0,t)
-  EXPECT_TRUE(registerUser(hash, fake_input3, false));
+  EXPECT_TRUE(registerUser(hash, test, fake_input3, false));
   EXPECT_TRUE(hash.checkPassword("TestUser3", "t3"));
+  EXPECT_EQ("TestUser3", test.getUsername());
+  EXPECT_EQ("t3", test.getPassword());
 
   //4. Test that registerUser can handle when a username has already been taken
-  EXPECT_TRUE(registerUser(hash, fake_input4, false));
+  EXPECT_TRUE(registerUser(hash, test, fake_input4, false));
   EXPECT_TRUE(hash.checkPassword("TestUser4", "t4"));
+  EXPECT_EQ("TestUser4", test.getUsername());
+  EXPECT_EQ("t4", test.getPassword());
 
   //5. Test that registerUser can handle a bad password confirmation and recover
-  EXPECT_TRUE(registerUser(hash, fake_input5, false));
+  EXPECT_TRUE(registerUser(hash, test, fake_input5, false));
   EXPECT_TRUE(hash.checkPassword("TestUser5", "t5"));
+  EXPECT_EQ("TestUser5", test.getUsername());
+  EXPECT_EQ("t5", test.getPassword());
 
 }
 
@@ -415,7 +425,7 @@ TEST(LibraryTest, addRemoveUsers)
   addOrRemoveUser(hash, fake_input9, false);
   EXPECT_TRUE(hash.checkPassword("NotAd", "not1"));
 
-  //10. Test that the username entered belongs to an Admin otherwise do not remove
+  //10. Test that the username entered belongs to a user otherwise do not remove
   addOrRemoveUser(hash, fake_input10, false);
   EXPECT_TRUE(hash.checkPassword("TestAdmin1", "t1"));
 

@@ -36,12 +36,8 @@ void userMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn,
 void adminMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn, 
 	bSearchTreeType<Book> bookCatalog, User& admin, HashTable userDatabase); //added admin object as a parameter
 
-void addOrRemoveUser();
-// Add more function prototypes for other functionalities
 
 int main() {
-    // Populate book catalog and user database with sample data for testing
-    // You can replace this with actual data loading from files or databases
 
     preLoginMenu();
 
@@ -49,13 +45,13 @@ int main() {
 }
 
 void preLoginMenu() {
-User you("you", "N3ssi3", "admin"); //for testing
 
     //setup
     ifstream qIn, tIn;
     HashTable userDatabase;
     linkedQueueType<Book> borrowedBooks;
     bSearchTreeType<Book> bookCatalog;
+    User user("","","user"), admin("","","admin");
     char c;
 
     //loading queue
@@ -91,18 +87,20 @@ User you("you", "N3ssi3", "admin"); //for testing
     switch (choice) {
     case 1:
         // Implemenet Login functionality
-	userMenu(qIn, borrowedBooks, tIn, bookCatalog, you, userDatabase); //for testing
-	//adminMenu(qIn, borrowedBooks, tIn, bookCatalog, you, userDatabase); //for testing
+	userMenu(qIn, borrowedBooks, tIn, bookCatalog, user, userDatabase); //for testing
+	//adminMenu(qIn, borrowedBooks, tIn, bookCatalog, admin, userDatabase); //for testing
         break;
     case 2:
-        if(registerUser(userDatabase))//if registration succeeds procede to the user menu
-				      //(only users register here, admins register in
-				      //addRemoveAdmin for security)
+        if(registerUser(userDatabase, user))//if registration succeeds proceed to the user menu
+	//(only users register here, admins register in addRemoveAdmin for security)
+	//user's credentials are set by register for use in userMenu below
         {
-	  userMenu(qIn, borrowedBooks, tIn, bookCatalog, you, userDatabase);
+
+	  userMenu(qIn, borrowedBooks, tIn, bookCatalog, user, userDatabase);
+
 	}
-	//if registration did not succeed fall through
-        //removed break
+	//if registration did not succeed fall through and exit
+        //no break
     case 3:
         cout << "Exiting program..." << endl;
         exit(0);

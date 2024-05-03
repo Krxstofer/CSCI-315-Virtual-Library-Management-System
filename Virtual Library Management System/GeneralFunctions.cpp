@@ -33,15 +33,16 @@ void logout(ifstream& qIn, string qBook, ifstream& tIn, string tBook, linkedQueu
   tIn.close();
   tOut.close();
 
-  //maybe wipe current user info here, see login()
-
+  //no need to reset the user's credentials to blank because preLoginMenu
+  //is called after logout and usr is not passed in to it
+  //so user's login info for that session is gone (good for security) 
 }
 
-bool registerUser(HashTable& hash, istream& in_stream, bool display)
+bool registerUser(HashTable& hash, User& user, istream& in_stream, bool display)
 {
     int choice;
-    string user = "", pass = "", passcheck = "";
-    User temp(user, pass, "user");//initialize User temp
+    string username = "", pass = "", passcheck = "";
+    User temp(username, pass, "user");//initialize User temp
 
     if(display)
     {
@@ -84,16 +85,16 @@ bool registerUser(HashTable& hash, istream& in_stream, bool display)
       {
         cout << "Please enter a username: ";
       }
-      in_stream >> user;
+      in_stream >> username;
 
-      while("" != hash.getUserRole(user))//if user already exists
+      while("" != hash.getUserRole(username))//if user already exists
       {
 	if(display)
         {
           cout << "Sorry, that username has already been taken." << endl
 	       << "Please enter a different username: ";
         }
-        in_stream >> user;
+        in_stream >> username;
       }
 
       if(display)
@@ -128,11 +129,14 @@ bool registerUser(HashTable& hash, istream& in_stream, bool display)
       }
 
       //Add the information to temp
-      temp.setUsername(user);
+      temp.setUsername(username);
       temp.setPassword(pass);
       //role is already set in the constructor
 
       hash.insertUser(temp);
+
+      user.setUsername(username);
+      user.setPassword(pass);
 
       if(display)
       {
@@ -193,6 +197,7 @@ bool registerUser(HashTable& hash, istream& in_stream, bool display)
 
 // Implementation of the login function
 
+
 // Assuming "Login.h" declares the login function and includes "hash.h" and "user.h"
 // Login function now returns the role of the user or an empty string if login fails
 std::string login(HashTable& ht, const std::string& username, const std::string& password) {
@@ -204,6 +209,7 @@ std::string login(HashTable& ht, const std::string& username, const std::string&
             std::cout << "User role not found." << std::endl;
         }
         return role;
+
     } else {
         std::cout << "Login failed: Invalid username or password." << std::endl;
         return "";  // Return an empty string if authentication fails
