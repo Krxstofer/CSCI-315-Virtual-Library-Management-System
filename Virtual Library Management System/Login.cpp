@@ -34,16 +34,18 @@ int main() {
     return 0;
 }
 
-// Implementing the login function with an additional verbose parameter
+// Adjust the login function to include the verbose parameter to control output
 std::string login(HashTable& ht, const std::string& username, const std::string& password, bool verbose) {
     if (ht.checkPassword(username, password)) {
         std::string role = ht.getUserRole(username);
-        if (!role.empty() && verbose) {
-            std::cout << "Login successful! Welcome, " << username << ". You are logged in as a(n) " << role << "." << std::endl;
-        } else if (!role.empty()) {
-            // If role is not empty but verbose is false, do nothing
-        } else if (verbose) {
-            std::cout << "User role not found." << std::endl;
+        if (!role.empty()) {
+            if (verbose) {
+                std::cout << "Login successful! Welcome, " << username << ". You are logged in as a(n) " << role << "." << std::endl;
+            }
+        } else {
+            if (verbose) {
+                std::cout << "User role not found." << std::endl;
+            }
         }
         return role;
     } else {
