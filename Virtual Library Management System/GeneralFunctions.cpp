@@ -14,7 +14,7 @@
 #include "user.h"
 #include "LoadSave.h"
 #include "GeneralFunctions.h"
-
+#include "Login.h"
 using namespace std;
 
 void logout(ifstream& qIn, string qBook, ifstream& tIn, string tBook, linkedQueueType<Book>& queue, bSearchTreeType<Book>& tree, bool display)
@@ -191,9 +191,12 @@ bool registerUser(HashTable& hash, istream& in_stream, bool display)
 //}
 
 
-//Login function
+// Implementation of the login function
 bool login(HashTable& ht, const std::string& username, const std::string& password) {
-    std::string role = ht.login(username, password);  // Use the combined login method
+    // Assuming HashTable has a method called authenticate that checks if the username and password are correct
+    // and returns the user's role if successful, or an empty string if the login fails.
+    std::string role = ht.authenticate(username, password);
+
     if (!role.empty()) {
         std::cout << "Login successful! Welcome, " << username << ". You are logged in as a(n) " << role << "." << std::endl;
         return true;
