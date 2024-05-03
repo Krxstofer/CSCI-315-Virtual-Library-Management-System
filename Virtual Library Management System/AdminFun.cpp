@@ -16,197 +16,211 @@ using namespace std;
 //PLACE the implementation for your admin function here
 
 // Implement add book functions
-void addBook(bSearchTreeType<Book>& tree)
+bool addBook(bSearchTreeType<Book>& tree, istream& inStream, bool print)
 {
+    NullBuffer nullBuffer;
+    ostream nullStream(&nullBuffer);
+    ostream& outStream = print ? cout : nullStream;
+
     string title, fn, ln, pub, ID;
     int copyR = 0;
-    cin.ignore();
-    cout << endl << "Please fill out the following information for the new book:" << endl;
+    if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
+    outStream << endl << endl << "Please fill out the following information for the new book:" << endl;
 
-    cout << "Book's title: ";
-    getline(cin, title);
-    cout << endl;
+    outStream << "Book's title: ";
+    getline(inStream, title);
+    outStream << endl;
 
-    cout << "Author's first name: ";
-    getline(cin, fn);
-    cout << endl;
+    outStream << "Author's first name: ";
+    getline(inStream, fn);
+    outStream << endl;
 
-    cout << "Author's last name: ";
-    getline(cin, ln);
-    cout << endl;
+    outStream << "Author's last name: ";
+    getline(inStream, ln);
+    outStream << endl;
 
-    cout << "Copyright year:  ";
-    cin >> copyR;
-    cout << endl;
+    outStream << "Copyright year:  ";
+    inStream >> copyR;
+    outStream << endl;
 
-    cin.ignore();
-    cout << "Publisher: ";
-    getline(cin, pub);
-    cout << endl;
+    if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
+    outStream << "Publisher: ";
+    getline(inStream, pub);
+    outStream << endl;
 
-    cout << "ID: ";
-    getline(cin, ID);
-    cout << endl;
+    outStream << "ID: ";
+    getline(inStream, ID);
+    outStream << endl;
 
     Book Added(title, fn, ln, copyR, pub, ID, false, "N/A");
     tree.insert(Added);
-    cout << title << " has been added to the library:" << endl;
-    cout << "--------------------------------" << endl;
-    cout << Added;
-    cout << "--------------------------------" << endl;
+    outStream << title << " has been added to the library:" << endl;
+    outStream << "--------------------------------" << endl;
+    outStream << Added;
+    outStream << "--------------------------------" << endl;
+    return true;
 }
 
 // Implement remove book function
-void removeBook(bSearchTreeType<Book>& tree)
+bool removeBook(bSearchTreeType<Book>& tree, istream& inStream, bool print)
 {
+    NullBuffer nullBuffer;
+    ostream nullStream(&nullBuffer);
+    ostream& outStream = print ? cout : nullStream;
+
     string title = "";
     Book searchTemp;
     char choice;
 
-    cin.ignore();
-    cout << endl << "What book would you like to remove?" << endl;
-    getline(cin, title);
-    cout << endl;
+    if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
+    outStream << endl << "What book would you like to remove?" << endl;
+    getline(inStream, title);
+    outStream << endl;
     searchTemp.setTitle(title);
 
     if (tree.search(searchTemp) != nullptr)
     {
         searchTemp = *tree.search(searchTemp);
-        cout << "Book found:" << endl;
-        cout << "--------------------------------" << endl;
-        cout << searchTemp;
-        cout << "--------------------------------" << endl;
-        cout << "Are you sure you would like to remove this book from the library? This can not be undone. (Enter 'y' to accept)" << endl;
-        cin >> choice;
+        outStream << "Book found:" << endl;
+        outStream << "--------------------------------" << endl;
+        outStream << searchTemp;
+        outStream << "--------------------------------" << endl;
+        outStream << "Are you sure you would like to remove this book from the library? This can not be undone. (Enter 'y' to accept)" << endl;
+        inStream >> choice;
         choice = tolower(choice);
         switch (choice)
         {
         case 'y':
             tree.deleteNode(searchTemp);
-            cout << title << " has been removed." << endl;
-            break;
+            outStream << title << " has been removed." << endl;
+            return true;
         default:
-            cout << "Removal canceled." << endl;
-            return;
+            outStream << "Removal canceled." << endl;
+            return false;
         }
     }
     else
     {
-        cout << title << " Could not be found in the libary." << endl << endl;
+        outStream << title << " Could not be found in the libary." << endl << endl;
+        return false;
     }
-    cout << endl;
-    return;
+    outStream << endl;
+    return false;
 }
 
 // Implement update book info function
-void updateBookInfo(bSearchTreeType<Book>& tree)
+void updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
 {
+    NullBuffer nullBuffer;
+    ostream nullStream(&nullBuffer);
+    ostream& outStream = print ? cout : nullStream;
+
     string search = "";
     Book searchTemp;
     int choice = 0;
     string title, fn, ln, pub, ID;
     int copyR;
 
-    cin.ignore();
-    cout << endl << "What book would you like to edit? ";
-    getline(cin, search);
-    cout << endl;
+    if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
+    outStream << endl << "What book would you like to edit? ";
+    getline(inStream, search);
+    outStream << endl;
     searchTemp.setTitle(search);
 
     if (tree.search(searchTemp) != nullptr)
     {
         choice = 0;
         searchTemp = *tree.search(searchTemp);
-        cout << "Book found:" << endl;
-        cout << "--------------------------------" << endl;
-        cout << searchTemp;
-        cout << "--------------------------------" << endl;
+        outStream << "Book found:" << endl;
+        outStream << "--------------------------------" << endl;
+        outStream << searchTemp;
+        outStream << "--------------------------------" << endl;
         while (choice != 6)
         {
-            cout << "What information would you like to edit?" << endl;
-            cout << "1. Title" << endl;
-            cout << "2. Author" << endl;
-            cout << "3. Copyright" << endl;
-            cout << "4. Publisher" << endl;
-            cout << "5. ID" << endl;
-            cout << "6. Exit" << endl;
-            cin >> choice;
+            outStream << "What information would you like to edit?" << endl;
+            outStream << "1. Title" << endl;
+            outStream << "2. Author" << endl;
+            outStream << "3. Copyright" << endl;
+            outStream << "4. Publisher" << endl;
+            outStream << "5. ID" << endl;
+            outStream << "6. Exit" << endl;
+            inStream >> choice;
             switch (choice)
             {
             case 1:
             {
-                cin.ignore();
-                cout << "Enter new title: ";
-                getline(cin, title);
-                cout << endl;
+                if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
+                outStream << "Enter new title: ";
+                getline(inStream, title);
+                outStream << endl;
                 tree.search(searchTemp)->setTitle(title);
-                cout << "Title changed." << endl;
+                outStream << "Title changed." << endl;
                 break;
             }
             case 2:
             {
-                cin.ignore();
-                cout << "Enter new author's first name: ";
-                getline(cin, fn);
-                cout << endl;
+                if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
+                outStream << "Enter new author's first name: ";
+                getline(inStream, fn);
+                outStream << endl;
 
-                cout << "Enter new author's last name: ";
-                getline(cin, ln);
-                cout << endl;
+                outStream << "Enter new author's last name: ";
+                getline(inStream, ln);
+                outStream << endl;
 
                 tree.search(searchTemp)->setFirstName(fn);
                 tree.search(searchTemp)->setLastName(ln);
-                cout << "Author changed." << endl << endl;
+                outStream << "Author changed." << endl << endl;
                 break;
             }
             case 3:
             {
-                cout << "Enter new copyright year:  ";
-                cin >> copyR;
-                cout << endl;
+                outStream << "Enter new copyright year:  ";
+                inStream >> copyR;
+                outStream << endl;
                 tree.search(searchTemp)->setCopyright(copyR);
-                cout << "Copyright changed." << endl << endl;
+                outStream << "Copyright changed." << endl << endl;
                 break;
             }
             case 4:
             {
-                cin.ignore();
-                cout << "Enter new publisher: ";
-                getline(cin, pub);
-                cout << endl;
+                if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
+                outStream << "Enter new publisher: ";
+                getline(inStream, pub);
+                outStream << endl;
                 tree.search(searchTemp)->setPublisher(pub);
-                cout << "Publisher changed." << endl << endl;
+                outStream << "Publisher changed." << endl << endl;
                 break;
             }
             case 5:
             {
-                cout << "Enter new ID: ";
-                cin >> ID;
-                cout << endl;
+                outStream << "Enter new ID: ";
+                inStream >> ID;
+                outStream << endl;
                 tree.search(searchTemp)->setId(ID);
-                cout << "ID changed." << endl << endl;
+                outStream << "ID changed." << endl << endl;
                 break;
             }
             case 6:
             {
-                cout << "New book information:" << endl;
-                cout << "--------------------------------" << endl;
-                cout << *tree.search(searchTemp);
-                cout << "--------------------------------" << endl;
+                outStream << "New book information:" << endl;
+                outStream << "--------------------------------" << endl;
+                outStream << *tree.search(searchTemp);
+                outStream << "--------------------------------" << endl;
                 return;
             }
             default:
             {
-                cout << "Your choice must be from 1 and 6." << endl;
+                outStream << "Your choice must be from 1 and 6." << endl;
             }
             }
         }
     }
     else
     {
-        cout << search << " Could not be found in the libary." << endl << endl;
+        outStream << search << " Could not be found in the libary." << endl << endl;
     }
-    cout << endl;
+    outStream << endl;
     return;
 }
 

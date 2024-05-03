@@ -14,13 +14,13 @@
 
 using namespace std;
 
-void addBook(bSearchTreeType<Book>& tree);
+bool addBook(bSearchTreeType<Book>& tree, istream& inStream = cin, bool print = true);
 // Function to add a book
 
-void removeBook(bSearchTreeType<Book>& tree);
+bool removeBook(bSearchTreeType<Book>& tree, istream& inStream = cin, bool print = true);
 // Function to remove a book
 
-void updateBookInfo(bSearchTreeType<Book>& tree);
+void updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream = cin, bool print = true);
 // Function to edit book info
 
 void viewAllLoans(linkedQueueType<Book>& );

@@ -104,18 +104,18 @@ bool returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User 
             outStream << *tree.search(queue.front().getTitle());
             outStream << "--------------------------------" << endl;
             queue.deleteQueue();
-            return 1;
+            return true;
         }
         else
         {
             outStream << endl << "Only the borrower of the first book in the queue may return it. Return Canceled" << endl << endl;
-            return 0;
+            return false;
         }
     }
     else
     {
         outStream << "There are no books to return." << endl << endl;
-        return 0;
+        return false;
     }
 }
 
