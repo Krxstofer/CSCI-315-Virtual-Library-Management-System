@@ -175,16 +175,6 @@ std::string login(HashTable& ht, const std::string& username, const std::string&
 //Exit Function
 /*using namespace std;
 
-void userMenu() {
-    int choice = 0;
-    while (true) {
-        cout << "\nUser Menu\n";
-        cout << "1. View Profile\n";
-        cout << "2. Edit Profile\n";
-        cout << "3. Logout\n";
-        cout << "Choose an option or 3 to exit: ";
-        cin >> choice;
-
         switch (choice) {
             case 1:
                 cout << "Viewing profile...\n";
