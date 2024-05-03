@@ -1,7 +1,7 @@
 //Name: Andrew Palermo
 //Date: 05/04/2024
 
-//UserGoogleTest.cpp: Google Test file for ttwo of the functions I wrote.
+//UserGoogleTest.cpp: Google Test file for two of the functions I wrote.
 #include <string>
 #include "Book.h"
 #include "UserFun.h"
@@ -42,11 +42,3 @@ TEST(LibraryTest, updateProfile)
     EXPECT_EQ("W1nn1f3r", myUser.getUsername());
     EXPECT_EQ("M3@oo6", myUser.getPassword());
 }
-
-#if 0
-int main(int argc, char **argv)
-{
-    testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS(); //This includes tests written by other team members.
-}
-#endif
