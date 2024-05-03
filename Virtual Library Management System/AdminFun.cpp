@@ -10,6 +10,7 @@
 #include "user.h"
 #include <cctype>
 #include "hash.h"
+#include "nullBuffer.h"
 
 using namespace std;
 

@@ -10,7 +10,7 @@
 #include "Book.h"
 #include "linkedQueue.h"
 #include "binarySearchTree.h"
-#include "Login.h"
+//#include "Login.h"
 #include "ExitFunction.h"
 #include "hash.h"
 //Login.h here
@@ -28,6 +28,7 @@ using namespace std;
 
 void logout(ifstream& qIn, string qBook, ifstream& tIn, string tBook, linkedQueueType<Book>& queue, bSearchTreeType<Book>& tree, bool display = true);
 bool registerUser(HashTable& hash, User& user, istream& in_stream = cin, bool display = true);
+std::string login(HashTable& ht, const std::string& username, const std::string& password);
 
 
 #endif

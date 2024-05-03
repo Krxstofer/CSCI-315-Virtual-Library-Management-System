@@ -82,3 +82,8 @@ test:
 	g++ -c MGoogleTest.cpp
 	g++ Book.o LoadSave.o GeneralFunctions.o User.o AdminFun.o hash.o MGoogleTest.o -o Test -lgtest_main -lgtest -lpthread
 	Test
+
+jtest:
+	g++ -c GeneralFunctions.cpp
+	g++ -c LoginTest.cpp
+	g++ GeneralFunctions.o LoginTest.o -lgtest_main -lgtest -lpthread

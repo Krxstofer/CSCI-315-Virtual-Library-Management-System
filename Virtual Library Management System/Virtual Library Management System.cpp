@@ -140,7 +140,7 @@ void userMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn,
         viewBorrowedBooks(borrowedBooks, user.getUsername());
         break;
     case 5:
-        updateProfile(user);
+        updateProfile(userDatabase, user);
         break;
     case 6:
 	cout << "Logging out..." << endl; //Kristofer
