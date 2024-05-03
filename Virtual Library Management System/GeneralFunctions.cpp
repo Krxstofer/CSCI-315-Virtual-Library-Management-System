@@ -150,50 +150,6 @@ bool registerUser(HashTable& hash, User& user, istream& in_stream, bool display)
 
 }//end of registerUser
 
-//void userMenu() {
-    //int choice = 0;
-    //while (true) {
-        //cout << "\nUser Menu\n";
-        //cout << "1. View Profile\n";
-        //cout << "2. Edit Profile\n";
-        //cout << "3. Logout\n";
-        //cout << "Choose an option or 3 to exit: ";
-        //cin >> choice;
-
-        //switch (choice) {
-            //case 1:
-                //cout << "Viewing profile...\n";
-                //break;
-            //case 2:
-                //cout << "Editing profile...\n";
-                //break;
-            //case 3:
-                //cout << "Logging out...\n";
-                //return;  // Returns to the calling function, effectively exiting the menu
-            //default:
-                //cout << "Invalid option, try again.\n";
-        //}
-    //}
-//}
-
-
-// Function to handle user login
-//User* login(HashTable& table, const std::string& username, const std::string& password) {
-   //std::string storedPassword = table.searchTable(username);
-    //if (!storedPassword.empty() && storedPassword == password) {
-        //int hashValue = table.hashFunction(username);
-        //auto& users = table.getUsersTable()[hashValue];
-       // for (auto& user : users) {
-           //if (user.getUsername() == username) return new User(user);  // Assuming copy constructor exists
-       // }
-       // auto& admins = table.getAdminsTable()[hashValue];
-       // for (auto& admin : admins) {
-         //   if (admin.getUsername() == username) return new Admin(admin);  // Assuming copy constructor exists
-        //}
-   // }
-    //return nullptr;
-//}
-
 
 // Implementation of the login function
 
