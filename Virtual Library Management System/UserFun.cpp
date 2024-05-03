@@ -24,7 +24,7 @@ bool searchBook(bSearchTreeType<Book>& tree, istream& inStream, bool print) // I
 
     string title;
     Book searchTemp;
-    cin.ignore();
+    if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
     outStream << endl << "Please enter the title you would like to search for." << endl;
     getline(inStream, title);
     outStream << endl;
@@ -55,8 +55,7 @@ bool borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User 
 
     string title;
     Book searchTemp;
-
-    cin.ignore();
+    if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
     outStream << endl << "What book would you like to borrow ?" << endl;
     getline(inStream, title);
     outStream << endl;
@@ -89,7 +88,7 @@ bool borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User 
     }
 }
 
-void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user, bool print) // Implement return book functions
+bool returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User user, bool print) // Implement return book functions
 {
     NullBuffer nullBuffer;
     ostream nullStream(&nullBuffer);
@@ -105,15 +104,18 @@ void returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User 
             outStream << *tree.search(queue.front().getTitle());
             outStream << "--------------------------------" << endl;
             queue.deleteQueue();
+            return 1;
         }
         else
         {
             outStream << endl << "Only the borrower of the first book in the queue may return it. Return Canceled" << endl << endl;
+            return 0;
         }
     }
     else
     {
         outStream << "There are no books to return." << endl << endl;
+        return 0;
     }
 }
 
