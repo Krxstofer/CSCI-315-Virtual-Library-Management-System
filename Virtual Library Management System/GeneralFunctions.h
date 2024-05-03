@@ -16,7 +16,7 @@
 //Login.h here
 #ifndef LOGIN_H
 #define LOGIN_H
-
+#include <cstdlib>  // Include for exit()
 #include <iostream>
 #include <string>
 
@@ -25,6 +25,14 @@ std::string login(HashTable& ht, const std::string& username, const std::string&
 
 #endif // LOGIN_H
 using namespace std;
+
+#ifndef EXIT_FUNCTION_H
+#define EXIT_FUNCTION_H
+
+// Function to exit the application cleanly
+void exitApplication();
+
+#endif // EXIT_FUNCTION_H
 
 void logout(ifstream& qIn, string qBook, ifstream& tIn, string tBook, linkedQueueType<Book>& queue, bSearchTreeType<Book>& tree, bool display = true);
 bool registerUser(HashTable& hash, User& user, istream& in_stream = cin, bool display = true);
