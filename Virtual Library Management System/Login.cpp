@@ -1,6 +1,7 @@
 #include <iostream>
 #include "hash.h"  // Includes the HashTable class definition
 #include "user.h"  // Includes the User class definition
+#include "Login.h" // Includes the Login class header
 
 // Declare the login function
 std::string login(HashTable& ht, const std::string& username, const std::string& password, bool verbose);
