@@ -62,7 +62,7 @@ Book* addBook(bSearchTreeType<Book>& tree, istream& inStream, bool print)
 }
 
 // Implement remove book function
-bool removeBook(bSearchTreeType<Book>& tree, istream& inStream, bool print)
+bool removeBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, istream& inStream, bool print)
 {
     NullBuffer nullBuffer;
     ostream nullStream(&nullBuffer);
@@ -81,23 +81,53 @@ bool removeBook(bSearchTreeType<Book>& tree, istream& inStream, bool print)
     if (tree.search(searchTemp) != nullptr)
     {
         searchTemp = *tree.search(searchTemp);
-        outStream << "Book found:" << endl;
-        outStream << "--------------------------------" << endl;
-        outStream << searchTemp;
-        outStream << "--------------------------------" << endl;
-        outStream << "Are you sure you would like to remove this book from the library? This can not be undone. (Enter 'y' to accept)" << endl;
-        inStream >> choice;
-        choice = tolower(choice);
-        switch (choice)
+        if (!searchTemp.getBorrowed())
         {
-        case 'y':
-            tree.deleteNode(searchTemp);
-
-            outStream << title << " has been removed." << endl;
-            return true;
-        default:
-            outStream << "Removal canceled." << endl;
-            return false;
+            outStream << "Book found:" << endl;
+            outStream << "--------------------------------" << endl;
+            outStream << searchTemp;
+            outStream << "--------------------------------" << endl;
+            outStream << "Are you sure you would like to remove this book from the library? This can not be undone. (Enter 'y' to accept)" << endl;
+            inStream >> choice;
+            choice = tolower(choice);
+            switch (choice)
+            {
+            case 'y':
+                tree.deleteNode(searchTemp);
+                outStream << title << " has been removed." << endl;
+                return true;
+            default:
+                outStream << "Removal canceled." << endl;
+                return false;
+            }
+        }
+        else
+        {
+            if (*tree.search(searchTemp) == queue.front())
+            {
+                outStream << "Book found:" << endl;
+                outStream << "--------------------------------" << endl;
+                outStream << searchTemp;
+                outStream << "--------------------------------" << endl;
+                outStream << "Warning: This book is borrowed and at the front of the return queue." << endl;
+                outStream << "Are you sure you would like to remove this book from the library? This can not be undone. (Enter 'y' to accept)" << endl;
+                inStream >> choice;
+                choice = tolower(choice);
+                switch (choice)
+                {
+                case 'y':
+                    tree.deleteNode(searchTemp);
+                    outStream << title << " has been removed." << endl;
+                    return true;
+                default:
+                    outStream << "Removal canceled." << endl;
+                    return false;
+                }
+            }
+            else
+            {
+                outStream << title << "is borrowed, and not avalible for return. Removal canceled." << endl;
+            }
         }
     }
     else
