@@ -173,7 +173,7 @@ std::string login(HashTable& ht, const std::string& username, const std::string&
 }
 
 //Exit Function
-using namespace std;
+/*using namespace std;
 
 void userMenu() {
     int choice = 0;
@@ -221,4 +221,4 @@ std::string username, password;
     return 0;
 }
 }
-
+*/
