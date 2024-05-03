@@ -176,7 +176,7 @@ void adminMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn
         addBook(bookCatalog);
         break;
     case 2:
-        removeBook(bookCatalog);
+        removeBook(bookCatalog, borrowedBooks);
         break;
     case 3:
         updateBookInfo(bookCatalog);

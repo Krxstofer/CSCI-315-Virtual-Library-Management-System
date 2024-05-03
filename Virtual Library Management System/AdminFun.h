@@ -17,7 +17,7 @@ using namespace std;
 Book* addBook(bSearchTreeType<Book>& tree, istream& inStream = cin, bool print = true);
 // Function to add a book
 
-bool removeBook(bSearchTreeType<Book>& tree, istream& inStream = cin, bool print = true);
+bool removeBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, istream& inStream = cin, bool print = true);
 // Function to remove a book
 
 void updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream = cin, bool print = true);
