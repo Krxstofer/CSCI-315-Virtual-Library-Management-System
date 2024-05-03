@@ -14,20 +14,19 @@
 
 using namespace std;
 
-void addBook(bSearchTreeType<Book>& tree);  
+void addBook(bSearchTreeType<Book>& tree);
 // Function to add a book
 
 void removeBook(bSearchTreeType<Book>& tree);
 // Function to remove a book
 
-void updateBookInfo(bSearchTreeType<Book>& tree);  
+void updateBookInfo(bSearchTreeType<Book>& tree);
 // Function to edit book info
 
 void viewAllLoans(linkedQueueType<Book>& );
 //function for admin; it displays all books currently borrowed by users
 //Postcondition: none
 
-//PLACE your admin prototype(s) here
 void addOrRemoveUser(HashTable& hash, istream& in_stream = cin, bool display = true);
 
 

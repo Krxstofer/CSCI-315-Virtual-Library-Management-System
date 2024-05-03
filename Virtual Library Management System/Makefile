@@ -63,6 +63,15 @@ func:
 	g++ -g Book.o LoadSave.o GeneralFunctions.o AdminFun.o User.o hash.o FuncTest.o -o Func
 	Func
 
+uTest:
+	g++ -g -c Book.cpp
+	g++ -g -c UserFun.cpp
+	g++ -g -c User.cpp
+	g++ -g -c hash.cpp
+	g++ -c UserGoogleTest.cpp
+	g++ Book.o UserFun.o User.o hash.o UserGoogleTest.o -o uTest -lgtest_main -lgtest -lpthread
+	uTest
+
 test:
 	g++ -g -c Book.cpp
 	g++ -g -c LoadSave.cpp

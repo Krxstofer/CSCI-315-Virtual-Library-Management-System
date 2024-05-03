@@ -8,6 +8,7 @@
 #include "UserFun.h"
 #include "linkedQueue.h"
 #include "user.h"
+#include "hash.h"
 #include "linkedQueue.h"
 #include "binarySearchTree.h"
 #include "nullBuffer.h"
@@ -138,7 +139,7 @@ void viewBorrowedBooks(linkedQueueType<Book>& queue, string username)
     }
     //If a user has not borrowed any books, no books would be printed.
 }
-void updateProfile(User &myUser)
+void updateProfile(HashTable userHash, User& myUser, istream& inStream, bool display)
 {
     int choice, max = 3;
     char error[] = "The input stream has invalid data";
@@ -153,41 +154,47 @@ void updateProfile(User &myUser)
     try
     {
 	cout << "Please select an option: ";
-	cin >> choice;
-        if(!cin.good() || (choice < 1 || choice > 3))
+	inStream >> choice;
+        if(!inStream.good() || (choice < 1 || choice > 3))
 	    throw error;
     }
     catch (const char errorStr[])
     {
 	cout << errorStr << endl;
-	if(!cin.good())
+	if(!inStream.good())
 	    cout << "***Cannot accept characters or fractional values.***" << endl;
 	else if(choice < 1 || choice > 2)
 	    cout << "***Choice must be between 1 and 2.***" << endl;
 	cout << "    Clearing out the input stream" << endl;
-	cin.clear();
-	cin.ignore(200, '\n');
+	inStream.clear();
+	inStream.ignore(200, '\n');
     }
     if(choice == 1)
     {
 	cout << "Please enter your new username: ";
-	cin >> newName;
+	inStream >> newName;
+	if((!userHash.isEmpty()) && 1) //remove old user if it exists.
+	    userHash.removeUser(myUser.getUsername());
 	myUser.setUsername(newName);
+	userHash.insertUser(myUser);
     }
-    else if(choice == 2) //Add user to hash
+    else if(choice == 2)
     {
 	cout << "Please enter your new password: ";
 
-	cin >> newPass;
+	inStream >> newPass;
 	do
 	{
 	    cout << "Please re-type your password to confirm: ";
-	    cin >> newName;
+	    inStream >> newName;
 	}
 	while(newPass != newName && --max);
 	if(max > 0)
 	{
+	    if((!userHash.isEmpty()) && 1) //remove old user if it exists.
+		userHash.removeUser(myUser.getUsername());
 	    myUser.setPassword(newName);
+	    userHash.insertUser(myUser);
 	    cout << endl << "***Password was succesfully changed***" << endl;
 	    cout << "Returning to user menu" << endl;
 	}
