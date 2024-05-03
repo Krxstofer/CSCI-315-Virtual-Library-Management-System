@@ -13,7 +13,17 @@
 #include "Login.h"
 #include "ExitFunction.h"
 #include "hash.h"
+//Login.h here
+#ifndef LOGIN_H
+#define LOGIN_H
 
+#include <iostream>
+#include <string>
+
+// Declare the login function that returns a user's role as a string
+std::string login(HashTable& ht, const std::string& username, const std::string& password, bool verbose = true);
+
+#endif // LOGIN_H
 using namespace std;
 
 void logout(ifstream& qIn, string qBook, ifstream& tIn, string tBook, linkedQueueType<Book>& queue, bSearchTreeType<Book>& tree, bool display = true);
