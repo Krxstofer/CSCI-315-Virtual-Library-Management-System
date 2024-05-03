@@ -85,7 +85,7 @@ void removeBook(bSearchTreeType<Book>& tree)
             tree.deleteNode(searchTemp);
             cout << title << " has been removed." << endl;
             break;
-        defult:
+        default:
             cout << "Removal canceled." << endl;
             return;
         }
