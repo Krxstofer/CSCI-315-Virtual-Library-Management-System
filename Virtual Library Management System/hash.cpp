@@ -3,6 +3,7 @@
 #include <iostream>
 #include "hash.h"
 #include "user.h"
+#include "loadSave.h"
 
 // Define the constructor
 HashTable::HashTable() {
