@@ -1,6 +1,8 @@
 //hash.cpp
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include "hash.h"
 #include "user.h"
 #include "LoadSave.h"
