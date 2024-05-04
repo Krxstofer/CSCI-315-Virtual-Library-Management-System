@@ -259,7 +259,7 @@ Book* updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
     		//}
     		/*fix*/
 
-                if (inStream.rdbuf()->in_avail() > 0) inStream.ignore(100, '\n');
+                //if (inStream.rdbuf()->in_avail() > 0) inStream.ignore(100, '\n');
                 outStream << "Enter new author's last name: ";
                 getline(inStream, ln);
                 outStream << endl;
