@@ -10,6 +10,7 @@
 #include "user.h"
 #include <cctype>
 #include "hash.h"
+#include "nullBuffer.h"
 
 using namespace std;
 
@@ -158,7 +159,7 @@ void updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
     outStream << endl;
     searchTemp.setTitle(search);
 
-    if (tree.search(searchTemp) != nullptr)
+    if (tree.search(searchTemp) != nullptr && tree.search(searchTemp)->getBorrowed() == false)
     {
         choice = 0;
         searchTemp = *tree.search(searchTemp);
@@ -166,6 +167,7 @@ void updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
         outStream << "--------------------------------" << endl;
         outStream << searchTemp;
         outStream << "--------------------------------" << endl;
+
         while (choice != 6)
         {
             outStream << "What information would you like to edit?" << endl;
@@ -248,9 +250,13 @@ void updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
             }
         }
     }
-    else
+    else if (tree.search(searchTemp) == nullptr)
     {
         outStream << search << " Could not be found in the libary." << endl << endl;
+    }
+    else
+    {
+        outStream << search << " can not be edited becuase it is currenlty borrowed." << endl;
     }
     outStream << endl;
     return;
