@@ -127,7 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AdminandUserFunctions.cpp" />
     <ClCompile Include="AdminFun.cpp" />
     <ClCompile Include="AdminTests.cpp" />
     <ClCompile Include="Book.cpp" />
@@ -136,6 +135,7 @@
     <ClCompile Include="GeneralTests.cpp" />
     <ClCompile Include="hash.cpp" />
     <ClCompile Include="hashMain.cpp" />
+    <ClCompile Include="integrationTest.cpp" />
     <ClCompile Include="LoadSave.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="UserFun.cpp" />

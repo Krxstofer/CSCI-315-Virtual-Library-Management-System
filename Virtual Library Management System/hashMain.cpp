@@ -4,7 +4,7 @@
 #include "user.h"
 #include "hash.h"
 #include "LoadSave.h"
-
+/*
 int main() {
     HashTable ht;
 
@@ -48,3 +48,4 @@ int main() {
 
     return 0;
 }
+*/
