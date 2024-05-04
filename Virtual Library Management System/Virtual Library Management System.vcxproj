@@ -137,10 +137,8 @@
     <ClCompile Include="hash.cpp" />
     <ClCompile Include="hashMain.cpp" />
     <ClCompile Include="LoadSave.cpp" />
-    <ClCompile Include="Login.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="UserFun.cpp" />
-    <ClCompile Include="UserGoogleTest.cpp" />
     <ClCompile Include="UserTests.cpp" />
     <ClCompile Include="Virtual Library Management System.cpp" />
   </ItemGroup>

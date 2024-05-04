@@ -7,7 +7,13 @@
 #include "binarySearchTree.h"
 #include "hash.h"
 
-using namespace std;
+class LoadSave {
+public:
+    static void saveData(const HashTable& ht, const std::string& filename);
+    static void loadData(HashTable& ht, const std::string& filename);
+};
+
+
 
 void loadQueue(ifstream& in, linkedQueueType<Book>& queue, bool display = true);
 void saveQueue(ofstream& out, linkedQueueType<Book> queue, bool display = true); //no & means the actual parameter is
@@ -24,4 +30,4 @@ void printTree(Book& x);
 
 
 
-#endif
+#endif 

@@ -48,16 +48,10 @@
     <ClCompile Include="LoadSave.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Login.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="User.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UserFun.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UserGoogleTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UserTests.cpp">
