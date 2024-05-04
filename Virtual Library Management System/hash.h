@@ -10,7 +10,7 @@
 
 
 class HashTable {
-private:
+public:
     static const int hashGroups = 20;
     std::list<User> usersTable[hashGroups];
 

@@ -24,7 +24,7 @@ bool searchBook(bSearchTreeType<Book>& tree, istream& inStream, bool print) // I
 
     string title;
     Book searchTemp;
-    if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
+    if (inStream.rdbuf()->in_avail() > 0) inStream.ignore(100, '\n');
     outStream << endl << "Please enter the title you would like to search for." << endl;
     getline(inStream, title);
     outStream << endl;
