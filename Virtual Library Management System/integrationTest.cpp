@@ -1,3 +1,7 @@
+//Name: Garrett Comstock
+//Description: CSCI Group Project
+//Due Date: 05/04/2024
+
 #include <iostream>
 #include <string>
 #include <fstream>

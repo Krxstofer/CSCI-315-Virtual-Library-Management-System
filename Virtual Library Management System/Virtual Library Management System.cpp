@@ -1,4 +1,4 @@
-//Name: Group 2
+//Name: Andrew Palermo, Garrett Comstock, Jeffrey Zoebisch, Megan Palermo, Kristofer Norman, Samual Etzkorn
 //Description: Week 8 CSCI Group Project
 //Date: May 4, 2024
 

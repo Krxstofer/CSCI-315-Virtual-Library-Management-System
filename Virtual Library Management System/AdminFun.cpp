@@ -1,5 +1,6 @@
-//Name: Group 2
-//Date: 05/04/2024
+//Name: Andrew Palermo, Garrett Comstock
+//Description: CSCI Group Project
+//Due Date: 05/04/2024
 
 //AdminFun.cpp: implementation file for Admin functions
 #include <iostream>

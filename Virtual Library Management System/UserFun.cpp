@@ -1,5 +1,6 @@
-//Name: Group 2
-//Date: 05/04/2024
+//Name: Andrew Palermo, Garrett Comstock, Jeffrey Zoebisch
+//Description: CSCI Group Project
+//Due Date: 05/04/2024
 
 //UserFun.cpp: implementation file for user functions
 #include <iostream>

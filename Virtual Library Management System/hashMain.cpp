@@ -1,3 +1,7 @@
+//Name: Andrew Palermo & Garrett Comstock
+//Description: CSCI Group Project
+//Due Date: 05/04/2024
+
 // hashMain.cpp
 
 #include <iostream>
