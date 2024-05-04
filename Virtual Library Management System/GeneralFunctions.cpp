@@ -16,6 +16,7 @@
 #include "GeneralFunctions.h"
 //#include "Login.h"
 using namespace std;
+#include <cstdlib>  // For std::exit()
 
 void logout(ifstream& qIn, string qBook, ifstream& tIn, string tBook, linkedQueueType<Book>& queue, bSearchTreeType<Book>& tree, bool display)
 {
@@ -170,5 +171,15 @@ std::string login(HashTable& ht, const std::string& username, const std::string&
             std::cout << "Login failed: Invalid username or password." << std::endl;
         }
         return "";  // Return an empty string if authentication fails
+    }
+}
+
+void exitApplication(bool testMode) {
+    std::cout << "Exiting the application. Goodbye!\n";
+    if (!testMode) {
+        std::exit(0);  // Exit the program normally
+    } else {
+        // If in test mode, throw an exception or handle differently
+        throw std::runtime_error("Exit called during test mode");
     }
 }
