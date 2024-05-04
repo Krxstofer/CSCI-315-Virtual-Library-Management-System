@@ -6,6 +6,7 @@
 std::string login(HashTable& ht, const std::string& username, const std::string& password, bool verbose);
 std::string username, password, role;
 
+
 int main() {
     HashTable ht;
     ht.insertUser(User("Alice", "alice123", "admin"));
