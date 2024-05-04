@@ -21,11 +21,9 @@ int main() {
     std::string role = login(ht, username, password, true);
     if (!role.empty()) {
         if (role == "admin") {
-            std::cout << "Admin menu goes here.\n";
-        } else if (role == "standard") {
-            std::cout << "Standard user menu goes here.\n";
-        } else {
-            std::cout << "Special role menu goes here.\n";
+            std::cout << adminMenu(qIn, borrowedBooks, tIn, bookCatalog, admin, userDatabase);
+        } else (role == "standard") {
+            std::cout << userMenu(qIn, borrowedBooks, tIn, bookCatalog, user, userDatabase);
         }
     } else {
         std::cout << "Access denied.\n";
