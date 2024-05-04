@@ -14,8 +14,6 @@
 
 using namespace std;
 
-//PLACE the implementation for your admin function here
-
 // Implement add book functions
 Book* addBook(bSearchTreeType<Book>& tree, istream& inStream, bool print)
 {
@@ -118,6 +116,7 @@ bool removeBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, istre
                 {
                 case 'y':
                     tree.deleteNode(searchTemp);
+                    queue.deleteQueue();
                     outStream << title << " has been removed." << endl;
                     return true;
                 default:
@@ -128,6 +127,7 @@ bool removeBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, istre
             else
             {
                 outStream << title << "is borrowed, and not avalible for return. Removal canceled." << endl;
+                return false;
             }
         }
     }
@@ -141,7 +141,7 @@ bool removeBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, istre
 }
 
 // Implement update book info function
-void updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
+Book* updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
 {
     NullBuffer nullBuffer;
     ostream nullStream(&nullBuffer);
@@ -162,10 +162,10 @@ void updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
     if (tree.search(searchTemp) != nullptr && tree.search(searchTemp)->getBorrowed() == false)
     {
         choice = 0;
-        searchTemp = *tree.search(searchTemp);
+        Book* temp = tree.search(searchTemp);
         outStream << "Book found:" << endl;
         outStream << "--------------------------------" << endl;
-        outStream << searchTemp;
+        outStream << *temp;
         outStream << "--------------------------------" << endl;
 
         while (choice != 6)
@@ -182,29 +182,28 @@ void updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
             {
             case 1:
             {
-                if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
+                if (inStream.rdbuf()->in_avail() > 0) inStream.ignore(100, '\n');
                 outStream << "Enter new title: ";
                 getline(inStream, title);
                 outStream << endl;
-                tree.search(searchTemp)->setTitle(title);
+                temp->setTitle(title);
                 outStream << "Title changed." << endl;
                 break;
             }
             case 2:
             {
-                if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
+                if (inStream.rdbuf()->in_avail() > 0) inStream.ignore(100, '\n');;
                 outStream << "Enter new author's first name: ";
                 getline(inStream, fn);
                 outStream << endl;
 
-                if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
+                //if (inStream.rdbuf()->in_avail() > 0) inStream.ignore(100, '\n');
                 outStream << "Enter new author's last name: ";
                 getline(inStream, ln);
                 outStream << endl;
-
-                tree.search(searchTemp)->setFirstName(fn);
-                tree.search(searchTemp)->setLastName(ln);
-                outStream << "Author changed." << endl << endl;
+                temp->setFirstName(fn);
+                temp->setLastName(ln);
+                outStream << "Author name changed." << endl << endl;
                 break;
             }
             case 3:
@@ -212,26 +211,27 @@ void updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
                 outStream << "Enter new copyright year:  ";
                 inStream >> copyR;
                 outStream << endl;
-                tree.search(searchTemp)->setCopyright(copyR);
+                temp->setCopyright(copyR);
                 outStream << "Copyright changed." << endl << endl;
                 break;
             }
             case 4:
             {
-                if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
+                if (inStream.rdbuf()->in_avail() > 0) inStream.ignore(100, '\n');
                 outStream << "Enter new publisher: ";
                 getline(inStream, pub);
                 outStream << endl;
-                tree.search(searchTemp)->setPublisher(pub);
+                temp->setPublisher(pub);
                 outStream << "Publisher changed." << endl << endl;
                 break;
             }
             case 5:
             {
+                if (inStream.rdbuf()->in_avail() > 0) inStream.ignore(100, '\n');
                 outStream << "Enter new ID: ";
-                inStream >> ID;
+                getline(inStream, ID);
                 outStream << endl;
-                tree.search(searchTemp)->setId(ID);
+                temp->setId(ID);
                 outStream << "ID changed." << endl << endl;
                 break;
             }
@@ -239,9 +239,9 @@ void updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
             {
                 outStream << "New book information:" << endl;
                 outStream << "--------------------------------" << endl;
-                outStream << *tree.search(searchTemp);
+                outStream << *temp;
                 outStream << "--------------------------------" << endl;
-                return;
+                return temp;
             }
             default:
             {
@@ -253,13 +253,15 @@ void updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
     else if (tree.search(searchTemp) == nullptr)
     {
         outStream << search << " Could not be found in the libary." << endl << endl;
+        return NULL;
     }
     else
     {
         outStream << search << " can not be edited becuase it is currenlty borrowed." << endl;
+        return NULL;
     }
     outStream << endl;
-    return;
+    return NULL;
 }
 
 
