@@ -21,9 +21,9 @@ int main() {
     std::string role = login(ht, username, password, true);
     if (!role.empty()) {
         if (role == "admin") {
-            std::adminMenu(qIn, borrowedBooks, tIn, bookCatalog, admin, userDatabase);
+            adminMenu(qIn, borrowedBooks, tIn, bookCatalog, admin, userDatabase);
         } if else (role == "user") {
-            std::userMenu(qIn, borrowedBooks, tIn, bookCatalog, user, userDatabase);
+            userMenu(qIn, borrowedBooks, tIn, bookCatalog, user, userDatabase);
         }
     } else {
         std::cout << "Access denied.\n";
