@@ -84,7 +84,7 @@ void preLoginMenu() {
     cout << "3. Exit" << endl;
     cout << "Please select an option: ";
     cin >> choice;
-
+std::string username, password, role;
     switch (choice) {
     case 1:
 	std::string username, password;
@@ -93,19 +93,30 @@ void preLoginMenu() {
     std::cout << "Enter password: ";
     std::cin >> password;
 
+    HashTable ht;
+    ht.insertUser(User("Alice", "alice123", "admin"));
+    ht.insertUser(User("Bob", "bob456", "standard"));
+
+    std::string username, password;
+    std::cout << "Enter username: ";
+    std::cin >> username;
+    std::cout << "Enter password: ";
+    std::cin >> password;
+
     // Pass the verbose parameter according to the desired output behavior
-    std::string role = login(ht, username, password, true);
+    std::string role = login(userDatabase, username, password, true);
     if (!role.empty()) {
         if (role == "admin") {
-            std::cout << "Admin menu goes here.\n";
-        } else if (role == "standard") {
-            std::cout << "Standard user menu goes here.\n";
-        } else {
-            std::cout << "Special role menu goes here.\n";
+            adminMenu(qIn, borrowedBooks, tIn, bookCatalog, admin, userDatabase);
+        } if else (role == "user") {
+            userMenu(qIn, borrowedBooks, tIn, bookCatalog, user, userDatabase);
         }
     } else {
         std::cout << "Access denied.\n";
     }
+
+    return 0;
+}
         // Implemenet Login functionality
 	userMenu(qIn, borrowedBooks, tIn, bookCatalog, user, userDatabase); //for testing
 	//adminMenu(qIn, borrowedBooks, tIn, bookCatalog, admin, userDatabase); //for testing
