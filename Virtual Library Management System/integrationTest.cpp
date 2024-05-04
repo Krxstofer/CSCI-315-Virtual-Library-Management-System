@@ -42,8 +42,6 @@ TEST(LibraryTest, IntegrationTest)
     Book compBook("Test_Title", "John", "Doe", 2024, "Publisher co.", "123456789");
     EXPECT_EQ(compBook, *addBook(bookCatalog, newBook, false)); //check's to varify that the addbook correctly creates a book
 
-    //add saveData to this
-
     istringstream real1("Test_Title");
     EXPECT_TRUE(searchBook(bookCatalog, real1, false)); //Varifies book in the the tree
 
@@ -51,10 +49,11 @@ TEST(LibraryTest, IntegrationTest)
     istringstream update("Test_Title\n1\nTest_Title2\n2\nJane\nMoe\n3\n2025\n4\nPublished co.\n5\n987654321\n6");
     EXPECT_EQ(compBook2, *updateBookInfo(bookCatalog, update, false));
 
-    istringstream real2("Test_Title2");
+
+    istringstream real2("Test_Title2\n");
     EXPECT_TRUE(searchBook(bookCatalog, real2, false)); //Varifies book in the the tree with updated info
 
-    EXPECT_TRUE(borrowBook(bookCatalog, borrowedBooks, user, real2, false));  //Checks if borrow was successful
+    EXPECT_TRUE(borrowBook(bookCatalog, borrowedBooks, user, real2));  //Checks if borrow was successful
     EXPECT_EQ("Test_Username2", bookCatalog.search(compBook2)->getBorrower()); //Varifies borrower is set to username
     EXPECT_FALSE(borrowedBooks.isEmptyQueue()); //test to verify that queue contains borrowed book
 

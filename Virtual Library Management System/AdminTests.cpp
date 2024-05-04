@@ -98,6 +98,9 @@ TEST(LibraryTest, updateBookInfo) //Test for updateBookInfo function
     EXPECT_EQ("Publishing co.", b.getPublisher());        //Varifies that the publisher is "Publishing co."
     EXPECT_EQ("MOJ", b.getId());                          //Varifies that the ID is "MOJ"
 
+    istringstream srch("Idea Yesterday\n");
+    EXPECT_TRUE(searchBook(bookTree, srch, false));
+
     istringstream badTitle("Not A Book In The Tree");
     EXPECT_EQ(NULL, updateBookInfo(bookTree, badTitle, false)); //Checks what happens if the book they want to edit does not exist
 }

@@ -162,7 +162,7 @@ Book* updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
     if (tree.search(searchTemp) != nullptr && tree.search(searchTemp)->getBorrowed() == false)
     {
         choice = 0;
-        Book* temp = tree.search(searchTemp);
+        Book *temp = tree.search(searchTemp);
         outStream << "Book found:" << endl;
         outStream << "--------------------------------" << endl;
         outStream << *temp;
