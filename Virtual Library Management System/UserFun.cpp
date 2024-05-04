@@ -146,16 +146,19 @@ void updateProfile(HashTable userHash, User& myUser, istream& inStream, bool dis
     int choice, max = 3;
     char error[] = "The input stream has invalid data";
     string newName, newPass;
-
-    cout << "What user setting would you like to change" << endl;
-    cout << "------------------------------------------" << endl;
-    cout << "1. Username" << endl;
-    cout << "2. Password" << endl;
-    cout << "3. Return to User Menu" << endl;
+    if(display) //This will omit the menu during a Google test
+    {
+	cout << "What user setting would you like to change" << endl;
+	cout << "------------------------------------------" << endl;
+	cout << "1. Username" << endl;
+	cout << "2. Password" << endl;
+	cout << "3. Return to User Menu" << endl;
+    }
 
     try
     {
-	cout << "Please select an option: ";
+	if(display)
+	    cout << "Please select an option: ";
 	inStream >> choice;
         if(!inStream.good() || (choice < 1 || choice > 3))
 	    throw error;
@@ -173,7 +176,8 @@ void updateProfile(HashTable userHash, User& myUser, istream& inStream, bool dis
     }
     if(choice == 1)
     {
-	cout << "Please enter your new username: ";
+	if(display)
+	    cout << "Please enter your new username: ";
 	inStream >> newName;
 	if(myUser.getRole() == userHash.getUserRole(myUser.getUsername())) //remove old user if it exists.
 	    userHash.removeUser(myUser.getUsername());
@@ -182,12 +186,14 @@ void updateProfile(HashTable userHash, User& myUser, istream& inStream, bool dis
     }
     else if(choice == 2)
     {
-	cout << "Please enter your new password: ";
+	if(display)
+	    cout << "Please enter your new password: ";
 
 	inStream >> newPass;
 	do
 	{
-	    cout << "Please re-type your password to confirm: ";
+	    if(display)
+		cout << "Please re-type your password to confirm: ";
 	    inStream >> newName;
 	}
 	while((newPass != newName) && --max);
@@ -197,16 +203,19 @@ void updateProfile(HashTable userHash, User& myUser, istream& inStream, bool dis
 		userHash.removeUser(myUser.getUsername());
 	    myUser.setPassword(newName);
 	    userHash.insertUser(myUser);
-	    cout << endl << "***Password was succesfully changed***" << endl;
-	    cout << "Returning to user menu" << endl;
+	    if(display)
+	    {
+		cout << endl << "***Password was succesfully changed***" << endl;
+		cout << "Returning to user menu" << endl;
+	    }
 	}
-	else if(max <= 0)
+	else if(max <= 0 && display) //Since this an error message, skip it in Google test
 	{
 	    cout << endl << "***Maximum number of attempts exceeded***" << endl;
 	    cout << "Password was not changed; returning to user menu" << endl;
 	}
     }
-    else if(choice == 3)
+    else if(choice == 3 && display) //Since this is an exit message, skip it in Goolge Test
     {
 	cout << "***Exiting update profile***" << endl;
     }
