@@ -20,7 +20,7 @@ public:
     HashTable();
     bool isEmpty() const;
     void insertUser(const User& user);
-    void removeUser(const std::string& username);
+    void removeUser(const std::string& username, bool printMessage = true);
     bool checkPassword(const std::string& username, const std::string& password);
     std::string getUserRole(const std::string& username);
     void printTable();
