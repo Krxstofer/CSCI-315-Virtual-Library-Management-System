@@ -87,11 +87,6 @@ void preLoginMenu() {
 std::string username, password, role;
     switch (choice) {
     case 1:
-	
-    std::cout << "Enter username: ";
-    std::cin >> username;
-    std::cout << "Enter password: ";
-    std::cin >> password;
 
     std::cout << "Enter username: ";
     std::cin >> username;
@@ -103,7 +98,7 @@ std::string username, password, role;
     if (!role.empty()) {
         if (role == "admin") {
             adminMenu(qIn, borrowedBooks, tIn, bookCatalog, admin, userDatabase);
-        } if else (role == "user") {
+        } else if (role == "user") {
             userMenu(qIn, borrowedBooks, tIn, bookCatalog, user, userDatabase);
         }
     } else {
