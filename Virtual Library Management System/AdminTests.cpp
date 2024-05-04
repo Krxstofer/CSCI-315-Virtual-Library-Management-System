@@ -12,6 +12,7 @@
 #include "user.h"
 #include "nullBuffer.h"
 #include "AdminFun.h"
+#include "UserFun.h"
 #include <gtest/gtest.h>
 //#include "gtest/gtest.h" //depending on how you get you google test libraries, "" are sometimes used.
 

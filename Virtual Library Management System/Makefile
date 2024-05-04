@@ -86,10 +86,11 @@ mtest:
 atest:
 	g++ -g -c Book.cpp
 	g++ -g -c AdminFun.cpp
+	g++ -g -c UserFun.cpp
 	g++ -g -c User.cpp
 	g++ -g -c hash.cpp
 	g++ -c AdminTests.cpp
-	g++ Book.o User.o AdminFun.o hash.o AdminTests.o -o ATest -lgtest_main -lgtest -lpthread
+	g++ Book.o User.o AdminFun.o UserFun.o hash.o AdminTests.o -o ATest -lgtest_main -lgtest -lpthread
 	ATest
 
 ctest:
