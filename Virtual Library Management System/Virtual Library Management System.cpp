@@ -87,24 +87,19 @@ void preLoginMenu() {
 std::string username, password, role;
     switch (choice) {
     case 1:
-	std::string username, password;
+	
     std::cout << "Enter username: ";
     std::cin >> username;
     std::cout << "Enter password: ";
     std::cin >> password;
 
-    HashTable ht;
-    ht.insertUser(User("Alice", "alice123", "admin"));
-    ht.insertUser(User("Bob", "bob456", "standard"));
-
-    std::string username, password;
     std::cout << "Enter username: ";
     std::cin >> username;
     std::cout << "Enter password: ";
     std::cin >> password;
 
     // Pass the verbose parameter according to the desired output behavior
-    std::string role = login(userDatabase, username, password, true);
+    role = login(userDatabase, username, password, true);
     if (!role.empty()) {
         if (role == "admin") {
             adminMenu(qIn, borrowedBooks, tIn, bookCatalog, admin, userDatabase);
@@ -115,11 +110,7 @@ std::string username, password, role;
         std::cout << "Access denied.\n";
     }
 
-    return 0;
-}
         // Implemenet Login functionality
-	userMenu(qIn, borrowedBooks, tIn, bookCatalog, user, userDatabase); //for testing
-	//adminMenu(qIn, borrowedBooks, tIn, bookCatalog, admin, userDatabase); //for testing
         break;
     case 2:
         if(registerUser(userDatabase, user))//if registration succeeds proceed to the user menu
