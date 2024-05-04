@@ -6,7 +6,7 @@
 std::string login(HashTable& ht, const std::string& username, const std::string& password, bool verbose);
 std::string username, password, role;
 
-
+/*
 int main() {
     HashTable ht;
     ht.insertUser(User("Alice", "alice123", "admin"));
@@ -32,6 +32,7 @@ int main() {
 
     return 0;
 }
+*/
 
 // Adjust the login function to include the verbose parameter to control output
 std::string login(HashTable& ht, const std::string& username, const std::string& password, bool verbose) {

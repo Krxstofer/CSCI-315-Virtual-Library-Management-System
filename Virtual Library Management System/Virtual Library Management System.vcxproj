@@ -132,7 +132,6 @@
     <ClCompile Include="AdminTests.cpp" />
     <ClCompile Include="Book.cpp" />
     <ClCompile Include="ClassTests.cpp" />
-    <ClCompile Include="ExitFunction.cpp" />
     <ClCompile Include="GeneralFunctions.cpp" />
     <ClCompile Include="GeneralTests.cpp" />
     <ClCompile Include="hash.cpp" />

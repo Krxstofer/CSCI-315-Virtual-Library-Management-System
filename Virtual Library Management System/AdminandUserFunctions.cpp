@@ -58,6 +58,7 @@ public:
     }
 };
 
+/*
 int main() {
     // Example of using these classes:
     StandardUser user1("john_doe", "12345");
@@ -73,4 +74,4 @@ int main() {
 
     return 0;
 }
-
+*/
