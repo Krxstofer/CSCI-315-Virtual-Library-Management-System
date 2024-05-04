@@ -139,6 +139,7 @@ tests:
 	make ctest
 	make gtest
 	make utest
+	make itest
 
 jtest:
 	g++ -g -c Book.cpp
