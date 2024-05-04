@@ -121,7 +121,19 @@ utest:
 	g++ Book.o UserFun.o User.o hash.o UserTests.o -o UTest -lgtest_main -lgtest -lpthread
 	UTest
 
-.PHONY: atest ctest gtest utest
+itest:
+	g++ -g -c Book.cpp
+	g++ -g -c LoadSave.cpp
+	g++ -g -c GeneralFunctions.cpp
+	g++ -g -c AdminFun.cpp
+	g++ -g -c UserFun.cpp
+	g++ -g -c User.cpp
+	g++ -g -c hash.cpp
+	g++ -c integrationTest.cpp
+	g++ Book.o LoadSave.o GeneralFunctions.o User.o AdminFun.o UserFun.o hash.o integrationTest.o -o Test -lgtest_main -lgtest -lpthread
+	Test
+
+.PHONY: atest ctest gtest utest itest
 tests:
 	make atest
 	make ctest
