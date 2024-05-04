@@ -67,6 +67,7 @@ TEST(LibraryTest, Logout)
   ofstream qOut; //tOut is in LoadSave
   linkedQueueType<Book> queue;
   bSearchTreeType<Book> tree;
+  HashTable hash, hash2;
   Book temp, test1("Tada!", "Logout" "Test"), test2("The Last", "John", "Doe");
   int i = 0;
   char c;
@@ -92,8 +93,13 @@ TEST(LibraryTest, Logout)
   tOut.close(); //tIn will be closed in logout
   ASSERT_FALSE(tree.isEmpty());
 
+  //prime hash
+  hash.insertUser(User("me","me", "user"));
+  hash.insertUser(User("you","you", "admin"));
+  ASSERT_FALSE(hash.isEmpty());
+
   //Test that logout saved the data correctly
-  logout(qIn, "qLog.txt", tIn, "tLog.txt", queue, tree, false); //closes the ifstream variables
+  logout(qIn, "qLog.txt", tIn, "tLog.txt", "hLog.txt", queue, tree, hash, false); //closes the ifstream variables
 
   qIn.open("qLog.txt");
   qIn.get(c); //check for eof
@@ -123,6 +129,17 @@ TEST(LibraryTest, Logout)
   EXPECT_TRUE(tIn.eof());
 
   tIn.close();
+
+  hash2.loadData("hLog.txt");
+  ASSERT_FALSE(hash.isEmpty());
+
+  EXPECT_TRUE(hash2.checkPassword("me", "me"));
+  EXPECT_TRUE(hash2.checkPassword("you", "you"));
+
+  EXPECT_EQ("user", hash2.getUserRole("me"));
+  EXPECT_EQ("admin", hash2.getUserRole("you"));
+
+
 }
 
 
