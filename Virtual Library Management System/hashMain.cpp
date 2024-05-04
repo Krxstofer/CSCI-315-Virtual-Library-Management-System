@@ -3,6 +3,7 @@
 #include <iostream>
 #include "user.h"
 #include "hash.h"
+#include "loadSave.h"
 
 int main() {
     HashTable ht;
