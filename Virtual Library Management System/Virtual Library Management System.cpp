@@ -103,7 +103,7 @@ std::string username, password, role;
     if (!role.empty()) {
         if (role == "admin") {
             adminMenu(qIn, borrowedBooks, tIn, bookCatalog, admin, userDatabase);
-        } if else (role == "user") {
+        } else if (role == "user") {
             userMenu(qIn, borrowedBooks, tIn, bookCatalog, user, userDatabase);
         }
     } else {
