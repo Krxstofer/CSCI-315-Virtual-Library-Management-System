@@ -73,6 +73,9 @@ void preLoginMenu() {
       exit(1);
     }
     loadTree(tIn, bookCatalog);
+
+    userDatabase.loadData("Users.txt");
+
     //setup
 
     int choice;
@@ -165,7 +168,7 @@ void userMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn,
         break;
     case 6:
 	cout << "Logging out..." << endl; //Kristofer
-        logout(qIn, "Borrowed.txt", tIn, "Library.txt", borrowedBooks, bookCatalog);
+        logout(qIn, "Borrowed.txt", tIn, "Library.txt", "Users.txt", borrowedBooks, bookCatalog, userDatabase);
 	preLoginMenu();
 	break;
     default:
@@ -210,7 +213,7 @@ void adminMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn
 	break;
     case 6:
 	cout << "Logging out..." << endl;
-        logout(qIn, "Borrowed.txt", tIn, "Library.txt", borrowedBooks, bookCatalog);
+        logout(qIn, "Borrowed.txt", tIn, "Library.txt", "Users.txt", borrowedBooks, bookCatalog, userDatabase);
 	preLoginMenu();
         break;
     default:

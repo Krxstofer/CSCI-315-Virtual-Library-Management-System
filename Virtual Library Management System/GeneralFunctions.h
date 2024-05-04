@@ -36,7 +36,7 @@ void exitApplication(bool testMode = false);
 #endif // EXIT_FUNCTION_H
 
 
-void logout(ifstream& qIn, string qBook, ifstream& tIn, string tBook, linkedQueueType<Book>& queue, bSearchTreeType<Book>& tree, bool display = true);
+void logout(ifstream& qIn, string qBook, ifstream& tIn, string tBook, string hFile, linkedQueueType<Book>& queue, bSearchTreeType<Book>& tree, HashTable& hash, bool display = true);
 bool registerUser(HashTable& hash, User& user, istream& in_stream = cin, bool display = true);
 std::string login(HashTable& ht, const std::string& username, const std::string& password);
 

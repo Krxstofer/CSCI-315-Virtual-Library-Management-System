@@ -18,7 +18,7 @@
 using namespace std;
 #include <cstdlib>  // For std::exit()
 
-void logout(ifstream& qIn, string qBook, ifstream& tIn, string tBook, linkedQueueType<Book>& queue, bSearchTreeType<Book>& tree, bool display)
+void logout(ifstream& qIn, string qBook, ifstream& tIn, string tBook, string hFile, linkedQueueType<Book>& queue, bSearchTreeType<Book>& tree, HashTable& hash, bool display)
 {
   ofstream qOut; //tOut is global
 
@@ -33,6 +33,8 @@ void logout(ifstream& qIn, string qBook, ifstream& tIn, string tBook, linkedQueu
   tree.inorderTraversal(saveTree);
   tIn.close();
   tOut.close();
+
+  hash.saveData(hFile);
 
   //no need to reset the user's credentials to blank because preLoginMenu
   //is called after logout and usr is not passed in to it
