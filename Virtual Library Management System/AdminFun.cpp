@@ -38,7 +38,7 @@ Book* addBook(bSearchTreeType<Book>& tree, istream& inStream, bool print)
     getline(inStream, ln);
     outStream << endl;
 
-    outStream << "Copyright year:  ";
+    outStream << "Copyright year: ";
     inStream >> copyR;
     outStream << endl;
 
@@ -208,7 +208,7 @@ Book* updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
             }
             case 3:
             {
-                outStream << "Enter new copyright year:  ";
+                outStream << "Enter new copyright year: ";
                 inStream >> copyR;
                 outStream << endl;
                 temp->setCopyright(copyR);

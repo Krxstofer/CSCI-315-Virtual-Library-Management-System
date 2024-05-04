@@ -41,7 +41,7 @@ bool searchBook(bSearchTreeType<Book>& tree, istream& inStream, bool print) // I
     }
     else
     {
-        outStream << title << " Could not be found in the libary." << endl << endl;
+        outStream << title << " Could not be found in the library." << endl << endl;
         return false;
     }
 }
@@ -56,7 +56,7 @@ bool borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User 
     string title;
     Book searchTemp;
     if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
-    outStream << endl << "What book would you like to borrow ?" << endl;
+    outStream << endl << "What book would you like to borrow?" << endl;
     getline(inStream, title);
     outStream << endl;
     searchTemp.setTitle(title);
@@ -83,7 +83,7 @@ bool borrowBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User 
     }
     else
     {
-        outStream << title << " Could not be found in the libary." << endl << endl;
+        outStream << title << " could not be found in the library." << endl << endl;
         return false;
     }
 }
@@ -108,7 +108,7 @@ bool returnBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, User 
         }
         else
         {
-            outStream << endl << "Only the borrower of the first book in the queue may return it. Return Canceled" << endl << endl;
+            outStream << endl << "Only the borrower of the first book in the queue may return it. Return canceled." << endl << endl;
             return 0;
         }
     }
