@@ -3,8 +3,16 @@ Author: Dickens, Charles
 Copyright: 1992
 Publisher: Wordsworth
 ID: DIC
-Status: Checked Out
-Borrowed by: you
+Status: Available
+Borrowed by: N/A
+
+Title: First Men in the Moon, The
+Author: Wells, H. G.
+Copyright: 1952
+Publisher: WordsWorth
+ID: 945689-45648-3
+Status: Available
+Borrowed by: N/A
 
 Title: Idea Today, An
 Author: Doe, John
@@ -35,6 +43,6 @@ Author: Doe, John
 Copyright: 1780
 Publisher: Miller and Sons
 ID: 1-566-46465-5
-Status: Available
-Borrowed by: N/A
+Status: Checked Out
+Borrowed by: you
 
