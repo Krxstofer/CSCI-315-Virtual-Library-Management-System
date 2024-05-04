@@ -1,10 +1,10 @@
 #include <iostream>
 #include "hash.h"  // Includes the HashTable class definition
 #include "user.h"  // Includes the User class definition
-#include "Login.h" // Includes the Login class header
 
 // Declare the login function
 std::string login(HashTable& ht, const std::string& username, const std::string& password, bool verbose);
+std::string username, password, role;
 
 int main() {
     HashTable ht;
@@ -18,7 +18,7 @@ int main() {
     std::cin >> password;
 
     // Pass the verbose parameter according to the desired output behavior
-    std::string role = login(ht, username, password, true);
+    std::string role = login(userDatabase, username, password, true);
     if (!role.empty()) {
         if (role == "admin") {
             adminMenu(qIn, borrowedBooks, tIn, bookCatalog, admin, userDatabase);
