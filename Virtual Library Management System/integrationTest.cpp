@@ -49,11 +49,12 @@ TEST(LibraryTest, IntegrationTest)
     istringstream update("Test_Title\n1\nTest_Title2\n2\nJane\nMoe\n3\n2025\n4\nPublished co.\n5\n987654321\n6");
     EXPECT_EQ(compBook2, *updateBookInfo(bookCatalog, update, false));
 
-
     istringstream real2("Test_Title2\n");
     EXPECT_TRUE(searchBook(bookCatalog, real2, false)); //Varifies book in the the tree with updated info
 
-    EXPECT_TRUE(borrowBook(bookCatalog, borrowedBooks, user, real2));  //Checks if borrow was successful
+    istringstream bor("Test_Title2\n");
+    EXPECT_TRUE(borrowBook(bookCatalog, borrowedBooks, user, bor, false));  //Checks if borrow was successful
+
     EXPECT_EQ("Test_Username2", bookCatalog.search(compBook2)->getBorrower()); //Varifies borrower is set to username
     EXPECT_FALSE(borrowedBooks.isEmptyQueue()); //test to verify that queue contains borrowed book
 
@@ -62,5 +63,8 @@ TEST(LibraryTest, IntegrationTest)
     EXPECT_NE("Test_Username2", bookCatalog.search(compBook2)->getBorrower()); //Varifies borrower is no longer the user
 
     EXPECT_TRUE(borrowedBooks.isEmptyQueue()); //test to verify that queue contains no borrowed book
+
+    istringstream rem("Test_Title2\ny\n");
+    EXPECT_TRUE(removeBook(bookCatalog, borrowedBooks, rem, false));
 
 }
