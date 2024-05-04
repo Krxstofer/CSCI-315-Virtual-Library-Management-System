@@ -134,7 +134,7 @@ TEST(LibraryTest, ExitFunction) {
         exitApplication(true);  // Call with test mode true to throw exception instead of exiting
         FAIL() << "Expected std::runtime_error";
     } catch (std::runtime_error const & err) {
-        EXPECT_EQ(err.what(), std::string("Exit called"));
+        EXPECT_EQ(err.what(), std::string("Exit called during test mode"));
     } catch (...) {
         FAIL() << "Caught unexpected exception type";
     }
