@@ -33,7 +33,7 @@ void HashTable::insertUser(const User& user) {
     usersTable[hashValue].push_back(user);
 }
 
-void HashTable::removeUser(const std::string& username) {
+void HashTable::removeUser(const std::string& username, bool printMessage) {
     int hashValue = hashFunction(username);
     auto& cell = usersTable[hashValue];
 
@@ -44,8 +44,8 @@ void HashTable::removeUser(const std::string& username) {
             return;
         }
     }
-
-    std::cout << "User '" << username << "' not found." << std::endl;
+    if (printMessage){
+        std::cout << "User '" << username << "' not found." << std::endl;
 }
 
 bool HashTable::checkPassword(const std::string& username, const std::string& password) {
