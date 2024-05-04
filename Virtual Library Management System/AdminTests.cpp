@@ -22,7 +22,7 @@
 TEST(LibraryTest, addBook) //Test for addBook function
 {
     bSearchTreeType<Book> bookTree;
-    Book b2("Idea Today", "John", "Doe", 2020, "Jefferson's Best", "DOJ", false);
+    Book comp("Idea Today", "John", "Doe", 2020, "Jefferson's Best", "DOJ", false);
     istringstream newBook("Idea Today\nJohn\nDoe\n2020\nJefferson's Best\nDOJ");
     Book temp = *addBook(bookTree, newBook, false);
     EXPECT_EQ("Idea Today", temp.getTitle());
@@ -34,6 +34,7 @@ TEST(LibraryTest, addBook) //Test for addBook function
     EXPECT_EQ(false, temp.getBorrowed());
     EXPECT_EQ("N/A", temp.getBorrower());
 
+    EXPECT_EQ(comp, temp);
     istringstream real("Idea Today");
     EXPECT_TRUE(searchBook(bookTree, real, false));
 }
