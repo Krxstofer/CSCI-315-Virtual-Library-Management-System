@@ -102,7 +102,7 @@ ctest:
 	g++ Book.o LoadSave.o User.o hash.o ClassTests.o -o CTest -lgtest_main -lgtest -lpthread
 	CTest
 
-getest:
+gtest:
 	g++ -g -c Book.cpp
 	g++ -g -c LoadSave.cpp
 	g++ -g -c GeneralFunctions.cpp
@@ -121,6 +121,7 @@ utest:
 	g++ Book.o UserFun.o User.o hash.o UserTests.o -o UTest -lgtest_main -lgtest -lpthread
 	UTest
 
+.PHONY: atest ctest gtest utest
 tests:
 	make atest
 	make ctest

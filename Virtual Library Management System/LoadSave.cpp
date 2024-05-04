@@ -4,7 +4,7 @@
 #include "Book.h"
 #include <fstream>
 #include <sstream>
-#include "loadSave.h"
+#include "LoadSave.h"
 #include "user.h"
 #include "hash.h"
 
@@ -14,7 +14,7 @@ ofstream tOut; //global file pointer for saveTree()
 
 
 
-void LoadSave::saveData(const HashTable& ht, const std::string& filename) {
+/*void LoadSave::saveData(const HashTable& ht, const std::string& filename) {
     std::ofstream file(filename);
     if (!file.is_open()) {
         std::cerr << "Failed to open " << filename << " for writing." << std::endl;
@@ -52,7 +52,7 @@ void LoadSave::loadData(HashTable& ht, const std::string& filename) {
 
     file.close();
 }
-
+*/
 void loadQueue(ifstream& in, linkedQueueType<Book>& queue, bool display) //needs to be run once
 //before new borrows are added
 {

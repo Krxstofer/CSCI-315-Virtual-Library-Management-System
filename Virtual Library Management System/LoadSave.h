@@ -7,6 +7,8 @@
 #include "binarySearchTree.h"
 #include "hash.h"
 
+using namespace std;
+
 class LoadSave {
 public:
     static void saveData(const HashTable& ht, const std::string& filename);
@@ -30,4 +32,4 @@ void printTree(Book& x);
 
 
 
-#endif 
+#endif
