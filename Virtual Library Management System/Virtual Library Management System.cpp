@@ -97,8 +97,12 @@ std::string username, password, role;
     role = login(userDatabase, username, password, true);
     if (!role.empty()) {
         if (role == "admin") {
+		admin.setUsername(username);
+        	admin.setPassword(password);
             adminMenu(qIn, borrowedBooks, tIn, bookCatalog, admin, userDatabase);
         } else if (role == "user") {
+		user.setUsername(username);
+                user.setPassword(password);
             userMenu(qIn, borrowedBooks, tIn, bookCatalog, user, userDatabase);
         }
     } else {
