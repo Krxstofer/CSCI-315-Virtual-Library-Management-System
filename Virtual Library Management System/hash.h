@@ -24,6 +24,8 @@ public:
     bool checkPassword(const std::string& username, const std::string& password);
     std::string getUserRole(const std::string& username);
     void printTable();
+    void saveData(const std::string& filename) const;
+    void loadData(const std::string& filename);
 };
 
 #endif // HASH_TABLE_H
