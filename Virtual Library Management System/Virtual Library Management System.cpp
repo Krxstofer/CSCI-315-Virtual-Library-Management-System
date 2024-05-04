@@ -36,14 +36,14 @@ void userMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn,
 void adminMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn, 
 	bSearchTreeType<Book> bookCatalog, User& admin, HashTable userDatabase); //added admin object as a parameter
 
-/*
+
 int main() {
 
     preLoginMenu();
 
     return 0;
 }
-*/
+
 void preLoginMenu() {
 
     //setup

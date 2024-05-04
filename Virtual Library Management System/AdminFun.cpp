@@ -23,7 +23,17 @@ Book* addBook(bSearchTreeType<Book>& tree, istream& inStream, bool print)
 
     string title, fn, ln, pub, ID;
     int copyR = 0;
-    if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
+
+    /*Megan's fix for Linux*/
+    char ch;
+    inStream.get(ch);
+    if(ch != '\n' && ch != ' ' && ch != '\r' && ch != '\t')
+    {
+      inStream.putback(ch);
+    }
+    /*fix*/
+
+    //if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
     outStream << endl << "Please fill out the following information for the new book:" << endl;
 
     outStream << "Book's title: ";
@@ -42,7 +52,16 @@ Book* addBook(bSearchTreeType<Book>& tree, istream& inStream, bool print)
     inStream >> copyR;
     outStream << endl;
 
-    if (inStream.rdbuf()->in_avail() > 0) inStream.ignore(100, '\n');
+    /*Megan's fix for Linux*/
+    char c;
+    inStream.get(c);
+    if(c != '\n' && c != ' ' && c != '\r' && c != '\t')
+    {
+      inStream.putback(c);
+    }
+    /*fix*/
+
+    //if (inStream.rdbuf()->in_avail() > 0) inStream.ignore(100, '\n');
     outStream << "Publisher: ";
     getline(inStream, pub);
     outStream << endl;
@@ -71,7 +90,16 @@ bool removeBook(bSearchTreeType<Book>& tree, linkedQueueType<Book>& queue, istre
     Book searchTemp;
     char choice;
 
-    if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
+    /*Megan's fix for Linux*/
+    char c;
+    inStream.get(c);
+    if(c != '\n' && c != ' ' && c != '\r' && c != '\t')
+    {
+      inStream.putback(c);
+    }
+    /*fix*/
+
+    //if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
     outStream << endl << "What book would you like to remove?" << endl;
     getline(inStream, title);
     outStream << endl;
@@ -153,7 +181,16 @@ Book* updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
     string title, fn, ln, pub, ID;
     int copyR;
 
-    if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
+    /*Megan's fix for Linux*/
+    char ch;
+    inStream.get(ch);
+    if(ch != '\n' && ch != ' ' && ch != '\r' && ch != '\t')
+    {
+      inStream.putback(ch);
+    }
+    /*fix*/
+
+    //if (cin.rdbuf()->in_avail() > 0) cin.ignore(100, '\n');
     outStream << endl << "What book would you like to edit? ";
     getline(inStream, search);
     outStream << endl;
@@ -182,7 +219,16 @@ Book* updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
             {
             case 1:
             {
-                if (inStream.rdbuf()->in_avail() > 0) inStream.ignore(100, '\n');
+
+    		/*Megan's fix for Linux*/
+    		inStream.get(ch);
+    		if(ch != '\n' && ch != ' ' && ch != '\r' && ch != '\t')
+    		{
+     		  inStream.putback(ch);
+    		}
+    		/*fix*/
+
+                //if (inStream.rdbuf()->in_avail() > 0) inStream.ignore(100, '\n');
                 outStream << "Enter new title: ";
                 getline(inStream, title);
                 outStream << endl;
@@ -192,10 +238,26 @@ Book* updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
             }
             case 2:
             {
-                if (inStream.rdbuf()->in_avail() > 0) inStream.ignore(100, '\n');;
+		/*Megan's fix for Linux*/
+    		inStream.get(ch);
+    		if(ch != '\n' && ch != ' ' && ch != '\r' && ch != '\t')
+    		{
+      		  inStream.putback(ch);
+    		}
+    		/*fix*/
+
+                //if (inStream.rdbuf()->in_avail() > 0) inStream.ignore(100, '\n');;
                 outStream << "Enter new author's first name: ";
                 getline(inStream, fn);
                 outStream << endl;
+
+		/*Megan's fix for Linux*/
+    		//inStream.get(ch);
+    		//if(ch != '\n' && ch != ' ' && ch != '\r' && ch != '\t')
+    		//{
+      		  //inStream.putback(ch);
+    		//}
+    		/*fix*/
 
                 //if (inStream.rdbuf()->in_avail() > 0) inStream.ignore(100, '\n');
                 outStream << "Enter new author's last name: ";
@@ -217,7 +279,15 @@ Book* updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
             }
             case 4:
             {
-                if (inStream.rdbuf()->in_avail() > 0) inStream.ignore(100, '\n');
+		/*Megan's fix for Linux*/
+    		inStream.get(ch);
+    		if(ch != '\n' && ch != ' ' && ch != '\r' && ch != '\t')
+    		{
+      		  inStream.putback(ch);
+    		}
+    		/*fix*/
+
+                //if (inStream.rdbuf()->in_avail() > 0) inStream.ignore(100, '\n');
                 outStream << "Enter new publisher: ";
                 getline(inStream, pub);
                 outStream << endl;
@@ -227,7 +297,15 @@ Book* updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
             }
             case 5:
             {
-                if (inStream.rdbuf()->in_avail() > 0) inStream.ignore(100, '\n');
+		/*Megan's fix for Linux*/
+    		inStream.get(ch);
+    		if(ch != '\n' && ch != ' ' && ch != '\r' && ch != '\t')
+    		{
+      		  inStream.putback(ch);
+    		}
+    		/*fix*/
+
+                //if (inStream.rdbuf()->in_avail() > 0) inStream.ignore(100, '\n');
                 outStream << "Enter new ID: ";
                 getline(inStream, ID);
                 outStream << endl;

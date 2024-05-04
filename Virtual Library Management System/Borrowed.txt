@@ -14,3 +14,11 @@ ID: HOD
 Status: Checked Out
 Borrowed by: you
 
+Title: Today
+Author: Doe, John
+Copyright: 1780
+Publisher: Miller and Sons
+ID: 1-566-46465-5
+Status: Checked Out
+Borrowed by: you
+

@@ -1,1 +1,4 @@
+Ad,adpass,admin
+you,youpass,user
+me,mepass,admin
 this_guy,pass,user
