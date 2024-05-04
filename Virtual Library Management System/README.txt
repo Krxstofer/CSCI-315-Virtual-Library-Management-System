@@ -8,10 +8,11 @@ To run main, link the following files:
 	UserFun.cpp
 	Virtual Library Management System.cpp [main]
 
-There are 4 different Google Tests:
+There are 5 different Google Tests:
 	AdminTests.cpp [tests functions in AdminFun.cpp]
 	ClassTests.cpp [tests various classes including book, user, hash]
 	GeneralTests.cpp [tests functions in GeneralFunctions.cpp]
+	integrationTest.cpp [tests all functions in library.]
 	UserTests.cpp [tests functions in UserFun.cpp]
 
 To run AdminTests.cpp, link the following files:
@@ -35,6 +36,16 @@ To run GeneralTests.cpp, link the following files:
 	Hash.cpp
 	LoadSave.cpp
 	User.cpp
+
+To run integrationTest.cpp, link the following files:
+	AdminFun.cpp
+	Book.cpp
+	GeneralFunctions.cpp
+	hash.cpp
+	integrationTest.cpp [Google Test]
+        LoadSave.cpp
+        User.cpp
+        UserFun.cpp
 
 To run UserTests.cpp, link the following files:
 	Book.cpp
