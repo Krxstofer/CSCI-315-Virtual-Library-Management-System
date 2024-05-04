@@ -175,10 +175,12 @@ std::string login(HashTable& ht, const std::string& username, const std::string&
 }
 
 void exitApplication(bool testMode) {
-    if (testMode) {
+    if (!testMode) {
+        // Normal operation: print message and exit the program
         std::cout << "Exiting the application. Goodbye!\n";
-        throw std::runtime_error("Exit called during test mode");
+        std::exit(0);
     } else {
-        std::exit(0);  // Exit the program normally
+        // Test mode: throw an exception to simulate the exit without actually exiting
+        throw std::runtime_error("Exit called during test mode");
     }
 }
