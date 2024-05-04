@@ -29,10 +29,13 @@ using namespace std;
 #ifndef EXIT_FUNCTION_H
 #define EXIT_FUNCTION_H
 
-// Function to exit the application cleanly
-void exitApplication();
+#include <stdexcept>  // Include for throwing exceptions
+
+// Declare exitApplication with a boolean parameter to control test mode
+void exitApplication(bool testMode = false);
 
 #endif // EXIT_FUNCTION_H
+
 
 void logout(ifstream& qIn, string qBook, ifstream& tIn, string tBook, linkedQueueType<Book>& queue, bSearchTreeType<Book>& tree, bool display = true);
 bool registerUser(HashTable& hash, User& user, istream& in_stream = cin, bool display = true);
