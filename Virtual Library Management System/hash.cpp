@@ -5,7 +5,6 @@
 #include "user.h"
 #include "LoadSave.h"
 
-// Define the constructor
 HashTable::HashTable() {
     // Constructor body can remain empty if no initialization is needed
 }
@@ -83,4 +82,42 @@ void HashTable::printTable() {
             std::cout << std::endl;
         }
     }
+}
+
+void HashTable::saveData(const std::string& filename) const {
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Failed to open " << filename << " for writing." << std::endl;
+        return;
+    }
+
+    for (int i = 0; i < hashGroups; ++i) {
+        for (const auto& user : usersTable[i]) {
+            file << user.getUsername() << "," << user.getPassword() << "," << user.getRole() << std::endl;
+        }
+    }
+
+    file.close();
+}
+
+void HashTable::loadData(const std::string& filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Failed to open " << filename << " for reading." << std::endl;
+        return;
+    }
+
+    std::string line;
+    while (std::getline(file, line)) {
+        std::istringstream iss(line);
+        std::string username, password, role;
+
+        std::getline(iss, username, ',');
+        std::getline(iss, password, ',');
+        std::getline(iss, role);
+
+        this->insertUser(User(username, password, role));
+    }
+
+    file.close();
 }
