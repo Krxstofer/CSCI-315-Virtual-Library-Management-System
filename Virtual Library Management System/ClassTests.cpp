@@ -1,20 +1,19 @@
-//Name: Megan Palermo
+//Name: Samuel Etzkorn, Megan Palermo
 //Description:  CSCI Group Project
 //Date:  05/04/2024
-//MGoogleTest.cpp: file for testing the Book object, linked queue, binary search tree,
-//registerUser(), addRemoveUser(), and logout()
+//ClassTests.cpp: file for testing the Book, linked queue, binary search tree,
+//and hash table/map
 
+#include <iostream>
 #include <string>
 #include "Book.h"
 #include "linkedQueue.h"
 #include "binarySearchTree.h"
 #include "LoadSave.h"
-#include "GeneralFunctions.h"
-#include "AdminFun.h"
+#include "user.h"
+#include "hash.h"
 #include <gtest/gtest.h>
-#include <iostream>
-#include <stdexcept>  // Include for std::runtime_error
-#include <cstdlib>    // Include for exit()
+
 TEST(LibraryTest, Book)
 {
   Book b1("Today","John", "Doe", 1780, "Miller and Sons", "1-566-46465-5", false);
@@ -310,214 +309,4 @@ TEST(LibraryTest, Tree)
   in.close();
   tOut.close();
 
-}
-
-TEST(LibraryTest, Register)
-{
-  HashTable hash;
-  User test("", "", "user");
-  std::istringstream fake_input1("1\nTestUser1\nt1\nt1\n");
-  std::istringstream fake_input2("2\nTestUser2\nt2\nt2\n");
-  std::istringstream fake_input3("0\nt\n1\nTestUser3\nt3\nt3\n");
-  std::istringstream fake_input4("1\nTestUser1\nTestUser4\nt4\nt4\n");
-  std::istringstream fake_input5("1\nTestUser5\nt5\nt2\nt5\nt5\n");
-
-  //1. Test that user is correctly added to the hash
-  EXPECT_TRUE(registerUser(hash, test, fake_input1, false)); //returns true for a successful registration
-  EXPECT_TRUE(hash.checkPassword("TestUser1", "t1")); //is user in the hash now?
-  EXPECT_EQ("TestUser1", test.getUsername()); //is the proper username set and returned?
-  EXPECT_EQ("t1", test.getPassword()); //is the proper password set and returned?
-
-  //2. Test that 2 exits the menu without inputting a new user
-  EXPECT_FALSE(registerUser(hash, test, fake_input2, false));
-  EXPECT_FALSE(hash.checkPassword("TestUser2", "t2"));
-  EXPECT_NE("TestUser2", test.getUsername());
-  EXPECT_NE("t2", test.getPassword());
-
-  //3. Test that registerUser can recover from bad input (0,t)
-  EXPECT_TRUE(registerUser(hash, test, fake_input3, false));
-  EXPECT_TRUE(hash.checkPassword("TestUser3", "t3"));
-  EXPECT_EQ("TestUser3", test.getUsername());
-  EXPECT_EQ("t3", test.getPassword());
-
-  //4. Test that registerUser can handle when a username has already been taken
-  EXPECT_TRUE(registerUser(hash, test, fake_input4, false));
-  EXPECT_TRUE(hash.checkPassword("TestUser4", "t4"));
-  EXPECT_EQ("TestUser4", test.getUsername());
-  EXPECT_EQ("t4", test.getPassword());
-
-  //5. Test that registerUser can handle a bad password confirmation and recover
-  EXPECT_TRUE(registerUser(hash, test, fake_input5, false));
-  EXPECT_TRUE(hash.checkPassword("TestUser5", "t5"));
-  EXPECT_EQ("TestUser5", test.getUsername());
-  EXPECT_EQ("t5", test.getPassword());
-
-}
-
-
-TEST(LibraryTest, addRemoveUsers)
-{
-  HashTable hash;
-  User test1("NotAd", "not1", "user");
-  User test2("TestUser1", "t1", "user");
-  hash.insertUser(test1);
-  hash.insertUser(test2);
-  //input for add user
-  std::istringstream fake_input1("1\nTestAdmin1\nt1\nt1\n");
-  std::istringstream fake_input2("0\nt\n1\nTestAdmin2\nt2\nt2\n");
-  std::istringstream fake_input3("1\nTestAdmin2\nTestAdmin1\nTestAdmin3\nt3\nt3\n");
-  std::istringstream fake_input4("1\nTestAdmin4\nt4\nt2\nt4\nt4\n");
-  
-  //input for remove admin
-  std::istringstream fake_input5("2\n0\nt\n1\nTestAdmin4\nt4\n");
-  std::istringstream fake_input6("2\n1\nTestAdmin3\nt6\n");
-  std::istringstream fake_input7("2\n1\nNotAd\nt7\n");
-
-  //input to remove user
-  std::istringstream fake_input8("2\n2\nTestUser1\nt1\n");
-  std::istringstream fake_input9("2\n2\nNotAd\nt1\n");
-  std::istringstream fake_input10("2\n2\nTestAdmin1\nt1\n");
-
-  //input for exiting
-  std::istringstream fake_input11("3\n1\nTestAdmin11\nt11\nt11\n");
-
-
-  //Check the add functionality
-  //1. Test that Admin is correctly added to the hash
-  addOrRemoveUser(hash, fake_input1, false); //returns true for a successful registration
-  EXPECT_TRUE(hash.checkPassword("TestAdmin1", "t1"));
-
-  //2. Test that addRemoveUsers can recover from bad input (0,t)
-  addOrRemoveUser(hash, fake_input2, false);
-  EXPECT_TRUE(hash.checkPassword("TestAdmin2", "t2"));
-
-  //3. Test that addRemoveUsers (add) can handle when a username has already been taken
-  addOrRemoveUser(hash, fake_input3, false);
-  ASSERT_TRUE(hash.checkPassword("TestAdmin3", "t3")); //needed for test 6
-
-  //4. Test that registerUser (add) can handle a bad password confirmation and recover
-  addOrRemoveUser(hash, fake_input4, false);
-  ASSERT_TRUE(hash.checkPassword("TestAdmin4", "t4")); //needed for next test
-
-
-  //Check the remove functionality for admin
-  //5. Test that can recover from bad input (0,t) and that TestAdmin4 is correctly removed 
-  //from the hash
-  addOrRemoveUser(hash, fake_input5, false);
-  EXPECT_FALSE(hash.checkPassword("TestAdmin4", "t4"));
-
-  //6. Test that the admin is not removed if the password is wrong
-  addOrRemoveUser(hash, fake_input6, false);
-  EXPECT_TRUE(hash.checkPassword("TestAdmin3", "t3"));
-
-  //7. Test that the username entered belongs to an Admin otherwise do not remove
-  addOrRemoveUser(hash, fake_input7, false);
-  ASSERT_TRUE(hash.checkPassword("NotAd", "not1")); //needed for test 9
-
-
-  //Check the remove functionality for user
-  //8. Test that user TestUser1 is correctly removed from the hash
-  EXPECT_TRUE(hash.checkPassword("TestUser1", "t1"));
-  addOrRemoveUser(hash, fake_input8, false);
-  EXPECT_FALSE(hash.checkPassword("TestUser1", "t1"));
-
-  //9. Test that the user is not removed if the password is wrong
-  addOrRemoveUser(hash, fake_input9, false);
-  EXPECT_TRUE(hash.checkPassword("NotAd", "not1"));
-
-  //10. Test that the username entered belongs to a user otherwise do not remove
-  addOrRemoveUser(hash, fake_input10, false);
-  EXPECT_TRUE(hash.checkPassword("TestAdmin1", "t1"));
-
-
-  //11. Test that 3 exits the menu without adding a user
-  addOrRemoveUser(hash, fake_input11, false);
-  EXPECT_FALSE(hash.checkPassword("TestAdmin11", "t11"));
-
-
-}
-
-
-TEST(LibraryTest, Logout)
-{
-  ifstream qIn, tIn;
-  ofstream qOut; //tOut is in LoadSave
-  linkedQueueType<Book> queue;
-  bSearchTreeType<Book> tree;
-  Book temp, test1("Tada!", "Logout" "Test"), test2("The Last", "John", "Doe");
-  int i = 0;
-  char c;
-
-  test1.setBorrower("Test");
-  test2.setBorrower("Testing");
-
-  //prime queue file
-  qOut.open("qLog.txt");
-  qOut << test1 << test2;
-  //load queue
-  qIn.open("qLog.txt");
-  loadQueue(qIn, queue);
-  qOut.close(); //qIn will be closed in logout
-  ASSERT_FALSE(queue.isEmptyQueue());
-
-  //prime tree file
-  tOut.open("tLog.txt");
-  tOut << test1 << test2;
-  //load tree
-  tIn.open("tLog.txt");
-  loadTree(tIn, tree);
-  tOut.close(); //tIn will be closed in logout
-  ASSERT_FALSE(tree.isEmpty());
-
-  //Test that logout saved the data correctly
-  logout(qIn, "qLog.txt", tIn, "tLog.txt", queue, tree, false); //closes the ifstream variables
-
-  qIn.open("qLog.txt");
-  qIn.get(c); //check for eof
-  ASSERT_FALSE(qIn.eof());
-  ASSERT_FALSE(queue.isEmptyQueue());
-  while(!queue.isEmptyQueue())
-  {
-    qIn >> temp;
-    EXPECT_EQ(temp, queue.front());
-    queue.deleteQueue();
-    i++;
-  }
-  i = 0;
-  qIn.get(c); //check for eof
-  EXPECT_TRUE(qIn.eof());
-  qIn.close();
-
-  tIn.open("tLog.txt");
-  tIn.get(c); //check for eof
-  ASSERT_FALSE(tIn.eof());
-  ASSERT_FALSE(tree.isEmpty());
-  tIn >> temp;
-  EXPECT_EQ(temp, *(tree.search(test2)) ); //books were written to file alphabetically
-  tIn >> temp;
-  EXPECT_EQ(temp, *(tree.search(test1)) );
-  tIn.get(c); //check for eof
-  EXPECT_TRUE(tIn.eof());
-
-  tIn.close();
-}
-
-// exit_function_test.cpp
-
-// Test part
-TEST(LibraryTest, ExitFunction) {
-    try {
-        exitApplication(true);  // Call with test mode true to throw exception instead of exiting
-        FAIL() << "Expected std::runtime_error";
-    } catch (std::runtime_error const & err) {
-        EXPECT_EQ(err.what(), std::string("Exit called"));
-    } catch (...) {
-        FAIL() << "Caught unexpected exception type";
-    }
-}
-
-// Main function to run the tests
-//int main(int argc, char **argv) {
-    //::testing::InitGoogleTest(&argc, argv);
-    //return RUN_ALL_TESTS();
 }

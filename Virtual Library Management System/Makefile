@@ -72,7 +72,7 @@ uTest:
 	g++ Book.o UserFun.o User.o hash.o UserGoogleTest.o -o uTest -lgtest_main -lgtest -lpthread
 	uTest
 
-test:
+mtest:
 	g++ -g -c Book.cpp
 	g++ -g -c LoadSave.cpp
 	g++ -g -c GeneralFunctions.cpp
@@ -82,3 +82,55 @@ test:
 	g++ -c MGoogleTest.cpp
 	g++ Book.o LoadSave.o GeneralFunctions.o User.o AdminFun.o hash.o MGoogleTest.o -o Test -lgtest_main -lgtest -lpthread
 	Test
+
+atest:
+	g++ -g -c Book.cpp
+	g++ -g -c AdminFun.cpp
+	g++ -g -c User.cpp
+	g++ -g -c hash.cpp
+	g++ -c AdminTests.cpp
+	g++ Book.o User.o AdminFun.o hash.o AdminTests.o -o ATest -lgtest_main -lgtest -lpthread
+	ATest
+
+ctest:
+	g++ -g -c Book.cpp
+	g++ -g -c LoadSave.cpp
+	g++ -g -c User.cpp
+	g++ -g -c hash.cpp
+	g++ -c ClassTests.cpp
+	g++ Book.o LoadSave.o User.o hash.o ClassTests.o -o CTest -lgtest_main -lgtest -lpthread
+	CTest
+
+getest:
+	g++ -g -c Book.cpp
+	g++ -g -c LoadSave.cpp
+	g++ -g -c GeneralFunctions.cpp
+	g++ -g -c User.cpp
+	g++ -g -c hash.cpp
+	g++ -c GeneralTests.cpp
+	g++ Book.o LoadSave.o GeneralFunctions.o User.o hash.o GeneralTests.o -o GTest -lgtest_main -lgtest -lpthread
+	GTest
+
+utest:
+	g++ -g -c Book.cpp
+	g++ -g -c UserFun.cpp
+	g++ -g -c User.cpp
+	g++ -g -c hash.cpp
+	g++ -c UserTests.cpp
+	g++ Book.o UserFun.o User.o hash.o UserTests.o -o UTest -lgtest_main -lgtest -lpthread
+	UTest
+
+tests:
+	make atest
+	make ctest
+	make gtest
+	make utest
+
+jtest:
+	g++ -g -c Book.cpp
+	g++ -c GeneralFunctions.cpp
+	g++ -g -c hash.cpp
+	g++ -g -c User.cpp
+	g++ -g -c LoadSave.cpp
+	g++ -c UserTest.cpp
+	g++ Book.o GeneralFunctions.o hash.o LoadSave.o User.o UserTest.o -lgtest_main -lgtest -lpthread

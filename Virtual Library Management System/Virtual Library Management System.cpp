@@ -18,6 +18,7 @@
 #include "GeneralFunctions.h"
 #include "user.h"
 #include "hash.h"
+#include "Login.h" 
 
 //tOut is a global in LoadSave since the binary tree's inorderTraversal() with a function
 //parameter only takes one parameter and out must be opened outside of
@@ -83,12 +84,33 @@ void preLoginMenu() {
     cout << "3. Exit" << endl;
     cout << "Please select an option: ";
     cin >> choice;
-
+std::string username, password, role;
     switch (choice) {
     case 1:
+	
+    std::cout << "Enter username: ";
+    std::cin >> username;
+    std::cout << "Enter password: ";
+    std::cin >> password;
+
+    std::cout << "Enter username: ";
+    std::cin >> username;
+    std::cout << "Enter password: ";
+    std::cin >> password;
+
+    // Pass the verbose parameter according to the desired output behavior
+    role = login(userDatabase, username, password, true);
+    if (!role.empty()) {
+        if (role == "admin") {
+            adminMenu(qIn, borrowedBooks, tIn, bookCatalog, admin, userDatabase);
+        } if else (role == "user") {
+            userMenu(qIn, borrowedBooks, tIn, bookCatalog, user, userDatabase);
+        }
+    } else {
+        std::cout << "Access denied.\n";
+    }
+
         // Implemenet Login functionality
-	userMenu(qIn, borrowedBooks, tIn, bookCatalog, user, userDatabase); //for testing
-	//adminMenu(qIn, borrowedBooks, tIn, bookCatalog, admin, userDatabase); //for testing
         break;
     case 2:
         if(registerUser(userDatabase, user))//if registration succeeds proceed to the user menu
@@ -140,7 +162,7 @@ void userMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn,
         viewBorrowedBooks(borrowedBooks, user.getUsername());
         break;
     case 5:
-        updateProfile(user);
+        updateProfile(userDatabase, user);
         break;
     case 6:
 	cout << "Logging out..." << endl; //Kristofer
@@ -198,3 +220,4 @@ void adminMenu(ifstream& qIn, linkedQueueType<Book> borrowedBooks, ifstream& tIn
     if(choice != 6)
 	adminMenu(qIn, borrowedBooks, tIn, bookCatalog, admin, userDatabase);
 }
+

@@ -1,13 +1,18 @@
-//Name: Andrew Palermo
-//Date: 05/04/2024
+//Name: Garrett Comstock, Andrew Palermo
+//Description:  CSCI Group Project
+//Date:  05/04/2024
+//UserTests.cpp: file for testing functions from the user menu
 
-//UserGoogleTest.cpp: Google Test file for two of the functions I wrote.
+#include <iostream>
 #include <string>
 #include "Book.h"
+#include "linkedQueue.h"
+#include "binarySearchTree.h"
+#include "LoadSave.h"
 #include "UserFun.h"
-#include "user.h"
-#include "hash.h"
 #include <gtest/gtest.h>
+
+#include <stdexcept>  // Include for std::runtime_error
 
 using namespace std;
 

@@ -175,7 +175,7 @@ void updateProfile(HashTable userHash, User& myUser, istream& inStream, bool dis
     {
 	cout << "Please enter your new username: ";
 	inStream >> newName;
-	if((!userHash.isEmpty()) && 1) //remove old user if it exists.
+	if(myUser.getRole() == userHash.getUserRole(myUser.getUsername())) //remove old user if it exists.
 	    userHash.removeUser(myUser.getUsername());
 	myUser.setUsername(newName);
 	userHash.insertUser(myUser);
@@ -190,10 +190,10 @@ void updateProfile(HashTable userHash, User& myUser, istream& inStream, bool dis
 	    cout << "Please re-type your password to confirm: ";
 	    inStream >> newName;
 	}
-	while(newPass != newName && --max);
+	while((newPass != newName) && --max);
 	if(max > 0)
 	{
-	    if((!userHash.isEmpty()) && 1) //remove old user if it exists.
+	    if(myUser.getRole() == userHash.getUserRole(myUser.getUsername())) //remove old user if it exists.
 		userHash.removeUser(myUser.getUsername());
 	    myUser.setPassword(newName);
 	    userHash.insertUser(myUser);

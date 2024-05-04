@@ -14,7 +14,7 @@
 #include "user.h"
 #include "LoadSave.h"
 #include "GeneralFunctions.h"
-#include "Login.h"
+//#include "Login.h"
 using namespace std;
 
 void logout(ifstream& qIn, string qBook, ifstream& tIn, string tBook, linkedQueueType<Book>& queue, bSearchTreeType<Book>& tree, bool display)
@@ -150,84 +150,30 @@ bool registerUser(HashTable& hash, User& user, istream& in_stream, bool display)
 
 }//end of registerUser
 
-//void userMenu() {
-    //int choice = 0;
-    //while (true) {
-        //cout << "\nUser Menu\n";
-        //cout << "1. View Profile\n";
-        //cout << "2. Edit Profile\n";
-        //cout << "3. Logout\n";
-        //cout << "Choose an option or 3 to exit: ";
-        //cin >> choice;
-
-        //switch (choice) {
-            //case 1:
-                //cout << "Viewing profile...\n";
-                //break;
-            //case 2:
-                //cout << "Editing profile...\n";
-                //break;
-            //case 3:
-                //cout << "Logging out...\n";
-                //return;  // Returns to the calling function, effectively exiting the menu
-            //default:
-                //cout << "Invalid option, try again.\n";
-        //}
-    //}
-//}
-
-
-// Function to handle user login
-//User* login(HashTable& table, const std::string& username, const std::string& password) {
-   //std::string storedPassword = table.searchTable(username);
-    //if (!storedPassword.empty() && storedPassword == password) {
-        //int hashValue = table.hashFunction(username);
-        //auto& users = table.getUsersTable()[hashValue];
-       // for (auto& user : users) {
-           //if (user.getUsername() == username) return new User(user);  // Assuming copy constructor exists
-       // }
-       // auto& admins = table.getAdminsTable()[hashValue];
-       // for (auto& admin : admins) {
-         //   if (admin.getUsername() == username) return new Admin(admin);  // Assuming copy constructor exists
-        //}
-   // }
-    //return nullptr;
-//}
-
-
-// Implementation of the login function
-
-
-// Assuming "Login.h" declares the login function and includes "hash.h" and "user.h"
-// Login function now returns the role of the user or an empty string if login fails
-std::string login(HashTable& ht, const std::string& username, const std::string& password) {
+//Login Function
+// Adjust the login function to include the verbose parameter to control output
+std::string login(HashTable& ht, const std::string& username, const std::string& password, bool verbose) {
     if (ht.checkPassword(username, password)) {
         std::string role = ht.getUserRole(username);
         if (!role.empty()) {
-            std::cout << "Login successful! Welcome, " << username << ". You are logged in as a(n) " << role << "." << std::endl;
+            if (verbose) {
+                std::cout << "Login successful! Welcome, " << username << ". You are logged in as a(n) " << role << "." << std::endl;
+            }
         } else {
-            std::cout << "User role not found." << std::endl;
+            if (verbose) {
+                std::cout << "User role not found." << std::endl;
+            }
         }
         return role;
-
     } else {
-        std::cout << "Login failed: Invalid username or password." << std::endl;
+        if (verbose) {
+            std::cout << "Login failed: Invalid username or password." << std::endl;
+        }
         return "";  // Return an empty string if authentication fails
     }
 }
-
 //Exit Function
-using namespace std;
-
-void userMenu() {
-    int choice = 0;
-    while (true) {
-        cout << "\nUser Menu\n";
-        cout << "1. View Profile\n";
-        cout << "2. Edit Profile\n";
-        cout << "3. Logout\n";
-        cout << "Choose an option or 3 to exit: ";
-        cin >> choice;
+/*using namespace std;
 
         switch (choice) {
             case 1:
@@ -243,5 +189,26 @@ void userMenu() {
                 cout << "Invalid option, try again.\n";
         }
     }
-}
+std::string username, password;
+    std::cout << "Enter username: ";
+    std::cin >> username;
+    std::cout << "Enter password: ";
+    std::cin >> password;
 
+    std::string role = login(ht, username, password);
+    if (!role.empty()) {
+        if (role == "admin") {
+            std::cout << "Admin menu goes here.\n";
+        } else if (role == "standard") {
+            std::cout << "Standard user menu goes here.\n";
+        } else {
+            std::cout << "Special role menu goes here.\n";
+        }
+    } else {
+        std::cout << "Access denied.\n";
+    }
+
+    return 0;
+}
+}
+*/
