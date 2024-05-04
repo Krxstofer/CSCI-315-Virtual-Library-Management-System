@@ -122,8 +122,7 @@ std::string username, password, role;
 	//if registration did not succeed fall through and exit
         //no break
     case 3:
-        case 3:
-    	cout << "Exiting program..." << endl;
+        
    	exitApplication(false);  // Call exitApplication with appropriate parameter
 
     default:

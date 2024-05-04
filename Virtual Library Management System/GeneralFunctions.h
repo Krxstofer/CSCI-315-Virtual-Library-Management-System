@@ -10,8 +10,7 @@
 #include "Book.h"
 #include "linkedQueue.h"
 #include "binarySearchTree.h"
-//#include "Login.h"
-#include "ExitFunction.h"
+
 #include "hash.h"
 //Login.h here
 #ifndef LOGIN_H

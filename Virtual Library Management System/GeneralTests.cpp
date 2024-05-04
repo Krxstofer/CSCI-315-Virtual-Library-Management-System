@@ -125,13 +125,11 @@ TEST(LibraryTest, Logout)
   tIn.close();
 }
 
-//exit is currently broken error: too many arguments to function ‘void exitApplication()’
-//         exitApplication(true);  // Call with test mode true to throw exception instead of exiting
 
 // exit_function_test.cpp
 
 // Test part
-/*TEST(LibraryTest, ExitFunction) {
+TEST(LibraryTest, ExitFunction) {
     try {
         exitApplication(true);  // Call with test mode true to throw exception instead of exiting
         FAIL() << "Expected std::runtime_error";
@@ -140,4 +138,4 @@ TEST(LibraryTest, Logout)
     } catch (...) {
         FAIL() << "Caught unexpected exception type";
     }
-}*/
+}
