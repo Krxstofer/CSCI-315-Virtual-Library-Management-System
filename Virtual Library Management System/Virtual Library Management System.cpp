@@ -87,6 +87,25 @@ void preLoginMenu() {
 
     switch (choice) {
     case 1:
+	std::string username, password;
+    std::cout << "Enter username: ";
+    std::cin >> username;
+    std::cout << "Enter password: ";
+    std::cin >> password;
+
+    // Pass the verbose parameter according to the desired output behavior
+    std::string role = login(ht, username, password, true);
+    if (!role.empty()) {
+        if (role == "admin") {
+            std::cout << "Admin menu goes here.\n";
+        } else if (role == "standard") {
+            std::cout << "Standard user menu goes here.\n";
+        } else {
+            std::cout << "Special role menu goes here.\n";
+        }
+    } else {
+        std::cout << "Access denied.\n";
+    }
         // Implemenet Login functionality
 	userMenu(qIn, borrowedBooks, tIn, bookCatalog, user, userDatabase); //for testing
 	//adminMenu(qIn, borrowedBooks, tIn, bookCatalog, admin, userDatabase); //for testing
