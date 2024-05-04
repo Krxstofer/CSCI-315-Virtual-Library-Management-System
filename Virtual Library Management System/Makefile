@@ -135,4 +135,16 @@ jtest:
 	g++ -g -c User.cpp
 	g++ -g -c LoadSave.cpp
 	g++ -c UserTest.cpp
-	g++ Book.o GeneralFunctions.o hash.o LoadSave.o User.o UserTest.o -lgtest_main -lgtest -lpthread
+	g++ Book.o GeneralFunctions.o hash.o LoadSave.o User.o UserTest.o -o J1 -lgtest_main -lgtest -lpthread
+	J1
+
+	g++ -g -c Book.cpp
+	g++ -c GeneralFunctions.cpp
+	g++ -g -c hash.cpp
+	g++ -g -c User.cpp
+	g++ -g -c LoadSave.cpp
+	g++ -c LoginTest.cpp
+	g++ Book.o GeneralFunctions.o hash.o LoadSave.o User.o LoginTest.o -o J2 -lgtest_main -lgtest -lpthread
+	J2
+
+
