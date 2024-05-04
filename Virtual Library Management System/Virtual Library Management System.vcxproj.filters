@@ -18,5 +18,126 @@
     <ClCompile Include="Virtual Library Management System.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AdminandUserFunctions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AdminFun.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AdminTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Book.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ExitFunction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneralFunctions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneralTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hash.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hashMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadSave.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Login.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="User.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UserFun.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UserGoogleTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UserTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AdminFun.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="binarySearchTree.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="binaryTree.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Book.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneralFunctions.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hash.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="linkedQueue.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadSave.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nullBuffer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="queueADT.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="user.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UserFun.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="BookTest.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="Borrow.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="Borrowed.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="Lib.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="Library.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="qLog.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="QueueTest.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="tLog.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="TreeTest.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

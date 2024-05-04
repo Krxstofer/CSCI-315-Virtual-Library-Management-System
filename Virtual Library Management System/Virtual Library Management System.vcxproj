@@ -127,9 +127,61 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AdminandUserFunctions.cpp" />
+    <ClCompile Include="AdminFun.cpp" />
+    <ClCompile Include="AdminTests.cpp" />
+    <ClCompile Include="Book.cpp" />
+    <ClCompile Include="ClassTests.cpp" />
+    <ClCompile Include="ExitFunction.cpp" />
+    <ClCompile Include="GeneralFunctions.cpp" />
+    <ClCompile Include="GeneralTests.cpp" />
+    <ClCompile Include="hash.cpp" />
+    <ClCompile Include="hashMain.cpp" />
+    <ClCompile Include="LoadSave.cpp" />
+    <ClCompile Include="Login.cpp" />
+    <ClCompile Include="User.cpp" />
+    <ClCompile Include="UserFun.cpp" />
+    <ClCompile Include="UserGoogleTest.cpp" />
+    <ClCompile Include="UserTests.cpp" />
     <ClCompile Include="Virtual Library Management System.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AdminFun.h" />
+    <ClInclude Include="binarySearchTree.h" />
+    <ClInclude Include="binaryTree.h" />
+    <ClInclude Include="Book.h" />
+    <ClInclude Include="GeneralFunctions.h" />
+    <ClInclude Include="hash.h" />
+    <ClInclude Include="linkedQueue.h" />
+    <ClInclude Include="LoadSave.h" />
+    <ClInclude Include="nullBuffer.h" />
+    <ClInclude Include="queueADT.h" />
+    <ClInclude Include="user.h" />
+    <ClInclude Include="UserFun.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="BookTest.txt" />
+    <Text Include="Borrow.txt" />
+    <Text Include="Borrowed.txt" />
+    <Text Include="Lib.txt" />
+    <Text Include="Library.txt" />
+    <Text Include="qLog.txt" />
+    <Text Include="QueueTest.txt" />
+    <Text Include="tLog.txt" />
+    <Text Include="TreeTest.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.7\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets" Condition="Exists('..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.7\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.7\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.7\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets'))" />
+  </Target>
 </Project>
