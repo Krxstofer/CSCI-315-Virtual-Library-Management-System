@@ -87,11 +87,6 @@ void preLoginMenu() {
 std::string username, password, role;
     switch (choice) {
     case 1:
-	
-    std::cout << "Enter username: ";
-    std::cin >> username;
-    std::cout << "Enter password: ";
-    std::cin >> password;
 
     std::cout << "Enter username: ";
     std::cin >> username;
