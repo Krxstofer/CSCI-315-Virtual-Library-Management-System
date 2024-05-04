@@ -18,7 +18,6 @@
 #include "GeneralFunctions.h"
 #include "user.h"
 #include "hash.h"
-#include "Login.h" 
 
 //tOut is a global in LoadSave since the binary tree's inorderTraversal() with a function
 //parameter only takes one parameter and out must be opened outside of
