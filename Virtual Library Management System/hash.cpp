@@ -46,6 +46,7 @@ void HashTable::removeUser(const std::string& username, bool printMessage) {
     }
     if (printMessage){
         std::cout << "User '" << username << "' not found." << std::endl;
+    }
 }
 
 bool HashTable::checkPassword(const std::string& username, const std::string& password) {

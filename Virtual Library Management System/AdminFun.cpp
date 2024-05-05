@@ -520,7 +520,7 @@ void addOrRemoveUser(HashTable& hash, istream& in_stream, bool display)
         {
 	  if(hash.checkPassword(user, pass) == true)//password check before removing for security
 	  {
-	    hash.removeUser(user);
+	    hash.removeUser(user, display);
 	    if(display)
             {
               cout << "The admin " << user << " has been removed." << endl;
@@ -557,7 +557,7 @@ void addOrRemoveUser(HashTable& hash, istream& in_stream, bool display)
         {
 	  if(hash.checkPassword(user, pass) == true)//password check before removing for security
 	  {
-	    hash.removeUser(user);
+	    hash.removeUser(user, display);
 	    if(display)
             {
               cout << "The user " << user << " has been removed." << endl;
