@@ -40,12 +40,11 @@ void HashTable::removeUser(const std::string& username, bool printMessage) {
     for (auto it = cell.begin(); it != cell.end(); ++it) {
         if (it->getUsername() == username) {
             cell.erase(it);
+            if (printMessage){
             std::cout << "User '" << username << "' removed." << std::endl;
             return;
+            }
         }
-    }
-    if (printMessage){
-        std::cout << "User '" << username << "' not found." << std::endl;
     }
 }
 
