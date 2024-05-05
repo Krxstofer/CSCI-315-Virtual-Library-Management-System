@@ -134,7 +134,6 @@
     <ClCompile Include="GeneralFunctions.cpp" />
     <ClCompile Include="GeneralTests.cpp" />
     <ClCompile Include="hash.cpp" />
-    <ClCompile Include="hashMain.cpp" />
     <ClCompile Include="integrationTest.cpp" />
     <ClCompile Include="LoadSave.cpp" />
     <ClCompile Include="User.cpp" />

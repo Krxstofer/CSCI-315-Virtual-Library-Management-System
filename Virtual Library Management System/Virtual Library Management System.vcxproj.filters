@@ -39,9 +39,6 @@
     <ClCompile Include="hash.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hashMain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="LoadSave.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
