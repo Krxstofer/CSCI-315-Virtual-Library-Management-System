@@ -208,6 +208,7 @@ Book* updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
 
         while (choice != 6)
         {
+            choice = 0;
             outStream << "What information would you like to edit?" << endl;
             outStream << "1. Title" << endl;
             outStream << "2. Author" << endl;
