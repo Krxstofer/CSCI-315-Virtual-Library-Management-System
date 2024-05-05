@@ -326,6 +326,8 @@ Book* updateBookInfo(bSearchTreeType<Book>& tree, istream& inStream, bool print)
             default:
             {
                 outStream << "Your choice must be from 1 and 6." << endl;
+                cin.clear();
+                cin.ignore();
             }
             }
         }
