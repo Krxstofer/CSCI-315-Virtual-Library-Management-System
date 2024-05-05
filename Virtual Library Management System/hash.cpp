@@ -42,8 +42,9 @@ void HashTable::removeUser(const std::string& username, bool printMessage) {
             cell.erase(it);
             if (printMessage){
             std::cout << "User '" << username << "' removed." << std::endl;
-            return;
             }
+            return;
+            
         }
     }
 }
